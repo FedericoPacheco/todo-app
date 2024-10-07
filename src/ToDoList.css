@@ -1,0 +1,33 @@
+h2 {
+    font-weight: bold;
+    font-size: 1.125rem;
+    
+    color: #6a6a6a;
+    width: 15.25rem;
+    margin-bottom: 0;
+    padding: 0.5rem 0;
+}
+
+h2:hover {
+    color: black;
+    cursor: pointer;
+}
+
+.highlighted-tab {
+    background-color: #eeeeee;
+    color: black;
+}
+
+.tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tasks-box {
+    background-color: #eeeeee;
+    max-width: 28.5rem;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
