@@ -1,0 +1,23 @@
+.create-to-do-box {
+    background-color: #eeeeee;
+    border: 1px solid black;
+    max-width: 29.5rem;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+}
+
+.create-to-do-box legend, .create-to-do-box input {
+    font-size: 1.25rem;
+    text-align: center;
+    margin: 0.25rem;
+}
+
+.create-to-do-box textarea {
+    display: block;
+    margin: 0.5rem auto;
+    width: 27.5rem;
+    height: 5rem;
+    resize: none;
+    font-size: 1.125rem;
+    letter-spacing: 0.01rem;
+}

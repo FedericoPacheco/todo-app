@@ -1,8 +1,8 @@
 import './CreateToDoButton.css';
 
-function CreateToDoButton() {
+function CreateToDoButton({setIsCreateToDoVisible}) {
     return (
-        <button>+</button>
+        <button onClick = {() => setIsCreateToDoVisible(true)}>+</button>
     );
 }
 

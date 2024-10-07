@@ -1,12 +1,20 @@
 import './ToDoItem.css';
 
-function ToDoItem({text, state}) {
+function ToDoItem({id, text, toDos, setToDos}) {
     return (
         <>
             <li>
-                <span className = "check">V</span>
+                <span onClick = {() => { 
+                    const auxToDos = [...toDos]
+                    auxToDos.find(todo => todo.id === id).state = "completed";
+                    setToDos(auxToDos);
+                }}
+                className = "check">V</span>
                 <p>{text}</p>
-                <span className = "delete">X</span>
+                <span onClick = {() => {
+                    setToDos(toDos.filter(todo => todo.id !== id));
+                }} 
+                className = "delete">X</span>
             </li>
             <hr></hr>
         </>
