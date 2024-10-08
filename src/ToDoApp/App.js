@@ -1,10 +1,10 @@
 import './App.css';
-import { ToDoCounter } from './ToDoCounter';
-import { ToDoSearch } from './ToDoSearch';
-import { ToDoList } from './ToDoList';
-import { ToDoItem } from './ToDoItem';
-import { CreateToDoButton} from './CreateToDoButton';
-import { CreateToDo } from './CreateToDo';
+import { ToDoCounter } from './Count/ToDoCounter';
+import { ToDoSearch } from './Search/ToDoSearch';
+import { ToDoList } from './List/ToDoList';
+import { ToDoItem } from './List/ToDoItem';
+import { CreateToDoButton} from './Create/CreateToDoButton';
+import { CreateToDo } from './Create/CreateToDo';
 import { useState } from 'react';
 
 // Constants
@@ -74,7 +74,7 @@ function App() {
     saveToDos(newToDos);
   };
   const onCreate = (description) => {
-    const newToDos = [...toDos, {id: seq, text: description, state: PENDING}];
+    const newToDos = [...toDos, {id: seq, text: description, state: tab}];
     saveToDos(newToDos);
     seq++;
     setIsCreateToDoVisible(false);

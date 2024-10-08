@@ -1,4 +1,4 @@
-import { COMPLETED, PENDING } from './App';
+import { COMPLETED, PENDING } from '../App';
 import './ToDoItem.css';
 
 function ToDoItem({text, tab, onStateChange, onDelete}) {                    

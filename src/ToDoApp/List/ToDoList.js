@@ -1,6 +1,5 @@
 import './ToDoList.css'
-import { PENDING } from './App';
-import { COMPLETED } from './App';
+import { PENDING, COMPLETED } from '../App';
 
 function ToDoList({tab, setTab, children}) {
     return (
