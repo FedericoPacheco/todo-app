@@ -1,20 +1,19 @@
+import { COMPLETED_STR, PENDING_STR } from './App';
 import './ToDoItem.css';
 
-function ToDoItem({id, text, toDos, setToDos}) {
+function ToDoItem({text, tab, onStateChange, onDelete}) {                    
     return (
         <>
             <li>
-                <span onClick = {() => { 
-                    const auxToDos = [...toDos]
-                    auxToDos.find(todo => todo.id === id).state = "completed";
-                    setToDos(auxToDos);
-                }}
-                className = "check">V</span>
+                <span
+                    onClick = {onStateChange}
+                    className = "check"
+                >{tab === PENDING_STR? COMPLETED_STR[0].toUpperCase() : PENDING_STR[0].toUpperCase()}</span>
                 <p>{text}</p>
-                <span onClick = {() => {
-                    setToDos(toDos.filter(todo => todo.id !== id));
-                }} 
-                className = "delete">X</span>
+                <span
+                    onClick = {onDelete}
+                    className = "delete"
+                >X</span>
             </li>
             <hr></hr>
         </>

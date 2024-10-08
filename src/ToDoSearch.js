@@ -1,10 +1,18 @@
 import './ToDoSearch.css';
 
-function ToDoSearch() {
+function ToDoSearch({doSearch, setDoSearch, searchValue, setSearchValue}) {
     return (
         <>
-            <input placeholder = "Cortar cebolla"/>
-            <button>Buscar</button>
+            <input 
+                onChange = {(e) => {
+                    setDoSearch(false);
+                    setSearchValue(e.target.value)
+                }} 
+                placeholder = "Cortar cebolla"
+            />
+            <button 
+                onClick = {() => setDoSearch(true)}    
+            >Buscar</button>
         </>
     );
 }
