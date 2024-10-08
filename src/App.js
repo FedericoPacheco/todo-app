@@ -13,7 +13,6 @@ export const COMPLETED = "completed";
 export const LOCALSTORAGE_TODOS = "todos_v1";
 
 // Initialization
-let initSeq;
 const DEFAULT_TAB = PENDING;
 // const DEFAULT_TODOS = [];
 ///*
@@ -25,24 +24,29 @@ const DEFAULT_TODOS = [
 ];
 //*/
 
-function App() {
-  
-  // Persistence
-  const saveToDos = (newToDos) => {
-    localStorage.removeItem(LOCALSTORAGE_TODOS);
-    localStorage.setItem(LOCALSTORAGE_TODOS, JSON.stringify(newToDos));
-  };
-  const getToDos = () => {
-    const storedToDos = localStorage.getItem(LOCALSTORAGE_TODOS);
-    const parsedToDos = storedToDos? JSON.parse(storedToDos) : DEFAULT_TODOS;
-    initSeq = parsedToDos.length > 0? parsedToDos[parsedToDos.length - 1].id + 1 : 0;
-    return parsedToDos;
+function useLocalStorage(itemKey, initialValue) {
+
+  const getItem = () => {
+    const storedItem = localStorage.getItem(itemKey);
+    const parsedItem = storedItem? JSON.parse(storedItem) : initialValue;
+    return parsedItem;
   }
-  
+  const saveItem = (newItem) => {
+    setParsedItem(newItem);
+    localStorage.setItem(itemKey, JSON.stringify(newItem));
+  };
+
+  const [parsedItem, setParsedItem] = useState(getItem());  
+  return [parsedItem, saveItem];
+}
+
+function App() {
+
   // App state
   const [tab, setTab] = useState(DEFAULT_TAB);
-  const [toDos, setToDos] = useState(getToDos());
-  const [seq, setSeq] = useState(initSeq);
+  const [toDos, saveToDos] = useLocalStorage(LOCALSTORAGE_TODOS, DEFAULT_TODOS);
+  let seq = toDos.length > 0? toDos[toDos.length - 1].id + 1 : 0; 
+  
   const [searchValue, setSearchValue] = useState("");
   const [doSearch, setDoSearch] = useState(false);
   const [isCreateToDoVisible, setIsCreateToDoVisible] = useState(false);
@@ -63,19 +67,16 @@ function App() {
     const newState = tab === PENDING? COMPLETED: PENDING;
     const newToDos = [...toDos]
     newToDos.find(todo => todo.id === id).state = newState;
-    setToDos(newToDos);
     saveToDos(newToDos);
   };
   const onDelete = (id) => {
     const newToDos = toDos.filter(todo => todo.id !== id);
-    setToDos(newToDos);
     saveToDos(newToDos);
   };
   const onCreate = (description) => {
     const newToDos = [...toDos, {id: seq, text: description, state: PENDING}];
-    setToDos(newToDos);
     saveToDos(newToDos);
-    setSeq(seq + 1);
+    seq++;
     setIsCreateToDoVisible(false);
   }
 
