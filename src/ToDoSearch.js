@@ -1,6 +1,6 @@
 import './ToDoSearch.css';
 
-function ToDoSearch({doSearch, setDoSearch, searchValue, setSearchValue}) {
+function ToDoSearch({setDoSearch, setSearchValue}) {
     return (
         <>
             <input 

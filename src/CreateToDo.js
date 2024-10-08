@@ -1,7 +1,7 @@
 import './CreateToDo.css';
 import { useState } from 'react';
 
-function CreateToDo({seq, setSeq, toDos, setToDos, setIsCreateToDoVisible}) {
+function CreateToDo({onCreate}) {
     const [description, setDescription] = useState(""); 
     
     return (
@@ -12,11 +12,8 @@ function CreateToDo({seq, setSeq, toDos, setToDos, setIsCreateToDoVisible}) {
                     onChange = {(e) => setDescription(e.target.value)}
                 ></textarea>
             </legend>
-            <button onClick = {() => {
-                setToDos([...toDos, {id: seq, text: description, state: "pending"}]);
-                setSeq(++seq);
-                setIsCreateToDoVisible(false);
-            }}>Crear</button>
+            <button onClick = {() => onCreate(description)}
+            >Crear</button>
         </div>
     );
 }

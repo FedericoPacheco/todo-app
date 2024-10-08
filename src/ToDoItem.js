@@ -1,4 +1,4 @@
-import { COMPLETED_STR, PENDING_STR } from './App';
+import { COMPLETED, PENDING } from './App';
 import './ToDoItem.css';
 
 function ToDoItem({text, tab, onStateChange, onDelete}) {                    
@@ -8,7 +8,7 @@ function ToDoItem({text, tab, onStateChange, onDelete}) {
                 <span
                     onClick = {onStateChange}
                     className = "check"
-                >{tab === PENDING_STR? COMPLETED_STR[0].toUpperCase() : PENDING_STR[0].toUpperCase()}</span>
+                >{tab === PENDING? COMPLETED[0].toUpperCase() : PENDING[0].toUpperCase()}</span>
                 <p>{text}</p>
                 <span
                     onClick = {onDelete}
