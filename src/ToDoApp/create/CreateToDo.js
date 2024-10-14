@@ -1,8 +1,10 @@
+import { ToDoContext } from '../ToDoContext';
 import './CreateToDo.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
-function CreateToDo({onCreate}) {
+function CreateToDo() {
     const [description, setDescription] = useState(""); 
+    const { onCreate } = useContext(ToDoContext);
     
     return (
         <div className = "create-to-do-box">

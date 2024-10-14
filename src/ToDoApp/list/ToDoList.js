@@ -1,7 +1,11 @@
 import './ToDoList.css'
-import { PENDING, COMPLETED } from '../App';
+import { COMPLETED, PENDING } from '../ToDoContext';
+import { useContext } from 'react';
+import { ToDoContext } from '../ToDoContext';
 
-function ToDoList({tab, setTab, loading, error, pending, completed, children}) {
+function ToDoList({children}) {
+    const { tab, setTab, loading, error, pending, completed } = useContext(ToDoContext);
+    
     return (
         <>
             <div className = "tabs">

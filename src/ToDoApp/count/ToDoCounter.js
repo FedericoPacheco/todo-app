@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import './ToDoCounter.css';
+import { ToDoContext } from '../ToDoContext';
 
-function ToDoCounter({total, completed}) {
+function ToDoCounter() {
+    const {total, completed} = useContext(ToDoContext);
+    
     return (
         <>
             {total === 0 && <h1> <span>ToDo App</span></h1>}
