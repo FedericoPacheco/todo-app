@@ -1,11 +1,12 @@
 import './App.css';
-import { ToDoCounter } from './Count/ToDoCounter';
-import { ToDoSearch } from './Search/ToDoSearch';
-import { ToDoList } from './List/ToDoList';
-import { ToDoItem } from './List/ToDoItem';
-import { CreateToDoButton} from './Create/CreateToDoButton';
-import { CreateToDo } from './Create/CreateToDo';
-import { useState } from 'react';
+import { ToDoCounter } from './count/ToDoCounter';
+import { ToDoSearch } from './search/ToDoSearch';
+import { ToDoList } from './list/ToDoList';
+import { ToDoItem } from './list/ToDoItem';
+import { CreateToDoButton} from './create/CreateToDoButton';
+import { CreateToDo } from './create/CreateToDo';
+import { useState , useEffect } from 'react';
+import { useLocalStorage } from './customHooks/useLocalStorage';
 
 // Constants
 export const PENDING = "pending";
@@ -24,34 +25,19 @@ const DEFAULT_TODOS = [
 ];
 //*/
 
-function useLocalStorage(itemKey, initialValue) {
-
-  const getItem = () => {
-    const storedItem = localStorage.getItem(itemKey);
-    const parsedItem = storedItem? JSON.parse(storedItem) : initialValue;
-    return parsedItem;
-  }
-  const saveItem = (newItem) => {
-    setParsedItem(newItem);
-    localStorage.setItem(itemKey, JSON.stringify(newItem));
-  };
-
-  const [parsedItem, setParsedItem] = useState(getItem());  
-  return [parsedItem, saveItem];
-}
-
 function App() {
 
   // App state
   const [tab, setTab] = useState(DEFAULT_TAB);
-  const [toDos, saveToDos] = useLocalStorage(LOCALSTORAGE_TODOS, DEFAULT_TODOS);
+  const {item: toDos, saveItem: saveToDos, loading, error} = useLocalStorage(LOCALSTORAGE_TODOS, DEFAULT_TODOS);
   let seq = toDos.length > 0? toDos[toDos.length - 1].id + 1 : 0; 
   
   const [searchValue, setSearchValue] = useState("");
   const [doSearch, setDoSearch] = useState(false);
   const [isCreateToDoVisible, setIsCreateToDoVisible] = useState(false);
 
-  // Counter
+  // Counters
+  const pending = toDos.filter(todo => todo.state === PENDING).length;
   const completed = toDos.filter(todo => todo.state === COMPLETED).length;
   const total = toDos.length;
 
@@ -92,6 +78,10 @@ function App() {
       <ToDoList
         tab = {tab} 
         setTab = {setTab}
+        loading = {loading}
+        error = {error}
+        pending = {pending}
+        completed = {completed}
       > 
         { toDos
           .filter(todo => todo.state === tab)

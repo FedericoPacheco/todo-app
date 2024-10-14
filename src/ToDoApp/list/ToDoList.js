@@ -1,7 +1,7 @@
 import './ToDoList.css'
 import { PENDING, COMPLETED } from '../App';
 
-function ToDoList({tab, setTab, children}) {
+function ToDoList({tab, setTab, loading, error, pending, completed, children}) {
     return (
         <>
             <div className = "tabs">
@@ -14,7 +14,11 @@ function ToDoList({tab, setTab, children}) {
                     className = {tab === COMPLETED? "highlighted-tab":""}   
                 >Completadas</h2>
             </div>
-            <ul className = "tasks-box">
+            <ul className = "todos-box">
+                {!error && loading && <li><p>Cargando...</p></li>}
+                {error && <li><p>Hubo un error :(</p></li>}
+                {(!loading && !error && pending === 0 && tab === PENDING) && <li><p>¡Crea un ToDo!</p></li>}
+                {(!loading && !error && completed === 0 && tab === COMPLETED) && <li><p>¡Completa tu primer ToDo!</p></li>}
                 {children}
             </ul>
         </>
