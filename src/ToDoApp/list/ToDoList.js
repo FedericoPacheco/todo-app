@@ -2,10 +2,30 @@ import './ToDoList.css'
 import { COMPLETED, PENDING } from '../ToDoContext';
 import { useContext } from 'react';
 import { ToDoContext } from '../ToDoContext';
+import { ToDoItem } from './ToDoItem';
 
 function ToDoList({children}) {
-    const { tab, setTab, loading, error, pending, completed } = useContext(ToDoContext);
+    const { 
+        toDos, 
+        doSearch,
+        searchValue, 
+        tab, 
+        setTab, 
+        loading, 
+        error, 
+        pending, 
+        completed,
+        onDelete,
+        onStateChange
+    } = useContext(ToDoContext);
     
+    // Search 
+    const preprocessText = rawText => {
+        // Remove numbers and special, non printable characters, and spanish characters
+        const regex = /[\W\dáéíóúÁÉÍÓÚñÑ\s]/g;
+        return rawText.replace(regex, "").toLowerCase();
+      }
+
     return (
         <>
             <div className = "tabs">
@@ -23,7 +43,19 @@ function ToDoList({children}) {
                 {error && <li><p>Hubo un error :(</p></li>}
                 {(!loading && !error && pending === 0 && tab === PENDING) && <li><p>¡Crea un ToDo!</p></li>}
                 {(!loading && !error && completed === 0 && tab === COMPLETED) && <li><p>¡Completa tu primer ToDo!</p></li>}
-                {children}
+                { toDos
+                    .filter(todo => todo.state === tab)
+                    // If the user wants to search specific todos, filter todos; otherwise return the whole array
+                    .filter(todo => doSearch? preprocessText(todo.text).includes(preprocessText(searchValue)): true)
+                    .map(todo => 
+                        <ToDoItem
+                            key = {todo.id} // Needed by react
+                            text = {todo.text}
+                            onDelete = {() => onDelete(todo.id)}
+                            onStateChange = {() => onStateChange(todo.id)}
+                        ></ToDoItem>
+                    )
+                }
             </ul>
         </>
     );

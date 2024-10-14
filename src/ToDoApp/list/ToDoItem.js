@@ -1,11 +1,6 @@
-import { useContext } from 'react';
 import { COMPLETED, PENDING } from '../ToDoContext';
 import './ToDoItem.css';
-import { ToDoContext } from '../ToDoContext';
-
-function ToDoItem({text}) {                    
-    const { tab, onStateChange, onDelete } = useContext(ToDoContext);
-    
+function ToDoItem({text, tab, onStateChange, onDelete}) {                   
     return (
         <>
             <li>
