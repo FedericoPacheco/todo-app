@@ -1,4 +1,4 @@
-button, input {
+.search-button, input {
     font-size: 1.25rem;
     text-align: center;
     margin: 0.25rem;
@@ -8,8 +8,12 @@ input {
     width: 22.5rem;
 }
 
-button {
+.search-button {
     width: 5.5rem;
     margin-right: 0;
+}
+
+.search-button:hover {
+    cursor: pointer;
 }
 

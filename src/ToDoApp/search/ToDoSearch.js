@@ -14,7 +14,7 @@ function ToDoSearch() {
                 }} 
                 placeholder = "Cortar cebolla"
             />
-            <button 
+            <button className = "search-button" 
                 onClick = {() => setDoSearch(true)}    
             >Buscar</button>
         </>

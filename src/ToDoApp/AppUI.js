@@ -11,10 +11,11 @@ function AppUI() {
 
     const { toDos, isCreateToDoVisible } = useContext(ToDoContext);
   
-    console.log(toDos);
+    console.log("toDos:", toDos);
+    console.log("isCreateToDoVisible:", isCreateToDoVisible);
 
     return (
-      <div className = "App">
+      <div className = "app">
         <ToDoCounter/>
         <ToDoSearch/>
         <ToDoList/>

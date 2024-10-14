@@ -6,7 +6,7 @@ function CreateToDoButton() {
     const { setIsCreateToDoVisible } = useContext(ToDoContext);
     
     return (
-        <button onClick = {() => setIsCreateToDoVisible(true)}>+</button>
+        <button className = "add-todo-button" onClick = {() => setIsCreateToDoVisible(true)}>+</button>
     );
 }
 
