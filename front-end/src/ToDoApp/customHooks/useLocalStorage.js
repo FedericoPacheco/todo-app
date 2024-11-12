@@ -2,6 +2,7 @@ import { useState , useEffect } from 'react';
 
 const TEST_TIMEOUT = 2000;
 
+// Old
 function useLocalStorage(itemKey, initialValue) {
 
     const [item, setItem] = useState([]);
