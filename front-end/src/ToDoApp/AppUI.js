@@ -7,10 +7,13 @@ import { CreateToDo } from './create/CreateToDo';
 import { useContext } from 'react';
 import { ToDoContext } from './ToDoContext';
 
+import { useSelector } from 'react-redux';
+
 function AppUI() {
 
-    const { toDos, isCreateToDoVisible } = useContext(ToDoContext);
-  
+    const { isCreateToDoVisible } = useContext(ToDoContext);
+    const toDos = useSelector(state => state.todos);
+
     console.log("toDos:", toDos);
     console.log("isCreateToDoVisible:", isCreateToDoVisible);
 
