@@ -1,30 +1,26 @@
-import { ADD_TODO, DELETE_TODO, CHANGE_STATE_TODO } from './actions';
-import { PENDING, COMPLETED } from './constants';
+import { ADD_TODO, DELETE_TODO, CHANGE_STATE_TODO, GET_ALL_TODOS, SET_ALL_TODOS } from './actions';
 
-/* const DEFAULT_STATE = {
+const DEFAULT_STATE = {
     list: {},
     nextSeq: 0,
-}; */
-const DEFAULT_STATE = {
-    list: {
-        0: {id: 0, text: "Leer libros de sw eng", state: COMPLETED},
-        1: {id: 1, text: "Convertirme en fullstack", state: COMPLETED},
-        2: {id: 2, text: "Ser founder", state: PENDING},
-        3: {id: 3, text: "Ganar en grande", state: PENDING},
-    },
-    nextSeq: 4,
 };
 
 export const todosReducer = (state = DEFAULT_STATE, action) => {
+    
     switch (action.type) {
+        case GET_ALL_TODOS: {
+            return state;
+        }
+        case SET_ALL_TODOS: {
+            return action.payload.todos;
+        }
         case ADD_TODO: {
             return {
                 list: {
                     ...state.list,
                     [state.nextSeq]: {
+                        ...action.payload.todo,
                         id: state.nextSeq,
-                        text: action.payload.text,
-                        state: action.payload.state,
                     },
                 },
                 nextSeq: state.nextSeq + 1,

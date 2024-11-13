@@ -1,12 +1,12 @@
 import './ToDoList.css'
-import { COMPLETED, PENDING } from "../redux/todos/constants";
+import { COMPLETED, PENDING } from "../../redux/todos/constants";
 import { useContext } from 'react';
 import { ToDoContext } from '../ToDoContext';
 import { ToDoItem } from './ToDoItem';
 import { useSelector } from 'react-redux';
-import { ERROR, LOADING, SUCCESS } from '../redux/app/constants';
+import { ERROR, LOADING, SUCCESS } from '../../redux/app/constants';
 
-function ToDoList({children}) {
+function ToDoList() {
     const { 
         doSearch,
         searchValue, 
@@ -25,8 +25,8 @@ function ToDoList({children}) {
         // Remove numbers and special, non printable characters, and spanish characters
         const regex = /[\W\dáéíóúÁÉÍÓÚñÑ\s]/g;
         return rawText.replace(regex, "").toLowerCase();
-      }
-
+    }
+    
     return (
         <>
             <div className = "tabs">
@@ -44,13 +44,14 @@ function ToDoList({children}) {
                 {appStatus === ERROR && <li><p>Hubo un error :(</p></li>}
                 {(appStatus === SUCCESS && pending === 0 && tab === PENDING) && <li><p>¡Crea un ToDo!</p></li>}
                 {(appStatus === SUCCESS && completed === 0 && tab === COMPLETED) && <li><p>¡Completa tu primer ToDo!</p></li>}
-                { appStatus === SUCCESS && toDos
+                {appStatus === SUCCESS && toDos
                     .filter(todo => todo.state === tab)
                     // If the user wants to search specific todos, filter todos; otherwise return the whole array
                     .filter(todo => doSearch? preprocessText(todo.text).includes(preprocessText(searchValue)): true)
-                    .map(todo => 
+                    .map(todo =>
                         <ToDoItem
                             key = {todo.id} // Needed by react
+                            tab = {tab}
                             text = {todo.text}
                             onDelete = {() => onDelete(todo.id)}
                             onStateChange = {() => onStateChange(todo.id)}
