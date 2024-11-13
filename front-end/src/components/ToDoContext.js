@@ -1,7 +1,7 @@
-import { createContext, useState } from "react";
+import { useEffect, createContext, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { changeStateTodo, addTodo, deleteTodo } from "./redux/todos/actionFunctions";
-import { PENDING, COMPLETED } from './redux/todos/constants';
+import { getAllTodos, changeStateTodo, addTodo, deleteTodo } from "../redux/todos/actionFunctions";
+import { PENDING, COMPLETED } from '../redux/todos/constants';
 
 export const ToDoContext = createContext();
 
@@ -10,7 +10,10 @@ const DEFAULT_TAB = PENDING;
 export function ToDoContextProvider({children}) {
 
     const dispatch = useDispatch();
-
+    useEffect(() => {
+      dispatch(getAllTodos());
+    }, [dispatch]); 
+  
     // App state
     const toDos = Object.values(useSelector(state => state.todos.list));
     const [tab, setTab] = useState(DEFAULT_TAB);
