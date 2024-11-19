@@ -18,7 +18,7 @@ function* getAllTodosSaga(action) {
 
 function* addTodoSaga(action) {
     try {
-        yield call(addTodo, action.payload);
+        yield call(addTodo, action.payload.todo);
         yield put(setSuccess());
     } catch (error) {
         yield put(setError());
@@ -27,7 +27,7 @@ function* addTodoSaga(action) {
 
 function* deleteTodoSaga(action) {
     try {
-        yield call(deleteTodo, action.payload);
+        yield call(deleteTodo, action.payload.id);
         yield put(setSuccess());
     } catch (error) {
         yield put(setError());

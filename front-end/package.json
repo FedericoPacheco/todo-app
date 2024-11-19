@@ -1,6 +1,6 @@
 {
-  "name": "platzi-intro-react-base",
-  "version": "0.1.0",
+  "name": "todo-app",
+  "version": "1.0",
   "dependencies": {
     "@redux-devtools/extension": "^3.3.0",
     "axios": "^1.7.7",

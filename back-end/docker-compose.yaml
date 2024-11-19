@@ -1,3 +1,6 @@
+# Create network:configs:
+# docker network create todo-net
+
 services:
   api:
     build:
@@ -14,6 +17,7 @@ services:
     depends_on:
       - db
     networks:
+      - todo-back-net
       - todo-net
 
   db:
@@ -28,7 +32,7 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - todo-net
+      - todo-back-net
 
   pgadmin:
     image: dpage/pgadmin4:8.13
@@ -41,11 +45,13 @@ services:
     depends_on:
       - db
     networks:
-      - todo-net
+      - todo-back-net
 
 volumes:
   postgres-data:
 
 networks:
-  todo-net:
+  todo-back-net:
     driver: bridge
+  todo-net:
+    external: true

@@ -50,6 +50,16 @@ module.exports = {
     } catch (error) {
       return res.serverError(error);
     }
+  },
+  changeState: async function (req, res) {
+    try {
+      const { id } = req.params;
+      const { state } = req.body;
+      const updatedToDo = await ToDo.updateOne({id: id}).set({state: state});
+      return res.json(updatedToDo);
+    } catch (error) {
+      return res.serverError(error);
+    }
   }
 };
 
