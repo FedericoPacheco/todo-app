@@ -1,0 +1,51 @@
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+    container_name: todo-sails-app
+    ports:
+      - "1337:1337"
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=todo-db
+      - DATABASE_PORT=5432
+    depends_on:
+      - db
+    networks:
+      - todo-net
+
+  db:
+    image: postgres:12.21
+    container_name: todo-postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: todo-db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - todo-net
+
+  pgadmin:
+    image: dpage/pgadmin4:8.13
+    container_name: todo-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: todo@serfe.com
+      PGADMIN_DEFAULT_PASSWORD: todo
+    ports:
+      - "5051:80"
+    depends_on:
+      - db
+    networks:
+      - todo-net
+
+volumes:
+  postgres-data:
+
+networks:
+  todo-net:
+    driver: bridge
