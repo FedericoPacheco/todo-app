@@ -1,52 +1,44 @@
-//import axios from 'axios';
-import { PENDING, COMPLETED } from '../redux/todos/constants';
-
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+import axios from 'axios';
 
 export const getAllTodos = async () => {
     try {
-        /* const response = await axios.get('/todo');
-        return response.data; */
-        await delay(1000);
-        console.log(`getAllTodos(): successful`);
+        const response = await axios.get(process.env.REACT_APP_TODO_API_URL);
+        console.log(`getAllTodos(): successful:`, response.data);
+        const toDos = {};
+        response.data.forEach(todo => {
+            toDos[todo.id] = todo;
+        });
         return {
-            list: {
-                0: {id: 0, text: "Leer libros de sw eng", state: COMPLETED},
-                1: {id: 1, text: "Convertirme en fullstack", state: COMPLETED},
-                2: {id: 2, text: "Ser founder", state: PENDING},
-                3: {id: 3, text: "Ganar en grande", state: PENDING},
-            },
-            nextSeq: 4,
-        };
+            list: toDos,
+            nextSeq: response.data.map(todo => todo.id).reduce((max, id) => Math.max(max, id)) + 1,
+        }
     } catch (error) {
         console.error(`getAllTodos(): error: ${error}`);
     }
 };
 
-export const addTodo = async ({ todo }) => {
+export const addTodo = async (todo) => {
     try {
-        /* const response = await axios.post('/todo', todo); */
-        await delay(1000);
-        console.log(`addTodo(${JSON.stringify(todo)}): successful`);
+        await axios.post(process.env.REACT_APP_TODO_API_URL, todo);
+        console.log(`addTodo(${Object.values(todo).join(", ")}): successful`);
     } catch (error) {
-        console.error(`addTodo(${JSON.stringify(todo)}): error: ${error}`);
+        console.error(`addTodo(${Object.values(todo).join(", ")}): error: ${error}`);
     }
 };
 
-export const deleteTodo = async ({id}) => {
+export const deleteTodo = async (id) => {
+    console.log("api: deleteTodo(): id:", id);
     try {
-        /* const response = await axios.delete(`/todo/${id}`); */
-        await delay(1000);
+        await axios.delete(`${process.env.REACT_APP_TODO_API_URL}/${id}`);
         console.log(`deleteTodo(${id}): successful`);
     } catch (error) {
         console.error(`deleteTodo(${id}): error: ${error}`);
     }
 };
 
-export const changeStateTodo = async ({id, newTodoState}) => {
+export const changeStateTodo = async (id, newTodoState) => {
     try {
-        /* const response = await axios.patch(`/todo/${id}`, newTodoState); */
-        await delay(1000);
+        await axios.patch(`${process.env.REACT_APP_TODO_API_URL}/${id}`, {state: newTodoState});
         console.log(`changeStateTodo(${id}, ${newTodoState}): successful`);
     } catch (error) {
         console.error(`changeStateTodo(${id}, ${newTodoState}): error: ${error}`);
