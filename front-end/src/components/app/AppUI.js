@@ -11,9 +11,9 @@ import { useSelector } from 'react-redux';
 function AppUI() {
 
     const { isCreateToDoVisible } = useContext(ToDoContext);
-    const toDos = useSelector(state => state.todos);
-
-    console.log("toDos:", toDos);
+    const state = useSelector(state => state);
+    
+    console.log("state:", state);
     
     return (
       <div className = "app">
