@@ -1,4 +1,5 @@
 import { watchGetAllTodos, watchAddTodo, watchDeleteTodo, watchChangeStateTodo } from './todos/sagas';
+import { watchLogin } from './app/sagas';
 import { all } from 'redux-saga/effects';
 
 export default function* rootSaga() {
@@ -7,5 +8,6 @@ export default function* rootSaga() {
         watchAddTodo(),
         watchDeleteTodo(),
         watchChangeStateTodo(),
+        watchLogin(),
     ]);
 }
