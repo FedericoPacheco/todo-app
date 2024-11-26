@@ -1,10 +1,10 @@
 import './ToDoList.css'
-import { COMPLETED, PENDING } from "../../redux/todos/constants";
+import { COMPLETED, PENDING } from "../../../redux/todos/constants";
 import { useContext } from 'react';
 import { ToDoContext } from '../ToDoContext';
 import { ToDoItem } from './ToDoItem';
 import { useSelector } from 'react-redux';
-import { API_ERROR, API_LOADING, API_SUCCESS } from '../../redux/app/constants';
+import { API_ERROR, API_LOADING, API_SUCCESS } from '../../../redux/app/constants';
 
 function ToDoList() {
     const { 

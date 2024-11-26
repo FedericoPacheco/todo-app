@@ -6,7 +6,11 @@ export const login = async (user, pass) => {
     try {
         console.log(`api: login(${user}, ${pass})`);
         await delay(1000);
-        return true;
+        if (user === "admin" && pass === "admin") {
+            return true;
+        } else {
+            return false;
+        }
         /* const response = await axios.get(process.env.REACT_APP_AUTH_API_URL, {user, pass});
         console.log(`login(${user}, ${pass}): ${response.data.wasSuccessful ? "successful" : "auth error"}`);
         return response.data.wasSuccessful; */
@@ -18,7 +22,7 @@ export const login = async (user, pass) => {
 
 export const getAllTodos = async () => {
     try {
-        const response = await axios.get("http://localhost:1337/todo");
+        const response = await axios.get("http://localhost:1340/todo");
         //const response = await axios.get(process.env.REACT_APP_TODO_API_URL);
         console.log(`getAllTodos(): successful:`, response.data);
         const toDos = {};
@@ -36,7 +40,7 @@ export const getAllTodos = async () => {
 
 export const addTodo = async (todo) => {
     try {
-        await axios.post("http://localhost:1337/todo", todo);
+        await axios.post("http://localhost:1340/todo", todo);
         //await axios.post(process.env.REACT_APP_TODO_API_URL, todo);
         console.log(`addTodo(${Object.values(todo).join(", ")}): successful`);
     } catch (error) {
@@ -47,7 +51,7 @@ export const addTodo = async (todo) => {
 export const deleteTodo = async (id) => {
     console.log("api: deleteTodo(): id:", id);
     try {
-        await axios.delete(`http://localhost:1337/todo/${id}`);
+        await axios.delete(`http://localhost:1340/todo/${id}`);
         //await axios.delete(`${process.env.REACT_APP_TODO_API_URL}/${id}`);
         console.log(`deleteTodo(${id}): successful`);
     } catch (error) {
@@ -57,7 +61,7 @@ export const deleteTodo = async (id) => {
 
 export const changeStateTodo = async (id, newTodoState) => {
     try {
-        await axios.patch(`http://localhost:1337/todo/${id}`, {state: newTodoState});
+        await axios.patch(`http://localhost:1340/todo/${id}`, {state: newTodoState});
         //await axios.patch(`${process.env.REACT_APP_TODO_API_URL}/${id}`, {state: newTodoState});
         console.log(`changeStateTodo(${id}, ${newTodoState}): successful`);
     } catch (error) {

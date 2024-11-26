@@ -13,8 +13,8 @@ services:
       # https://stackoverflow.com/questions/56374921/how-to-address-backend-host-with-axios-when-frontend-and-backend-are-in-virtual
       # https://stackoverflow.com/questions/76983550/neterr-name-not-resolved-in-browser-using-docker-compose
       # https://stackoverflow.com/questions/53237293/react-evironment-variables-env-return-undefined
-      - REACT_APP_TODO_API_URL=http://localhost:1337/todo
-      - REACT_APP_AUTH_API_URL=http://localhost:1337/auth
+      - REACT_APP_TODO_API_URL=http://localhost:1340/todo
+      - REACT_APP_AUTH_API_URL=http://localhost:1340/auth
     networks:
       - todo-net
 

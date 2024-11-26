@@ -1,8 +1,8 @@
 import { useEffect, createContext, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllTodos, changeStateTodo, addTodo, deleteTodo } from "../redux/todos/actionFunctions";
-import { PENDING, COMPLETED } from '../redux/todos/constants';
-import { AUTH_SUCCESS } from "../redux/app/constants";
+import { getAllTodos, changeStateTodo, addTodo, deleteTodo } from "../../redux/todos/actionFunctions";
+import { PENDING, COMPLETED } from '../../redux/todos/constants';
+import { AUTH_SUCCESS } from "../../redux/app/constants";
 
 export const ToDoContext = createContext();
 

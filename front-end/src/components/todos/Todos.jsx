@@ -1,15 +1,16 @@
 import './Todos.css';
-import { ToDoCounter } from '../count/ToDoCounter';
-import { ToDoSearch } from '../search/ToDoSearch';
-import { ToDoList } from '../list/ToDoList';
-import { CreateToDoButton} from '../create/CreateToDoButton';
-import { CreateToDo } from '../create/CreateToDo';
+import { ToDoCounter } from './count/ToDoCounter';
+import { ToDoSearch } from './search/ToDoSearch';
+import { ToDoList } from './list/ToDoList';
+import { CreateToDoButton} from './create/CreateToDoButton';
+import { CreateToDo } from './create/CreateToDo';
 import { useContext } from 'react';
-import { ToDoContext } from '../ToDoContext';
+import { ToDoContext } from './ToDoContext';
 import { useSelector } from 'react-redux';
 import { AUTH_SUCCESS } from '../../redux/app/constants';
 import { Navigate } from 'react-router-dom';
-import { LOGIN_PATH } from './Paths';
+import { LOGIN_PATH } from '../Paths';
+import { Logout } from '../auth/Logout';
 
 export function Todos() {
 
@@ -26,6 +27,7 @@ export function Todos() {
         <ToDoSearch/>
         <ToDoList/>
         <CreateToDoButton/>
+        <Logout/>
         {isCreateToDoVisible && <CreateToDo/>}
       </div>
     );
