@@ -16,7 +16,10 @@ module.exports.policies = {
   * (`true` allows public access)                                            *
   *                                                                          *
   ***************************************************************************/
-
-  // '*': true,
-
+  ToDoController: {
+    '*': true,//'isAuthenticated'
+  },
+  AuthenticationController: {
+    '*': true
+  },
 };
