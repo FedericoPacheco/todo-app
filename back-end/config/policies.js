@@ -17,7 +17,7 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
   ToDoController: {
-    '*': true,//'isAuthenticated'
+    '*': 'isAuthenticated'
   },
   AuthenticationController: {
     '*': true

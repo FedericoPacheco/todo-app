@@ -41,5 +41,5 @@ module.exports.routes = {
   'PATCH /todo/:id': 'ToDoController.changeState',
   'POST /signup': 'AuthenticationController.signup',
   'POST /logout': 'AuthenticationController.logout',
-  'GET /login': 'AuthenticationController.login',
+  'POST /login': 'AuthenticationController.login',
 };

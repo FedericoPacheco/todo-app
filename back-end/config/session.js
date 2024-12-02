@@ -13,6 +13,8 @@ const RedisStore = require('connect-redis').default;
 
 module.exports.session = {
 
+  // https://sailsjs.com/documentation/reference/configuration/sails-config-session#?production-config
+  // https://sailsjs.com/documentation/concepts/sessions
   adapter: 'connect-redis',
   host: process.env.SESSION_HOST,
   port: process.env.SESSION_PORT,
