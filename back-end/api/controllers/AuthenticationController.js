@@ -17,7 +17,7 @@ module.exports = {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
         req.session.userId = foundUser.id;
-        return res.json(foundUser);
+        return res.json({message: `User ${foundUser.user} logged in`});
     },
 
     logout: function (req, res) {
@@ -29,12 +29,20 @@ module.exports = {
         const { user, pass } = req.body;
         const existingUser = await User.findOne({ user });
         if (existingUser) {
-            return res.status(409).json({ error: 'User already exists' });
+            return res.status(409).json({ error: `User ${existingUser.user} already exists` });
         }
         const hashedPass = await bcrypt.hash(pass, HASH_ROUNDS);
         const newUser = await User.create({ user, pass: hashedPass }).fetch();
         req.session.userId = newUser.id;
-        return res.json(newUser);
-    }
+        return res.json({message: `User ${user} signed up`});
+    },
+    
+    status: function (req, res) {
+        if (req.session.userId) {
+            return res.json({ isAuthenticated: true });
+        } else {
+            return res.json({ isAuthenticated: false });
+        }
+    },
 };
 

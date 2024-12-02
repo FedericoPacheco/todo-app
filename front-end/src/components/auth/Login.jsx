@@ -5,15 +5,20 @@ import { TODOS_PATH } from '../Paths';
 import { login } from '../../redux/app/actionFunctions';
 import { AUTH_ERROR, AUTH_REQUIRED, AUTH_SUCCESS } from '../../redux/app/constants';
 import './Login.css';
+/*
 import { useLocalStorage } from '../hooks/useLocalStorage';
-
+ 
 export const AUTH_LS = "TODO_AUTH";
 export const INIT_AUTH_LS = {user: "", pass: ""}; 
-
+ */
 export function Login() {
     const dispatch = useDispatch();
     const authStatus = useSelector((state) => state.app.authStatus);
+    const [user, setUser] = useState("");
+
+    const [pass, setPass] = useState("");
     
+    /*
     // Try to retrieve credentials from local storage
     const {item: auth, saveItem: setAuth, error: LSError} = useLocalStorage(AUTH_LS, INIT_AUTH_LS);
     const [user, setUser] = useState(INIT_AUTH_LS.user);
@@ -35,12 +40,12 @@ export function Login() {
             setAuth({user: user, pass: pass});
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [authStatus]);
+    }, [authStatus]); */
 
     const validate = (e) => {
         e.preventDefault();
         dispatch(login(user, pass));
-    }
+    } 
 
     // Login needed
     if (authStatus === AUTH_REQUIRED || authStatus === AUTH_ERROR) {

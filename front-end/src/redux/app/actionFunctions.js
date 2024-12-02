@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, SET_API_LOADING, SET_API_ERROR, SET_API_SUCCESS, SET_AUTH_ERROR, SET_AUTH_SUCCESS, SET_AUTH_REQUIRED } from './actions';
+import { LOGIN, LOGOUT, SIGNUP, GET_SESSION_STATUS, SET_API_LOADING, SET_API_ERROR, SET_API_SUCCESS, SET_AUTH_ERROR, SET_AUTH_SUCCESS, SET_AUTH_REQUIRED } from './actions';
 
 export const setApiLoading = () => ({
     type: SET_API_LOADING
@@ -34,4 +34,16 @@ export const login = (user, pass) => ({
 
 export const logout = () => ({
     type: LOGOUT
+});
+
+export const signup = (user, pass) => ({
+    type: SIGNUP,
+    payload: {
+        user,
+        pass
+    }
+});
+
+export const getSessionStatus = () => ({
+    type: GET_SESSION_STATUS
 });

@@ -39,7 +39,8 @@ module.exports.routes = {
   'PUT /todo/:id': 'ToDoController.update',
   'DELETE /todo/:id': 'ToDoController.delete',
   'PATCH /todo/:id': 'ToDoController.changeState',
-  'POST /signup': 'AuthenticationController.signup',
-  'POST /logout': 'AuthenticationController.logout',
-  'POST /login': 'AuthenticationController.login',
+  'POST /auth/signup': 'AuthenticationController.signup',
+  'POST /auth/logout': 'AuthenticationController.logout',
+  'POST /auth/login': 'AuthenticationController.login',
+  'GET /auth/status': 'AuthenticationController.status',
 };

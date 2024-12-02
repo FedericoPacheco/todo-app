@@ -12,6 +12,9 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import { LOGIN_PATH, LOGOUT_PATH, TODOS_PATH } from './Paths';
 import { Login } from './auth/Login';
 import { Logout } from './auth/Logout';
+import { getSessionStatus } from '../api/api';
+import { useEffect } from 'react';
+import { AUTH_SUCCESS } from '../redux/app/constants';
 
 const rootReducer = combineReducers({
   todos: todosReducer,
@@ -25,16 +28,31 @@ const store = createStore(
 );
 sagaMiddleware.run(rootSaga);
 
+// TODO: add signup feature
 function App() {
+
+  useEffect(() => {
+    store.dispatch(getSessionStatus());
+  }, []);
+  
   return (
     <HashRouter>
       <Provider store={store}>
         <ToDoContextProvider>
-          <Routes>
-            <Route path = {LOGIN_PATH} element = {<Login />} />
-            <Route path = {TODOS_PATH} element = { <Todos />} />
-            <Route path = {LOGOUT_PATH} element = {<Logout />} /> 
-            <Route path = "*" element = {<Login />} /> 
+          <Routes> 
+            { store.getState().app.authStatus === AUTH_SUCCESS ? (
+              <>
+                <Route path = {TODOS_PATH} element = {<Todos />} />
+                <Route path = {LOGOUT_PATH} element = {<Logout />} /> 
+                <Route path = "*" element = {<Todos />} /> 
+              </>
+            ) : (
+              <>
+                <Route path={LOGIN_PATH} element={<Login />} />
+                <Route path = "*" element = {<Login />} />
+              </>
+            )
+            }
           </Routes>
         </ToDoContextProvider>
       </Provider>
