@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { LOGIN, LOGOUT, SIGNUP, GET_SESSION_STATUS } from './actions';
-import { login, logout, signup, getSessionStatus } from '../../api/api';
+import { login, logout, signup, getSessionStatus } from './api';
 import { setAuthError, setAuthRequired, setAuthSuccess } from './actionFunctions';
 
 function* loginSaga(action) {

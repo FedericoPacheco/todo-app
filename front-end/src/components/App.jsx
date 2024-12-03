@@ -9,12 +9,9 @@ import { Provider } from 'react-redux';
 import rootSaga from '../redux/rootSaga';
 import { composeWithDevTools } from '@redux-devtools/extension'; // https://stackoverflow.com/a/78135170/27971560
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import { LOGIN_PATH, LOGOUT_PATH, TODOS_PATH } from './Paths';
-import { Login } from './auth/Login';
-import { Logout } from './auth/Logout';
-import { getSessionStatus } from '../api/api';
-import { useEffect } from 'react';
-import { AUTH_SUCCESS } from '../redux/app/constants';
+import { LOGIN_PATH, TODOS_PATH } from './Paths';
+import { Login } from './auth/login/Login';
+import { AuthOnly } from './auth/AuthContext';
 
 const rootReducer = combineReducers({
   todos: todosReducer,
@@ -28,35 +25,23 @@ const store = createStore(
 );
 sagaMiddleware.run(rootSaga);
 
-// TODO: add signup feature
 function App() {
-
-  useEffect(() => {
-    store.dispatch(getSessionStatus());
-  }, []);
-  
   return (
-    <HashRouter>
-      <Provider store={store}>
-        <ToDoContextProvider>
-          <Routes> 
-            { store.getState().app.authStatus === AUTH_SUCCESS ? (
-              <>
-                <Route path = {TODOS_PATH} element = {<Todos />} />
-                <Route path = {LOGOUT_PATH} element = {<Logout />} /> 
-                <Route path = "*" element = {<Todos />} /> 
-              </>
-            ) : (
-              <>
-                <Route path={LOGIN_PATH} element={<Login />} />
-                <Route path = "*" element = {<Login />} />
-              </>
-            )
-            }
+    <Provider store={store}>
+      <HashRouter>
+          <Routes>
+            <Route path = {LOGIN_PATH} element = {<Login />} />
+            <Route path = {TODOS_PATH} element = {
+              <AuthOnly>
+                <ToDoContextProvider>
+                  <Todos/>
+                </ToDoContextProvider>
+              </AuthOnly>
+            } /> 
+            <Route path = "*" element = {<Login />} />
           </Routes>
-        </ToDoContextProvider>
-      </Provider>
-    </HashRouter>
+      </HashRouter>
+    </Provider>
   );
 }
 

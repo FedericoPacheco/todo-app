@@ -4,10 +4,6 @@ import { API_ERROR, API_LOADING, API_SUCCESS, AUTH_ERROR, AUTH_SUCCESS, AUTH_REQ
 const DEFAULT_STATE = {
     apiStatus: API_LOADING,
     authStatus: AUTH_REQUIRED,
-    auth: {
-        user: "",
-        pass: "",
-    }
 }
 
 export const appReducer = (state = DEFAULT_STATE, action) => {

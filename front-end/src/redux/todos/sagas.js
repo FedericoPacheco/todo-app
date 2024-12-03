@@ -1,6 +1,6 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
 import { GET_ALL_TODOS, ADD_TODO, DELETE_TODO, CHANGE_STATE_TODO } from './actions';
-import { getAllTodos, addTodo, deleteTodo, changeStateTodo } from '../../api/api';
+import { getAllTodos, addTodo, deleteTodo, changeStateTodo } from './api';
 import { setApiError, setApiLoading, setApiSuccess } from '../app/actionFunctions';
 import { setAllTodos } from './actionFunctions';
 

@@ -2,7 +2,6 @@ import { useEffect, createContext, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllTodos, changeStateTodo, addTodo, deleteTodo } from "../../redux/todos/actionFunctions";
 import { PENDING, COMPLETED } from '../../redux/todos/constants';
-import { AUTH_SUCCESS } from "../../redux/app/constants";
 
 export const ToDoContext = createContext();
 
@@ -11,15 +10,10 @@ const DEFAULT_TAB = PENDING;
 export function ToDoContextProvider({children}) {
   
     const dispatch = useDispatch();
-    const authStatus = useSelector(state => state.app.authStatus);
-    const [fetched, setFetched] = useState(false);
-
+    
     useEffect(() => {
-        if (authStatus === AUTH_SUCCESS && !fetched) {
-            dispatch(getAllTodos());
-            setFetched(true);
-        }
-    }, [authStatus, dispatch, fetched]);
+        dispatch(getAllTodos());
+    }, []);
 
     // Todos state
     const toDos = Object.values(useSelector(state => state.todos.list));
