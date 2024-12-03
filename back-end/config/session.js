@@ -9,7 +9,21 @@
  * https://sailsjs.com/config/session
  */
 
+const RedisStore = require('connect-redis').default;
+
 module.exports.session = {
+
+  // https://sailsjs.com/documentation/reference/configuration/sails-config-session#?production-config
+  // https://sailsjs.com/documentation/concepts/sessions
+  adapter: 'connect-redis',
+  host: process.env.SESSION_HOST,
+  port: process.env.SESSION_PORT,
+  pass: process.env.SESSION_PASS,
+  db: process.env.SESSION_DB,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    secure: false, // true: https only
+  },
 
   /***************************************************************************
   *                                                                          *

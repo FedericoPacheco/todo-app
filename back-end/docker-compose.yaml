@@ -7,13 +7,18 @@ services:
       dockerfile: Dockerfile
     container_name: todo-sails-app
     ports:
-      - "1337:1337"
+      - "1340:1337"
     environment:
       - DATABASE_HOST=db
       - DATABASE_USER=postgres
       - DATABASE_PASSWORD=postgres
       - DATABASE_NAME=todo-db
       - DATABASE_PORT=5432
+      - SESSION_HOST=session-db
+      - SESSION_PORT=6379
+      - SESSION_PASS=todo-redis
+      - SESSION_DB=0
+
     depends_on:
       - db
     networks:
@@ -47,6 +52,24 @@ services:
     networks:
       - todo-back-net
 
+  session-db:
+    image: redis:alpine3.20
+    container_name: todo-redis
+    command: ["redis-server", "--requirepass", "todo-redis"]
+    ports:
+      - "6379:6379"
+    networks:
+      - todo-back-net
+      - todo-net
+    
+  redisinsight:
+    image: redis/redisinsight:2.60
+    container_name: todo-redisinsight
+    ports:
+      - "5540:5540"
+    networks:
+      - todo-back-net
+  
 volumes:
   postgres-data:
 

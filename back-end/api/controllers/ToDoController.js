@@ -9,7 +9,8 @@ module.exports = {
   create: async function (req, res) {
     try {
       const { text, state } = req.body;
-      const newToDo = await ToDo.create({ text: text, state: state }).fetch();
+      const { userId } = req.session;
+      const newToDo = await ToDo.create({ text: text, state: state, owner: userId }).fetch();
       return res.json(newToDo);
     } catch (error) {
       return res.serverError(error);
@@ -19,7 +20,8 @@ module.exports = {
     try {
       const { id } = req.params;
       const { text, state } = req.body;
-      const updatedToDo = await ToDo.updateOne({ id: id }).set({ text: text, state: state });
+      const { userId } = req.session;
+      const updatedToDo = await ToDo.updateOne({ id: id }).set({ text: text, state: state, owner: userId });
       return res.json(updatedToDo);
     } catch (error) {
       return res.serverError(error);
@@ -36,7 +38,8 @@ module.exports = {
   },
   findAll: async function (req, res) {
     try {
-      const allToDos = await ToDo.find();
+      const { userId } = req.session;
+      const allToDos = await ToDo.find({ owner: userId });
       return res.json(allToDos);
     } catch (error) {
       return res.serverError(error);
@@ -45,7 +48,7 @@ module.exports = {
   findOne: async function (req, res) {
     try {
       const { id } = req.params;
-      const toDo = await ToDo.findOne({ id: id});
+      const toDo = await ToDo.findOne({ id: id });
       return res.json(toDo);
     } catch (error) {
       return res.serverError(error);
@@ -55,7 +58,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const { state } = req.body;
-      const updatedToDo = await ToDo.updateOne({id: id}).set({state: state});
+      const updatedToDo = await ToDo.updateOne({ id: id }).set({ state: state });
       return res.json(updatedToDo);
     } catch (error) {
       return res.serverError(error);

@@ -1,4 +1,4 @@
-import { PENDING, COMPLETED } from '../../redux/todos/constants';
+import { PENDING, COMPLETED } from '../../../redux/todos/constants';
 import './ToDoItem.css';
 function ToDoItem({text, tab, onStateChange, onDelete}) {                   
     

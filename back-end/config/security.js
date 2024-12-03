@@ -32,7 +32,7 @@ module.exports.security = {
     allRoutes: true,
     // React frontend
     allowOrigins: ['http://localhost:3000'], //'*',
-    allowCredentials: false,
+    allowCredentials: true,
   },
 
 
