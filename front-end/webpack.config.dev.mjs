@@ -1,8 +1,8 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import TerserPlugin from 'terser-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
+import { fileURLToPath } from 'url';
 
 export default {
   entry: './src/index.js',
@@ -10,6 +10,7 @@ export default {
     path: path.resolve(path.dirname(new URL(import.meta.url).pathname), 'dist'),
     filename: '[name].[contenthash].js'
   },
+  mode: 'development', 
   resolve: {
     extensions: ['.js', '.jsx']
   }, 
@@ -36,6 +37,12 @@ export default {
       {
         test: /\.s?css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+      },
+      {
+        test: /\.html$/,
+        use: [
+          { loader: 'html-loader' }
+        ]
       }
     ]
   },
@@ -48,12 +55,14 @@ export default {
     new MiniCssExtractPlugin({
       filename: 'assets/[name].[contenthash].css',
     }),
+    new Dotenv(),
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new CssMinimizerPlugin(),
-      new TerserPlugin()
-    ]
+  devServer: {
+    static: {
+      directory: path.join(path.dirname(fileURLToPath(import.meta.url)), 'dist'),
+    },
+    compress: true,
+    historyApiFallback: true,
+    port: 3000      
   }
 };

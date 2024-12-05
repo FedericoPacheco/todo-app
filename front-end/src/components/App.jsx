@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { Todos } from './todos/Todos';
 import { ToDoContextProvider } from './todos/ToDoContext';
 import { combineReducers, legacy_createStore as createStore, applyMiddleware } from 'redux';
