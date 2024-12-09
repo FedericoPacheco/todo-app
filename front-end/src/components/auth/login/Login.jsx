@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { TODOS_PATH } from '../../Paths';
-import { login } from '../../../redux/app/actionFunctions';
+import { login, signup } from '../../../redux/app/actionFunctions';
 import { AUTH_ERROR, AUTH_SUCCESS } from '../../../redux/app/constants';
-import './Login.css';
+import "./Login.scss";
 import { getSessionStatus } from '../../../redux/app/actionFunctions';
-import { Signup } from '../signup/Signup';
 
 export function Login() {
     const dispatch = useDispatch();
@@ -21,30 +20,29 @@ export function Login() {
     if (authStatus !== AUTH_SUCCESS) {
         return (
             <div className = "login">
-                <h1 className = "login-title">Ingrese sus credenciales</h1>
-                <label 
-                    className = "credential-label">Usuario
-                        <input 
-                            className = "user"
-                            onChange = {(e) => setUser(e.target.value)}
-                            value = {user}
-                        />
-                </label>
-                <label 
-                    className = "credential-label">Contraseña
+                <h1>Ingrese sus credenciales</h1>
+                <div className = "credential-container">
+                    <label >Usuario</label>
                     <input 
-                        className = "pass"
+                        onChange = {(e) => setUser(e.target.value)}
+                        value = {user}
+                    />
+                </div>
+                <div className = "credential-container">
+                    <label>Contraseña</label>
+                    <input 
                         onChange = {(e) => setPass(e.target.value) } 
                         type = "password"
                         value = {pass}
                     />
-                </label>
-                <button className = "login-button" onClick = {() => dispatch(login(user, pass))}>Login</button>
-                <Signup
-                    user = {user}
-                    pass = {pass}
-                ></Signup>                
-                {authStatus === AUTH_ERROR && <p className = "login-error-message">Credenciales incorrectas o usuario ya existente.</p>}
+                </div>
+                <div className = "button-and-error-container">
+                    <div className='button-container'>
+                        <button onClick = {() => dispatch(login(user, pass))}>Login</button>
+                        <button onClick = {() => dispatch(signup(user, pass))}>Sign Up</button>                
+                    </div>
+                    {authStatus === AUTH_ERROR && <p>Credenciales incorrectas o usuario ya existente.</p>}
+                </div>
             </div>
         );
     } else {

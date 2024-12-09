@@ -14,9 +14,6 @@ services:
       - todo-net
     volumes:
       - .:/usr/todo-app
-      #- .:/usr/todo-app/front-end
-      #- /usr/todo-app/front-end/node_modules
-
 networks:
   todo-net:
     external: true

@@ -1,0 +1,7 @@
+@use '../Mixins' as *;
+@use '../Variables' as *;
+@use '../App';
+
+.todos-container {
+    @extend .app-container;
+}
