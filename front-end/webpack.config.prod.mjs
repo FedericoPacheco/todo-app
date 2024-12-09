@@ -5,11 +5,12 @@ import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import Dotenv from 'dotenv-webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import { fileURLToPath } from 'url';
 
 export default {
   entry: './src/index.js',
   output: {
-    path: path.resolve(path.dirname(new URL(import.meta.url).pathname), 'dist'),
+    path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'dist'),
     filename: '[name].[contenthash].js'
   },
   mode: 'production',
@@ -24,14 +25,12 @@ export default {
         use: {
           loader: 'babel-loader',
           options: {
-            // https://stackoverflow.com/questions/57935343/the-babel-preset-babel-preset-react-doesnt-like-my-javascript-function-that-re
             presets: [
               "@babel/preset-env",
-              "@babel/preset-react"
+              ["@babel/preset-react", { runtime: "automatic" }]
             ],
             plugins: [
               "@babel/plugin-transform-runtime",
-              "@babel/plugin-transform-react-jsx"    
             ],
           }
         }
