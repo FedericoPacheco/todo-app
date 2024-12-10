@@ -1,4 +1,4 @@
-import './ToDoList.css'
+import './ToDoList.scss'
 import { COMPLETED, PENDING } from "../../../redux/todos/constants";
 import { useContext } from 'react';
 import { ToDoContext } from '../ToDoContext';
@@ -28,7 +28,7 @@ function ToDoList() {
     }
     
     return (
-        <>
+        <div className='list-container'>
             <div className = "tabs">
                 <h2 
                     onClick = {() => setTab(PENDING)}
@@ -59,7 +59,7 @@ function ToDoList() {
                     )
                 }
             </ul>
-        </>
+        </div>
     );
 }
 

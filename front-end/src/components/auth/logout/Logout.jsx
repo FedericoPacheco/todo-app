@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/app/actionFunctions";
-import './Logout.css';
+import './Logout.scss';
 
 export function Logout() {
     const dispatch = useDispatch();

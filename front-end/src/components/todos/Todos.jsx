@@ -1,4 +1,4 @@
-import './Todos.css';
+import './Todos.scss';
 import { ToDoCounter } from './count/ToDoCounter';
 import { ToDoSearch } from './search/ToDoSearch';
 import { ToDoList } from './list/ToDoList';
@@ -17,7 +17,7 @@ export function Todos() {
   console.log("todos:", todos);
   
   return (
-    <div className = "app">
+    <div className = "todos-container">
       <ToDoCounter/>
       <ToDoSearch/>
       <ToDoList/>

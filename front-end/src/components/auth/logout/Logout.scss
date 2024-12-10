@@ -1,0 +1,5 @@
+@use "../../CommonStyles.scss";
+
+.logout-button {
+    @extend .std-button;
+}

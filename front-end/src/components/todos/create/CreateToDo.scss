@@ -1,0 +1,46 @@
+@use '../../Mixins' as *;
+@use '../../Variables' as *;
+@use '../../CommonStyles';
+
+.create-container {
+    position: absolute;
+    top: 0;
+    backdrop-filter: blur(0.125rem); 
+    width: 100vw;
+    height: 100vh;
+    @include flex-center(row);
+
+    .modal {
+        @include flex-center(column);
+    
+        font-family: $font;
+        position: absolute;
+        background-color: $modal-and-tab-color;
+        max-width: 29.5rem;
+        margin: 0.5rem auto;
+        padding: 0.5rem;
+        border: 0.0625rem solid $border-color;
+    
+        .modal-button-container {
+            @include flex-center(row);
+        }
+    
+        legend {
+            font-size: $font-size;
+            text-align: center;
+            margin: 0.25rem;
+        }
+        textarea {
+            display: block;
+            margin: 0.5rem auto;
+            width: 27.5rem;
+            height: 5rem;
+            resize: none;
+            font-size: $font-size;
+            letter-spacing: 0.01rem;
+        }
+        button {
+            @extend .std-button;
+        }
+    }
+} 
