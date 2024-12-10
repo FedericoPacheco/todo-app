@@ -1,13 +1,13 @@
 @use "../../Variables.scss" as *;
 @use "../../Mixins.scss" as *;
-@use "../../App.scss";
+@use "../../CommonStyles.scss";
 
 
 .login {
     @extend .app-container;
 
     h1 {
-        font-size: $font-size;
+        font-size: $font-size * 1.25;
         margin: 1rem;
         color: $font-color;
         font-weight: bold;
@@ -27,6 +27,7 @@
     }
 
     input {
+        @extend .std-input;
         min-width: 7.5rem;
         max-width: 15rem;
     }
@@ -40,7 +41,6 @@
     }
 
     button {
-        font-size: $font-size;
-        margin: 0.25rem;
+        @extend .std-button;
     }
 }

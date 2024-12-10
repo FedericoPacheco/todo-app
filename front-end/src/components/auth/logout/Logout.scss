@@ -1,7 +1,5 @@
+@use "../../CommonStyles.scss";
+
 .logout-button {
-    display: block;
-    width: 5rem;
-    padding: 0.20rem 0.25rem;
-    font-size: 1.25rem;
-    margin-left: 47.9%;
+    @extend .std-button;
 }

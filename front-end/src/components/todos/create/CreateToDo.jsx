@@ -8,7 +8,7 @@ function CreateToDo() {
     const { setIsCreateToDoVisible, onCreate } = useContext(ToDoContext);
 
     return createPortal(
-        <div className = "create">
+        <div className = "create-container">
             <div className = "modal">
                 <legend>Descripción 
                     <textarea 

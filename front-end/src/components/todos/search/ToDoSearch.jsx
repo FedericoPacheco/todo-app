@@ -1,12 +1,12 @@
 import { useContext } from 'react';
-import './ToDoSearch.css';
+import './ToDoSearch.scss';
 import { ToDoContext } from '../ToDoContext';
 
 function ToDoSearch() {
     const { setDoSearch, setSearchValue } = useContext(ToDoContext);
-    
+
     return (
-        <>
+        <div className='search-container'>
             <input 
                 onChange = {(e) => {
                     setDoSearch(false);
@@ -17,7 +17,7 @@ function ToDoSearch() {
             <button className = "search-button" 
                 onClick = {() => setDoSearch(true)}    
             >Buscar</button>
-        </>
+        </div>
     );
 }
 

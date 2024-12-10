@@ -6,7 +6,7 @@ function ToDoCounter() {
     const {total, completed} = useContext(ToDoContext);
     
     return (
-        <div className = "counter">
+        <div className = "counter-container">
             {total === 0 && <h1><span>ToDo App</span></h1>}
             {total > 0 && <h1> Has completado <span>{completed}</span> de <span>{total}</span> ToDos</h1>}
         </div>

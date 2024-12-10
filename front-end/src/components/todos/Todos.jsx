@@ -1,4 +1,4 @@
-import './todos.scss';
+import './Todos.scss';
 import { ToDoCounter } from './count/ToDoCounter';
 import { ToDoSearch } from './search/ToDoSearch';
 import { ToDoList } from './list/ToDoList';
