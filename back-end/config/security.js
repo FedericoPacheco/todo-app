@@ -28,11 +28,16 @@ module.exports.security = {
   *                                                                          *
   ***************************************************************************/
 
+  // https://sailsjs.com/documentation/reference/configuration/sails-config-security
   cors: {
     allRoutes: true,
     // React frontend
     allowOrigins: ['http://localhost:3000'], //'*',
     allowCredentials: true,
+    allowRequestHeaders: [
+      'content-type', 
+      'x-csrf-token',
+    ],
   },
 
 
@@ -50,6 +55,6 @@ module.exports.security = {
   *                                                                           *
   ****************************************************************************/
 
-  // csrf: false
+  csrf: true,
 
 };

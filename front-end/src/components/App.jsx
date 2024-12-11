@@ -11,6 +11,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import { LOGIN_PATH, TODOS_PATH } from './Paths';
 import { Login } from './auth/login/Login';
 import { AuthOnly } from './auth/AuthContext';
+import '../redux/axiosConfig'; 
 
 const rootReducer = combineReducers({
   todos: todosReducer,

@@ -39,8 +39,10 @@ module.exports.routes = {
   'PUT /todo/:id': 'ToDoController.update',
   'DELETE /todo/:id': 'ToDoController.delete',
   'PATCH /todo/:id': 'ToDoController.changeState',
+
   'POST /auth/signup': 'AuthenticationController.signup',
   'POST /auth/logout': 'AuthenticationController.logout',
   'POST /auth/login': 'AuthenticationController.login',
   'GET /auth/status': 'AuthenticationController.status',
+  'GET /auth/csrf': 'AuthenticationController.csrfToken',
 };
