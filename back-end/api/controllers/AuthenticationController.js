@@ -44,5 +44,8 @@ module.exports = {
             return res.json({ isAuthenticated: false });
         }
     },
+    csrfToken: function (req, res) {
+    return res.json({ csrfToken: req.csrfToken() });
+    },
 };
 

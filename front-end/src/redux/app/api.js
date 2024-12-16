@@ -2,15 +2,13 @@ import axios from 'axios';
 
 //const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Enable sending cookies with requests automatically
-// Sails back end sends the cookie in the "Set-Cookie" header
-axios.defaults.withCredentials = true; 
-
 export const login = async (user, pass) => {
     try {
         console.log(`login(${user}, ${pass})`);
-        //const response = await axios.post("http://localhost:1340/auth/login", {user, pass});
-        const response = await axios.post(`${process.env.REACT_APP_AUTH_API_URL}/login`, {user, pass});
+        const response = await axios.post(
+            `${process.env.REACT_APP_AUTH_API_URL}/login`, 
+            {user, pass},
+        );
         const wasSuccessful = response.status === 200;
         console.log(`login(${user}, ${pass}): ${wasSuccessful? "successful" : "auth error"}`);
         return wasSuccessful;
@@ -23,8 +21,9 @@ export const login = async (user, pass) => {
 export const logout = async () => {
     try {
         console.log("logout()");
-        //await axios.post("http://localhost:1340/auth/logout", {});
-        await axios.post(`${process.env.REACT_APP_AUTH_API_URL}/logout`);
+        await axios.post(
+            `${process.env.REACT_APP_AUTH_API_URL}/logout`,
+        );
         console.log("logout(): successful");
     } catch (error) {
         console.error(`logout(): error: ${error}`);
@@ -34,8 +33,10 @@ export const logout = async () => {
 export const signup = async (user, pass) => {
     try {
         console.log(`signup(${user}, ${pass})`);
-        //const response = await axios.post("http://localhost:1340/auth/signup", {user, pass});
-        const response = await axios.post(`${process.env.REACT_APP_AUTH_API_URL}/signup`, {user, pass});
+        const response = await axios.post(
+            `${process.env.REACT_APP_AUTH_API_URL}/signup`, 
+            {user, pass},
+        );
         const wasSuccessful = response.status === 200;
         console.log(`login(${user}, ${pass}): ${wasSuccessful? "successful" : "auth error"}`);
         return wasSuccessful;       
@@ -49,7 +50,10 @@ export const getSessionStatus = async () => {
     try {
         console.log("getSessionStatus()");
         //const response = await axios.get("http://localhost:1340/auth/status");
-        const response = await axios.get(`${process.env.REACT_APP_AUTH_API_URL}/status`);
+        const response = await axios.get(
+            `${process.env.REACT_APP_AUTH_API_URL}/status`,
+            //await getHeaders()
+        );
         console.log(`getSessionStatus(): ${response.data.isAuthenticated}`);
         return response.data.isAuthenticated;
     } catch (error) {
@@ -57,3 +61,13 @@ export const getSessionStatus = async () => {
         return false;
     }
 }
+
+export const getCsrfToken = async () => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_AUTH_API_URL}/csrf`);
+        return response.data.csrfToken;
+    } catch (error) {
+        console.error('getCsrfToken(): error:', error);
+        return null;
+    }
+};
