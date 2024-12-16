@@ -13,18 +13,16 @@ const lusca = require('lusca');
 const fs = require('fs');
 const path = require('path');
 
+/* module.exports.ssl = {
+  key: fs.readFileSync(path.resolve(__dirname, 'ssl/toDoServer.key')),
+  cert: fs.readFileSync(path.resolve(__dirname, 'ssl/toDoServer.crt')),
+} */
+
 module.exports.http = {
 
-  // Generate self-signed certificates:
-  // openssl req -nodes -new -x509 -keyout server.key -out server.cert
-
-  // Copy certificate to trusted certificates
-  // sudo cp ./ssl/server.cert /usr/local/share/ca-certificates/
-  serverOptions: {
-    key: fs.readFileSync(path.resolve(__dirname, 'ssl/server.key')),
-    cert: fs.readFileSync(path.resolve(__dirname, 'ssl/server.cert')),
-  },
-
+  /* protocol: 'https',
+  port: process.env.API_PORT,
+ */
   /****************************************************************************
   *                                                                           *
   * Sails/Express middleware to run for every HTTP request.                   *
@@ -49,7 +47,7 @@ module.exports.http = {
       'bodyParser',
       'compress',
       'poweredBy',
-      'redicrectToHTTPS',
+      'redirectToHTTPS',
       'xframe',
       'csp',
       'strictTransportSecurity',
@@ -60,9 +58,9 @@ module.exports.http = {
 
     // Middleware to redirect HTTP to HTTPS
     redirectToHTTPS: function (req, res, next) {
-      if (req.headers['x-forwarded-proto'] !== 'https') {
+      /* if (req.headers['x-forwarded-proto'] !== 'https') {
         return res.redirect(301, 'https://' + req.headers.host + req.url);
-      }
+      } */
       next();
     },
 
@@ -86,20 +84,5 @@ module.exports.http = {
 
     // https://sailsjs.com/documentation/concepts/security/strict-transport-security
     strictTransportSecurity: lusca.hsts({ maxAge: 31536000, includeSubDomains: true, preload: true }),
-
-    /***************************************************************************
-    *                                                                          *
-    * The body parser that will handle incoming multipart HTTP requests.       *
-    *                                                                          *
-    * https://sailsjs.com/config/http#?customizing-the-body-parser             *
-    *                                                                          *
-    ***************************************************************************/
-
-    // bodyParser: (function _configureBodyParser(){
-    //   var skipper = require('skipper');
-    //   var middlewareFn = skipper({ strict: true });
-    //   return middlewareFn;
-    // })(),
-
   },
 };
