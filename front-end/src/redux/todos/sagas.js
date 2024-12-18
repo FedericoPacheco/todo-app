@@ -26,7 +26,6 @@ function* addTodoSaga(action) {
 }
 
 function* deleteTodoSaga(action) {
-    console.log("sagas: deleteTodoSaga(): action:", action.payload);
     try {
         yield call(deleteTodo, action.payload.id);
         yield put(setApiSuccess());

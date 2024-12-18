@@ -40,7 +40,7 @@ function ToDoList() {
                 >Completadas</h2>
             </div>
             <ul className = "todos-box">
-                {apiStatus === API_LOADING && <li><p>Cargando...</p></li>}
+                {apiStatus === API_LOADING && <p>Cargando...</p>}
                 {apiStatus === API_ERROR && <li><p>Hubo un error :(</p></li>}
                 {(apiStatus === API_SUCCESS && pending === 0 && tab === PENDING) && <li><p>¡Crea un ToDo!</p></li>}
                 {(apiStatus === API_SUCCESS && completed === 0 && tab === COMPLETED) && <li><p>¡Completa tu primer ToDo!</p></li>}

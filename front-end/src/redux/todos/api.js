@@ -6,7 +6,7 @@ import axios from 'axios';
 export const getAllTodos = async () => {
     try {
         const response = await axios.get(process.env.REACT_APP_TODO_API_URL);
-        console.log(`getAllTodos(): successful:`, response.data);
+        console.debug(`getAllTodos(): successful`);
         const toDos = {};
         response.data.forEach(todo => {
             toDos[todo.id] = todo;
@@ -28,19 +28,19 @@ export const addTodo = async (todo) => {
             process.env.REACT_APP_TODO_API_URL, 
             todo,
         );
-        console.log(`addTodo(${Object.values(todo).join(", ")}): successful`);
+        console.debug(`addTodo(${Object.values(todo).join(", ")}): successful`);
     } catch (error) {
         console.error(`addTodo(${Object.values(todo).join(", ")}): error: ${error}`);
     }
 };
 
 export const deleteTodo = async (id) => {
-    console.log("api: deleteTodo(): id:", id);
+    console.debug("api: deleteTodo(): id:", id);
     try {
         await axios.delete(
             `${process.env.REACT_APP_TODO_API_URL}/${id}`,
         );
-        console.log(`deleteTodo(${id}): successful`);
+        console.debug(`deleteTodo(${id}): successful`);
     } catch (error) {
         console.error(`deleteTodo(${id}): error: ${error}`);
     }
@@ -52,7 +52,7 @@ export const changeStateTodo = async (id, newTodoState) => {
             `${process.env.REACT_APP_TODO_API_URL}/${id}`, 
             {state: newTodoState},
         );
-        console.log(`changeStateTodo(${id}, ${newTodoState}): successful`);
+        console.debug(`changeStateTodo(${id}, ${newTodoState}): successful`);
     } catch (error) {
         console.error(`changeStateTodo(${id}, ${newTodoState}): error: ${error}`);
     }

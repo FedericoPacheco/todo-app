@@ -4,13 +4,13 @@ import axios from 'axios';
 
 export const login = async (user, pass) => {
     try {
-        console.log(`login(${user}, ${pass})`);
+        console.debug(`login(${user}, ${pass})`);
         const response = await axios.post(
             `${process.env.REACT_APP_AUTH_API_URL}/login`, 
             {user, pass},
         );
         const wasSuccessful = response.status === 200;
-        console.log(`login(${user}, ${pass}): ${wasSuccessful? "successful" : "auth error"}`);
+        console.debug(`login(${user}, ${pass}): ${wasSuccessful? "successful" : "auth error"}`);
         return wasSuccessful;
     } catch (error) {
         console.error(`login(${user}, ${pass}): error: ${error}`);
@@ -20,11 +20,11 @@ export const login = async (user, pass) => {
 
 export const logout = async () => {
     try {
-        console.log("logout()");
+        console.debug("logout()");
         await axios.post(
             `${process.env.REACT_APP_AUTH_API_URL}/logout`,
         );
-        console.log("logout(): successful");
+        console.debug("logout(): successful");
     } catch (error) {
         console.error(`logout(): error: ${error}`);
     }
@@ -32,13 +32,13 @@ export const logout = async () => {
 
 export const signup = async (user, pass) => {
     try {
-        console.log(`signup(${user}, ${pass})`);
+        console.debug(`signup(${user}, ${pass})`);
         const response = await axios.post(
             `${process.env.REACT_APP_AUTH_API_URL}/signup`, 
             {user, pass},
         );
         const wasSuccessful = response.status === 200;
-        console.log(`login(${user}, ${pass}): ${wasSuccessful? "successful" : "auth error"}`);
+        console.debug(`login(${user}, ${pass}): ${wasSuccessful? "successful" : "auth error"}`);
         return wasSuccessful;       
     } catch (error) {
         console.error(`signup(${user}, ${pass}): error: ${error}`);
@@ -48,13 +48,13 @@ export const signup = async (user, pass) => {
 
 export const getSessionStatus = async () => {
     try {
-        console.log("getSessionStatus()");
+        console.debug("getSessionStatus()");
         //const response = await axios.get("http://localhost:1340/auth/status");
         const response = await axios.get(
             `${process.env.REACT_APP_AUTH_API_URL}/status`,
             //await getHeaders()
         );
-        console.log(`getSessionStatus(): ${response.data.isAuthenticated}`);
+        console.debug(`getSessionStatus(): ${response.data.isAuthenticated}`);
         return response.data.isAuthenticated;
     } catch (error) {
         console.error(`getSessionStatus(): error: ${error}`);

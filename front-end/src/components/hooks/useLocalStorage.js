@@ -15,10 +15,8 @@ export function useLocalStorage(itemKey, initialValue) {
           const storedItem = localStorage.getItem(itemKey);
           const parsedItem = storedItem? JSON.parse(storedItem) : initialValue;
           setItem(parsedItem);
-          console.log("storedItem", storedItem, "parsedItem", parsedItem);
         } catch (e) {
           setError(true);
-          console.log(e);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

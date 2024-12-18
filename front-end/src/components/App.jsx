@@ -18,7 +18,10 @@ const rootReducer = combineReducers({
   app: appReducer,
 });
 const sagaMiddleware = createSagaMiddleware();
-const composedWithDevTools = composeWithDevTools(applyMiddleware(sagaMiddleware)); 
+const composedWithDevTools = composeWithDevTools({
+  trace: true,
+  traceLimit: 25,
+})(applyMiddleware(sagaMiddleware));
 const store = createStore(
   rootReducer,
   composedWithDevTools

@@ -14,8 +14,11 @@ export function Todos() {
   const { isCreateToDoVisible } = useContext(ToDoContext);
   const todos = useSelector(state => state.todos.list);
 
-  console.log("todos:", todos);
-  
+  console.table(Object.values(todos).map(todo => ({id: todo.id, text: todo.text, state: todo.state})));
+  /* console.group("ToDos");
+  Object.values(todos).forEach(todo => console.debug(`id: ${todo.id}, text: ${todo.text}, state: ${todo.state}`));
+  console.groupEnd("ToDos"); */
+
   return (
     <div className = "todos-container">
       <ToDoCounter/>
