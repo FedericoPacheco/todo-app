@@ -1,0 +1,19 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "front-end/**/*.{js,mjs,cjs,jsx}": "eslint --config front-end/eslint.config.mjs --fix",
+    "back-end/**/*.js": "eslint --config back-end/eslint.config.mjs --fix"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "^8.0.0"
+  },
+  "keywords": [],
+  "author": "Federico P.",
+  "license": "ISC"
+}

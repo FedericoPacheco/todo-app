@@ -9,8 +9,6 @@
  * https://sailsjs.com/config/session
  */
 
-const RedisStore = require("connect-redis").default;
-
 module.exports.session = {
   // https://sailsjs.com/documentation/reference/configuration/sails-config-session#?production-config
   // https://sailsjs.com/documentation/concepts/sessions

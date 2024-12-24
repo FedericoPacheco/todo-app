@@ -21,8 +21,11 @@
     "sails-postgresql": "^5.0.1"
   },
   "devDependencies": {
-    "eslint": "^9.15.0",
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
     "eslint-config-google": "^0.14.0",
+    "globals": "^15.14.0",
+    "lint-staged": "^15.2.11",
     "nodemon": "^3.1.9"
   },
   "scripts": {

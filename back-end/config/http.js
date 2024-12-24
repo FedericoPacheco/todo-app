@@ -10,10 +10,12 @@
  */
 
 const lusca = require("lusca");
-const fs = require("fs");
-const path = require("path");
 
-/* module.exports.ssl = {
+/* 
+  const fs = require("fs");
+  const path = require("path");
+
+  module.exports.ssl = {
   key: fs.readFileSync(path.resolve(__dirname, 'ssl/toDoServer.key')),
   cert: fs.readFileSync(path.resolve(__dirname, 'ssl/toDoServer.crt')),
 } */
