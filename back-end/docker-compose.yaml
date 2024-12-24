@@ -20,12 +20,14 @@ services:
       - SESSION_PORT=6379
       - SESSION_PASS=todo-redis
       - SESSION_DB=0
-
     depends_on:
       - db
     networks:
       - todo-back-net
       - todo-net
+    volumes:
+      - .:/usr/todo-app
+      - /usr/todo-app/node_modules
 
   db:
     image: postgres:12.21
