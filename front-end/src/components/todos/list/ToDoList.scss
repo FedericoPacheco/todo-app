@@ -2,36 +2,35 @@
 @use "../../Mixins.scss" as *;
 
 .list-container {
-    h2 {
-        font-weight: bold;
-        font-size: $font-size;
-        color: rgba($font-color, 0.5);
-        width: $tab-width * 0.5;
-        margin-bottom: 0;
-        padding: 0.5rem 0;
-    }
-    
-    h2:hover {
-        color: $font-color;
-        cursor: pointer;
-    }
+  h2 {
+    font-weight: bold;
+    font-size: $font-size;
+    color: rgba($font-color, 0.5);
+    width: $tab-width * 0.5;
+    margin-bottom: 0;
+    padding: 0.5rem 0;
+  }
 
-    .highlighted-tab {
-        background-color: $modal-and-tab-color;
-        color: $font-color;
-    }
+  h2:hover {
+    color: $font-color;
+    cursor: pointer;
+  }
 
-    .tabs {
-        @include flex-center(row);
-        width: $tab-width;
-    }
+  .highlighted-tab {
+    background-color: $modal-and-tab-color;
+    color: $font-color;
+  }
 
-    .todos-box {
-        @include flex-center(column);
-        background-color: $modal-and-tab-color;
-        max-width: $tab-width;
-        margin: 0 auto;
-        padding: 1rem;
-    }
+  .tabs {
+    @include flex-center(row);
+    width: $tab-width;
+  }
+
+  .todos-box {
+    @include flex-center(column);
+    background-color: $modal-and-tab-color;
+    max-width: $tab-width;
+    margin: 0 auto;
+    padding: 1rem;
+  }
 }
-

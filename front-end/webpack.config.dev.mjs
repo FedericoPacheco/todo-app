@@ -1,65 +1,63 @@
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import Dotenv from 'dotenv-webpack';
-import { fileURLToPath } from 'url';
+import path from "path";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import Dotenv from "dotenv-webpack";
+import { fileURLToPath } from "url";
 //import { ProvidePlugin } from 'webpack';
 
 export default {
-  entry: './src/index.js',
+  entry: "./src/index.js",
   output: {
     //path: path.resolve(path.dirname(new URL(import.meta.url).path), 'dist'),
-    path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'dist'),
-    filename: '[name].[contenthash].js'
+    path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), "dist"),
+    filename: "[name].[contenthash].js",
   },
-  mode: 'development', 
+  mode: "development",
   resolve: {
-    extensions: ['.js', '.jsx']
-  }, 
+    extensions: [".js", ".jsx"],
+  },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
             // https://stackoverflow.com/questions/57935343/the-babel-preset-babel-preset-react-doesnt-like-my-javascript-function-that-re
             // https://stackoverflow.com/questions/75808199/why-might-babel-preset-react-automatic-transform-not-succeed-in-conjunction-wit
             presets: [
               "@babel/preset-env",
-              ["@babel/preset-react", { runtime: "automatic" }]
+              ["@babel/preset-react", { runtime: "automatic" }],
             ],
             plugins: [
               "@babel/plugin-transform-runtime",
-              //"@babel/plugin-transform-react-jsx"    
+              //"@babel/plugin-transform-react-jsx"
             ],
-          }
-        }
+          },
+        },
       },
       {
         test: /\.s?css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
       {
         test: /\.html$/,
-        use: [
-          { loader: 'html-loader' }
-        ]
-      }
-    ]
+        use: [{ loader: "html-loader" }],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: './public/index.html',
-      filename: './index.html'
+      template: "./public/index.html",
+      filename: "./index.html",
     }),
     new MiniCssExtractPlugin({
-      filename: 'assets/[name].[contenthash].css',
+      filename: "assets/[name].[contenthash].css",
     }),
     new Dotenv(),
-  /*   new ProvidePlugin({
+    /*   new ProvidePlugin({
       React: 'react',
     }) */
   ],
@@ -73,11 +71,11 @@ export default {
     historyApiFallback: true,
     port: 3000,
     watchFiles: {
-      paths: ['src/**/*'],
+      paths: ["src/**/*"],
       options: {
         usePolling: true,
         ignored: /node_modules/,
       },
-    },       
-  }
+    },
+  },
 };

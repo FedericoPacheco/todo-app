@@ -65,7 +65,7 @@ services:
     networks:
       - todo-back-net
       - todo-net
-    
+
   redisinsight:
     image: redis/redisinsight:2.60
     container_name: todo-redisinsight
@@ -73,7 +73,7 @@ services:
       - "5540:5540"
     networks:
       - todo-back-net
-  
+
 volumes:
   postgres-data:
 

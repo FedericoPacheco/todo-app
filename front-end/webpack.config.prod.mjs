@@ -1,69 +1,62 @@
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'; 
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import TerserPlugin from 'terser-webpack-plugin';
-import Dotenv from 'dotenv-webpack';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import { fileURLToPath } from 'url';
+import path from "path";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import TerserPlugin from "terser-webpack-plugin";
+import Dotenv from "dotenv-webpack";
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import { fileURLToPath } from "url";
 
 export default {
-  entry: './src/index.js',
+  entry: "./src/index.js",
   output: {
-    path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'dist'),
-    filename: '[name].[contenthash].js'
+    path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), "dist"),
+    filename: "[name].[contenthash].js",
   },
-  mode: 'production',
+  mode: "production",
   resolve: {
-    extensions: ['.js', '.jsx']
-  }, 
+    extensions: [".js", ".jsx"],
+  },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
             presets: [
               "@babel/preset-env",
-              ["@babel/preset-react", { runtime: "automatic" }]
+              ["@babel/preset-react", { runtime: "automatic" }],
             ],
-            plugins: [
-              "@babel/plugin-transform-runtime",
-            ],
-          }
-        }
+            plugins: ["@babel/plugin-transform-runtime"],
+          },
+        },
       },
       {
         test: /\.s?css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
       {
         test: /\.html$/,
-        use: [
-          { loader: 'html-loader' }
-        ]
-      }
-    ]
+        use: [{ loader: "html-loader" }],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: './public/index.html',
-      filename: './index.html'
+      template: "./public/index.html",
+      filename: "./index.html",
     }),
     new MiniCssExtractPlugin({
-      filename: 'assets/[name].[contenthash].css',
+      filename: "assets/[name].[contenthash].css",
     }),
     new Dotenv(),
     new CleanWebpackPlugin(),
   ],
   optimization: {
     minimize: true,
-    minimizer: [
-      new CssMinimizerPlugin(),
-      new TerserPlugin()
-    ]
-  }
+    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
+  },
 };

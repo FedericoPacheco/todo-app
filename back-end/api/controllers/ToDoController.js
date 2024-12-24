@@ -10,7 +10,11 @@ module.exports = {
     try {
       const { text, state } = req.body;
       const { userId } = req.session;
-      const newToDo = await ToDo.create({ text: text, state: state, owner: userId }).fetch();
+      const newToDo = await ToDo.create({
+        text: text,
+        state: state,
+        owner: userId,
+      }).fetch();
       return res.json(newToDo);
     } catch (error) {
       return res.serverError(error);
@@ -21,7 +25,11 @@ module.exports = {
       const { id } = req.params;
       const { text, state } = req.body;
       const { userId } = req.session;
-      const updatedToDo = await ToDo.updateOne({ id: id }).set({ text: text, state: state, owner: userId });
+      const updatedToDo = await ToDo.updateOne({ id: id }).set({
+        text: text,
+        state: state,
+        owner: userId,
+      });
       return res.json(updatedToDo);
     } catch (error) {
       return res.serverError(error);
@@ -58,11 +66,12 @@ module.exports = {
     try {
       const { id } = req.params;
       const { state } = req.body;
-      const updatedToDo = await ToDo.updateOne({ id: id }).set({ state: state });
+      const updatedToDo = await ToDo.updateOne({ id: id }).set({
+        state: state,
+      });
       return res.json(updatedToDo);
     } catch (error) {
       return res.serverError(error);
     }
-  }
+  },
 };
-

@@ -6,25 +6,23 @@
  */
 
 module.exports = {
-
   attributes: {
     id: {
-      type: 'number',
+      type: "number",
       autoIncrement: true,
       unique: true,
     },
     text: {
-      type: 'string',
+      type: "string",
       required: true,
     },
     state: {
-      type: 'string',
-      isIn: ['PENDING', 'COMPLETED'],
+      type: "string",
+      isIn: ["PENDING", "COMPLETED"],
       required: true,
     },
     owner: {
-      model: 'user',
+      model: "user",
     },
   },
 };
-
