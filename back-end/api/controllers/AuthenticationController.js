@@ -45,7 +45,7 @@ module.exports = {
         }
     },
     csrfToken: function (req, res) {
-    return res.json({ csrfToken: req.csrfToken() });
+        return res.json({ csrfToken: req.csrfToken() });
     },
 };
 
