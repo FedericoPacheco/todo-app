@@ -6,14 +6,27 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "front-end/**/*.{js,mjs,cjs,jsx}": "eslint --config front-end/eslint.config.mjs --fix",
-    "back-end/**/*.js": "eslint --config back-end/eslint.config.mjs --fix"
+    "front-end/src/**/*.{js,mjs,jsx}": [
+      "eslint --config front-end/eslint.config.mjs --fix",
+      "prettier --write"
+    ],
+    "back-end/**/*.js": [
+      "eslint --config back-end/eslint.config.mjs --fix",
+      "prettier --write"
+    ]
   },
-  "dependencies": {},
   "devDependencies": {
-    "husky": "^8.0.0"
+    "@eslint/js": "^8.48.0",
+    "eslint": "^8.48.0",
+    "eslint-plugin-react": "^7.33.2",
+    "globals": "^13.20.0",
+    "husky": "^8.0.0",
+    "prettier": "^3.0.0"
   },
   "keywords": [],
   "author": "Federico P.",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "eslint-webpack-plugin": "^4.2.0"
+  }
 }

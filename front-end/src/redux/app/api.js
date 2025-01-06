@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import axios from "axios";
 
 //const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -7,11 +8,11 @@ export const login = async (user, pass) => {
     console.debug(`login(${user}, ${pass})`);
     const response = await axios.post(
       `${process.env.REACT_APP_AUTH_API_URL}/login`,
-      { user, pass },
+      { user, pass }
     );
     const wasSuccessful = response.status === 200;
     console.debug(
-      `login(${user}, ${pass}): ${wasSuccessful ? "successful" : "auth error"}`,
+      `login(${user}, ${pass}): ${wasSuccessful ? "successful" : "auth error"}`
     );
     return wasSuccessful;
   } catch (error) {
@@ -35,11 +36,11 @@ export const signup = async (user, pass) => {
     console.debug(`signup(${user}, ${pass})`);
     const response = await axios.post(
       `${process.env.REACT_APP_AUTH_API_URL}/signup`,
-      { user, pass },
+      { user, pass }
     );
     const wasSuccessful = response.status === 200;
     console.debug(
-      `login(${user}, ${pass}): ${wasSuccessful ? "successful" : "auth error"}`,
+      `login(${user}, ${pass}): ${wasSuccessful ? "successful" : "auth error"}`
     );
     return wasSuccessful;
   } catch (error) {
@@ -53,7 +54,7 @@ export const getSessionStatus = async () => {
     console.debug("getSessionStatus()");
     //const response = await axios.get("http://localhost:1340/auth/status");
     const response = await axios.get(
-      `${process.env.REACT_APP_AUTH_API_URL}/status`,
+      `${process.env.REACT_APP_AUTH_API_URL}/status`
       //await getHeaders()
     );
     console.debug(`getSessionStatus(): ${response.data.isAuthenticated}`);
@@ -67,7 +68,7 @@ export const getSessionStatus = async () => {
 export const getCsrfToken = async () => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_AUTH_API_URL}/csrf`,
+      `${process.env.REACT_APP_AUTH_API_URL}/csrf`
     );
     return response.data.csrfToken;
   } catch (error) {

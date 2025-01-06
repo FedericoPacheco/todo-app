@@ -1,9 +1,10 @@
-import { PENDING, COMPLETED } from "../../../redux/todos/constants";
+import { PENDING } from "../../../redux/todos/constants";
+import PropTypes from "prop-types";
 import "./ToDoItem.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faClock, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-function ToDoItem({ text, tab, onStateChange, onDelete }) {
+export function ToDoItem({ text, tab, onStateChange, onDelete }) {
   return (
     <div className="todo-item-container">
       <li>
@@ -23,4 +24,9 @@ function ToDoItem({ text, tab, onStateChange, onDelete }) {
   );
 }
 
-export { ToDoItem };
+ToDoItem.propTypes = {
+  text: PropTypes.string.isRequired,
+  tab: PropTypes.string.isRequired,
+  onStateChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};

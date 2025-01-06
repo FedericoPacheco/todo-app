@@ -14,7 +14,6 @@ function ToDoCounter() {
       )}
       {total > 0 && (
         <h1>
-          {" "}
           Has completado <span>{completed}</span> de <span>{total}</span> ToDos
         </h1>
       )}

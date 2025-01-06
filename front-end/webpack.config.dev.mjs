@@ -2,6 +2,7 @@ import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import Dotenv from "dotenv-webpack";
+import ESLintPlugin from "eslint-webpack-plugin";
 import { fileURLToPath } from "url";
 //import { ProvidePlugin } from 'webpack';
 
@@ -57,6 +58,13 @@ export default {
       filename: "assets/[name].[contenthash].css",
     }),
     new Dotenv(),
+    new ESLintPlugin({
+      overrideConfigFile: path.resolve(
+        path.dirname(fileURLToPath(import.meta.url)),
+        "eslint.config.mjs"
+      ),
+      configType: "flat",
+    }),
     /*   new ProvidePlugin({
       React: 'react',
     }) */

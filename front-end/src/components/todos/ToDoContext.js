@@ -12,6 +12,7 @@ export const ToDoContext = createContext();
 
 const DEFAULT_TAB = PENDING;
 
+// eslint-disable-next-line react/prop-types
 export function ToDoContextProvider({ children }) {
   const dispatch = useDispatch();
 
@@ -46,7 +47,7 @@ export function ToDoContextProvider({ children }) {
       addTodo({
         text: description,
         state: tab,
-      }),
+      })
     );
     setIsCreateToDoVisible(false);
   };
@@ -70,7 +71,6 @@ export function ToDoContextProvider({ children }) {
         onCreate,
       }}
     >
-      {" "}
       {children}
     </ToDoContext.Provider>
   );
