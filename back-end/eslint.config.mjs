@@ -1,12 +1,18 @@
+import js from "@eslint/js";
 import globals from "globals";
 import pluginJs from "@eslint/js";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
-    files: ["**/*.js"],
-    languageOptions: { sourceType: "commonjs" },
+    files: ["back-end/**/*.js"],
+    ...js.configs.recommended,
   },
+  {
+    ignores: ["front-end/**/*"],
+  },
+  { languageOptions: { sourceType: "module" } },
+  // { languageOptions: { sourceType: "commonjs" } },
   // { languageOptions: { globals: globals.browser } },
   {
     languageOptions: {
