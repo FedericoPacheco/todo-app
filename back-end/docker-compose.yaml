@@ -10,7 +10,7 @@ services:
       - "1340:1337"
       - "9229:9229"
     environment:
-      - API_PORT=1340
+      - API_PORT=1337
       - DATABASE_HOST=db
       - DATABASE_USER=postgres
       - DATABASE_PASSWORD=postgres

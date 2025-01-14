@@ -59,4 +59,5 @@ try {
 } //-•
 
 // Start server
+// if (process.env.NODE_ENV !== "test") sails.lift(rc("sails"));
 sails.lift(rc("sails"));

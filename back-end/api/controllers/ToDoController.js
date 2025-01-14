@@ -5,11 +5,16 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+const isValidState = (state) => state === "PENDING" || state === "COMPLETED";
+
 module.exports = {
   create: async function (req, res) {
     try {
       const { text, state } = req.body;
       const { userId } = req.session;
+
+      if (!text || !state) return res.badRequest("Missing data");
+
       const newToDo = await ToDo.create({
         text: text,
         state: state,
@@ -25,12 +30,17 @@ module.exports = {
       const { id } = req.params;
       const { text, state } = req.body;
       const { userId } = req.session;
+
+      if (!id) return res.badRequest("Id is required");
+      if (!text || !state) return res.badRequest("Missing data");
+
       const updatedToDo = await ToDo.updateOne({ id: id }).set({
         text: text,
         state: state,
         owner: userId,
       });
-      return res.json(updatedToDo);
+      if (updatedToDo) return res.json(updatedToDo);
+      else return res.notFound();
     } catch (error) {
       return res.serverError(error);
     }
@@ -38,8 +48,10 @@ module.exports = {
   delete: async function (req, res) {
     try {
       const { id } = req.params;
+      if (!id) return res.badRequest("Id is required");
       const deletedToDo = await ToDo.destroyOne({ id: id });
-      return res.json(deletedToDo);
+      if (deletedToDo) return res.json(deletedToDo);
+      else return res.notFound();
     } catch (error) {
       return res.serverError(error);
     }
@@ -57,7 +69,8 @@ module.exports = {
     try {
       const { id } = req.params;
       const toDo = await ToDo.findOne({ id: id });
-      return res.json(toDo);
+      if (toDo) return res.json(toDo);
+      else return res.notFound();
     } catch (error) {
       return res.serverError(error);
     }
@@ -66,10 +79,18 @@ module.exports = {
     try {
       const { id } = req.params;
       const { state } = req.body;
+
+      if (!id) return res.badRequest("Id is required");
+      if (!state) return res.badRequest("New state is required");
+
+      if (!isValidState(state)) return res.badRequest("Invalid state");
+
       const updatedToDo = await ToDo.updateOne({ id: id }).set({
         state: state,
       });
-      return res.json(updatedToDo);
+
+      if (updatedToDo) return res.json(updatedToDo);
+      else return res.notFound();
     } catch (error) {
       return res.serverError(error);
     }
