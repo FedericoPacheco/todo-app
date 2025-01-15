@@ -1,27 +1,48 @@
 const chai = require("chai");
 const sinon = require("sinon");
-const { test, suite, teardown } = require("mocha");
-const supertest = require("supertest");
-const ToDoController = require("../../api/controllers/ToDoController");
+const {
+  test,
+  suite,
+  setup,
+  suiteSetup,
+  teardown,
+  suiteTeardown,
+} = require("mocha");
+const ToDoController = require("../../../api/controllers/ToDoController");
+const {
+  createAuthenticatedUserAgent,
+  logout,
+  setCsrfToken,
+} = require("../../utils");
 
 // Documentation:
 // https://sailsjs.com/documentation/reference/waterline-orm/models
 // https://sinonjs.org/releases/v19/stubs/
 
 suite("ToDoController", function () {
-  //const agent = supertest.agent(sails.hooks.http.app); // Doesn't work: sails.hooks returns undefined
-  const url = `http://localhost:${process.env.API_PORT || 1340}/`;
-  const agent = supertest.agent(url);
+  let agent;
+  let toDo;
 
-  const toDo = {
-    id: 1,
-    text: "Test ToDo",
-    state: "PENDING",
-    owner: 1,
-  };
+  suiteSetup(async function () {
+    agent = await createAuthenticatedUserAgent();
+    toDo = {
+      id: 1,
+      text: "Test ToDo",
+      state: "PENDING",
+      owner: 1,
+    };
+  });
+
+  suiteTeardown(async function () {
+    await logout(agent);
+  });
 
   suite("create", function () {
     const createStub = sinon.stub(ToDoController, "create");
+
+    setup(async function () {
+      await setCsrfToken(agent);
+    });
 
     teardown(function () {
       sinon.restore();
@@ -62,6 +83,10 @@ suite("ToDoController", function () {
   suite("delete", function () {
     const deleteStub = sinon.stub(ToDoController, "delete");
 
+    setup(async function () {
+      await setCsrfToken(agent);
+    });
+
     teardown(function () {
       sinon.restore();
     });
@@ -94,6 +119,10 @@ suite("ToDoController", function () {
   suite("findAll", function () {
     const findAllStub = sinon.stub(ToDoController, "findAll");
 
+    setup(async function () {
+      await setCsrfToken(agent);
+    });
+
     teardown(function () {
       sinon.restore();
     });
@@ -119,6 +148,10 @@ suite("ToDoController", function () {
 
   suite("findOne", function () {
     const findOneStub = sinon.stub(ToDoController, "findOne");
+
+    setup(async function () {
+      await setCsrfToken(agent);
+    });
 
     teardown(function () {
       sinon.restore();
@@ -147,6 +180,10 @@ suite("ToDoController", function () {
 
   suite("changeState", function () {
     const changeStateStub = sinon.stub(ToDoController, "changeState");
+
+    setup(async function () {
+      await setCsrfToken(agent);
+    });
 
     teardown(function () {
       sinon.restore();
