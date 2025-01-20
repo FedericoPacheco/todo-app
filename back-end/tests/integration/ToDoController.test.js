@@ -8,12 +8,12 @@ const {
   teardown,
   suiteTeardown,
 } = require("mocha");
-const ToDoController = require("../../../api/controllers/ToDoController");
+const ToDoController = require("../../api/controllers/ToDoController");
 const {
   createAuthenticatedUserAgent,
   logout,
   setCsrfToken,
-} = require("../../utils");
+} = require("../utils");
 
 // Documentation:
 // https://sailsjs.com/documentation/reference/waterline-orm/models

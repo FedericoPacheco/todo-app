@@ -5,7 +5,8 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-const isValidState = (state) => state === "PENDING" || state === "COMPLETED";
+const ToDoService = require("../services/ToDoService");
+const ErrorTypes = require("../services/ErrorTypes");
 
 module.exports = {
   create: async function (req, res) {
@@ -13,86 +14,86 @@ module.exports = {
       const { text, state } = req.body;
       const { userId } = req.session;
 
-      if (!text || !state) return res.badRequest("Missing data");
+      if (!text || !state) return res.badRequest("Text and state are required");
 
-      const newToDo = await ToDo.create({
-        text: text,
-        state: state,
-        owner: userId,
-      }).fetch();
+      const newToDo = ToDoService.create(text, state, userId);
       return res.json(newToDo);
     } catch (error) {
       return res.serverError(error);
     }
   },
   update: async function (req, res) {
+    const { id } = req.params;
+    const { text, state } = req.body;
+    const { userId } = req.session;
+
+    if (!id) return res.badRequest("Id is required");
+    if (!text || !state) return res.badRequest("Text and state are required");
+
     try {
-      const { id } = req.params;
-      const { text, state } = req.body;
-      const { userId } = req.session;
-
-      if (!id) return res.badRequest("Id is required");
-      if (!text || !state) return res.badRequest("Missing data");
-
-      const updatedToDo = await ToDo.updateOne({ id: id }).set({
-        text: text,
-        state: state,
-        owner: userId,
-      });
-      if (updatedToDo) return res.json(updatedToDo);
-      else return res.notFound();
+      const updatedToDo = await ToDoService.update(id, text, state, userId);
+      return res.json(updatedToDo);
     } catch (error) {
-      return res.serverError(error);
+      handleErrors(error, res);
     }
   },
   delete: async function (req, res) {
+    const { id } = req.params;
+
+    if (!id) return res.badRequest("Id is required");
+
     try {
-      const { id } = req.params;
-      if (!id) return res.badRequest("Id is required");
-      const deletedToDo = await ToDo.destroyOne({ id: id });
-      if (deletedToDo) return res.json(deletedToDo);
-      else return res.notFound();
+      const deletedToDo = await ToDoService.delete(id);
+      return res.json(deletedToDo);
     } catch (error) {
-      return res.serverError(error);
+      handleErrors(error, res);
     }
   },
   findAll: async function (req, res) {
+    const { userId } = req.session;
+
     try {
-      const { userId } = req.session;
-      const allToDos = await ToDo.find({ owner: userId });
+      const allToDos = await ToDoService.findAll(userId);
       return res.json(allToDos);
     } catch (error) {
-      return res.serverError(error);
+      handleErrors(error, res);
     }
   },
   findOne: async function (req, res) {
+    const { id } = req.params;
+
     try {
-      const { id } = req.params;
-      const toDo = await ToDo.findOne({ id: id });
-      if (toDo) return res.json(toDo);
-      else return res.notFound();
+      const toDo = await ToDoService.findById(id);
+      return res.json(toDo);
     } catch (error) {
-      return res.serverError(error);
+      handleErrors(error, res);
     }
   },
   changeState: async function (req, res) {
+    const { id } = req.params;
+    const { state } = req.body;
+
+    if (!id) return res.badRequest("Id is required");
+    if (!state) return res.badRequest("New state is required");
+
     try {
-      const { id } = req.params;
-      const { state } = req.body;
-
-      if (!id) return res.badRequest("Id is required");
-      if (!state) return res.badRequest("New state is required");
-
-      if (!isValidState(state)) return res.badRequest("Invalid state");
-
-      const updatedToDo = await ToDo.updateOne({ id: id }).set({
-        state: state,
-      });
-
-      if (updatedToDo) return res.json(updatedToDo);
-      else return res.notFound();
+      const updatedToDo = await ToDoService.changeState(id, state);
+      return res.json(updatedToDo);
     } catch (error) {
-      return res.serverError(error);
+      handleErrors(error, res);
     }
   },
+};
+
+const handleErrors = (error, res) => {
+  switch (error) {
+    case ErrorTypes.DB_ERROR:
+      return res.serverError(error);
+    case ErrorTypes.INVALID_INPUT:
+      return res.badRequest(error);
+    case ErrorTypes.ENTITY_NOT_FOUND:
+      return res.notFound(error);
+    default:
+      return res.serverError(error);
+  }
 };
