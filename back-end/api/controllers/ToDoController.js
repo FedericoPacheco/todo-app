@@ -39,11 +39,12 @@ module.exports = {
   },
   delete: async function (req, res) {
     const { id } = req.params;
+    const { userId } = req.session;
 
     if (!id) return res.badRequest("Id is required");
 
     try {
-      const deletedToDo = await ToDoService.delete(id);
+      const deletedToDo = await ToDoService.deleteById(id, userId);
       return res.json(deletedToDo);
     } catch (error) {
       handleErrors(error, res);

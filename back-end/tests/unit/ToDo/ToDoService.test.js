@@ -1,8 +1,17 @@
 const chai = require("chai");
 const sinon = require("sinon");
-const { test, suite, suiteSetup, teardown } = require("mocha");
+const {
+  test,
+  suite,
+  suiteSetup,
+  teardown,
+  suiteTeardown,
+  run,
+} = require("mocha");
 const ToDoService = require("../../../api/services/ToDoService");
+const ErrorTypes = require("../../../api/services/ErrorTypes");
 
+const sails = require("sails");
 // Run: npx mocha ./back-end/tests/unit/ToDo/ToDoService.test
 
 /* Hacky solution:
@@ -15,14 +24,14 @@ const ToDoService = require("../../../api/services/ToDoService");
     ToDoService = sails.services.todoservice;
   Besides that, lifting it shouldn't be necessary for unit tests.
 */
-const ToDo = {
-  ...require("../../../api/models/ToDo"),
-  create: () => {},
-  find: () => {},
-  findOne: () => {},
-  destroyOne: () => {},
-  updateOne: () => {},
-};
+// const ToDo = {
+//   ...require("../../../api/models/ToDo"),
+//   create: () => {},
+//   find: () => {},
+//   findOne: () => {},
+//   destroyOne: () => {},
+//   updateOne: () => {},
+// };
 
 // Documentation:
 // https://sailsjs.com/documentation/reference/waterline-orm/models
@@ -31,10 +40,14 @@ const ToDo = {
 suite("ToDoService", function () {
   let toDoStub;
 
-  console.log("Model:", ToDo);
-  console.log("Service:", ToDoService);
+  // console.log("Model:", ToDo);
+  // console.log("Service:", ToDoService);
 
   suiteSetup(async function () {
+    console.log("ToDoService suiteSetup()");
+
+    // await sails.lift();
+
     toDoStub = {
       id: 1,
       text: "Test ToDo",
@@ -43,7 +56,14 @@ suite("ToDoService", function () {
     };
   });
 
+  suiteTeardown(async function () {
+    console.log("ToDoService suiteTeardown()");
+    // await sails.lower();
+  });
+
   suite("create", function () {
+    console.log("toDoStub:", toDoStub);
+
     const createStub = sinon.stub(ToDo, "create");
 
     teardown(function () {
@@ -66,8 +86,10 @@ suite("ToDoService", function () {
       createStub.returns({
         fetch: sinon.stub().rejects(new Error("AdpaterError")),
       });
-      const createdToDo = await ToDoService.create();
-      chai.assert.isUndefined(createdToDo);
+      chai.assert.throws(
+        async () => await ToDoService.create(),
+        ErrorTypes.DB_ERROR
+      );
     });
   });
 
@@ -82,14 +104,19 @@ suite("ToDoService", function () {
     test("successfully", async function () {
       findByIdStub.resolves(toDoStub);
       deleteStub.resolves(toDoStub);
-      const deletedToDo = await ToDoService.delete(toDoStub.id, toDoStub.owner);
+      const deletedToDo = await ToDoService.deleteById(
+        toDoStub.id,
+        toDoStub.owner
+      );
       chai.assert.deepStrictEqual(toDoStub, deletedToDo);
     });
 
     test("with DB error", async function () {
       deleteStub.rejects(new Error("AdapterError"));
-      const deletedToDo = await ToDoService.delete(toDoStub.id, toDoStub.owner);
-      chai.assert.isUndefined(deletedToDo);
+      chai.assert.throws(
+        async () => await ToDoService.deleteById(),
+        ErrorTypes.DB_ERROR
+      );
     });
   });
 
@@ -109,8 +136,10 @@ suite("ToDoService", function () {
 
     test("with DB error", async function () {
       findStub.rejects(new Error("AdapterError"));
-      const allToDos = await ToDoService.findAll(toDoStub.owner);
-      chai.assert.isUndefined(allToDos);
+      chai.assert.throws(
+        async () => await ToDoService.findAll(),
+        ErrorTypes.DB_ERROR
+      );
     });
 
     test("not found", async function () {
@@ -135,24 +164,28 @@ suite("ToDoService", function () {
 
     test("not found", async function () {
       findOneStub.resolves(undefined);
-      const foundToDo = await ToDoService.findById(toDoStub.id, toDoStub.owner);
-      chai.assert.isUndefined(foundToDo);
+      chai.assert.throws(
+        async () => await ToDoService.findById(toDoStub.id, toDoStub.owner),
+        ErrorTypes.ENTITY_NOT_FOUND
+      );
     });
 
     test("with different owner", async function () {
       const toDoWithDifferentOwner = { ...toDoStub, owner: toDoStub.owner + 1 };
       findOneStub.resolves(toDoWithDifferentOwner);
-      const foundToDo = await ToDoService.findById(
-        toDoStub.id,
-        toDoWithDifferentOwner.owner
+      chai.assert.throws(
+        async () =>
+          await ToDoService.findById(toDoStub.id, toDoWithDifferentOwner.owner),
+        ErrorTypes.INVALID_INPUT
       );
-      chai.assert.isUndefined(foundToDo);
     });
 
     test("with DB error", async function () {
       findOneStub.rejects(new Error("AdapterError"));
-      const foundToDo = await ToDoService.findById(toDoStub.id, toDoStub.owner);
-      chai.assert.isUndefined(foundToDo);
+      chai.assert.throws(
+        async () => await ToDoService.findById(toDoStub.id, toDoStub.owner),
+        ErrorTypes.DB_ERROR
+      );
     });
   });
 
@@ -174,26 +207,26 @@ suite("ToDoService", function () {
     });
 
     test("with incorrect state", async function () {
-      const updatedToDo = await ToDoService.changeState(toDoStub.id, "INVALID");
-      chai.assert.isUndefined(updatedToDo);
+      chai.assert.throws(
+        async () => await ToDoService.changeState(toDoStub.id, "INVALID"),
+        ErrorTypes.INVALID_INPUT
+      );
     });
 
     test("not found", async function () {
       updateOneStub.resolves(undefined);
-      const updatedToDo = await ToDoService.changeState(
-        toDoStub.id,
-        "COMPLETED"
+      chai.assert.throws(
+        async () => await ToDoService.changeState(toDoStub.id, "COMPLETED"),
+        ErrorTypes.ENTITY_NOT_FOUND
       );
-      chai.assert.isUndefined(updatedToDo);
     });
 
     test("with DB error", async function () {
       updateOneStub.rejects(new Error("AdapterError"));
-      const updatedToDo = await ToDoService.changeState(
-        toDoStub.id,
-        "COMPLETED"
+      chai.assert.throws(
+        async () => await ToDoService.changeState(toDoStub.id, "COMPLETED"),
+        ErrorTypes.DB_ERROR
       );
-      chai.assert.isUndefined(updatedToDo);
     });
   });
 });

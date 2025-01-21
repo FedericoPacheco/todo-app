@@ -35,7 +35,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=development nodemon --inspect=0.0.0.0:9229 app.js",
-    "test": "NODE_ENV=test mocha --require ./tests/hooks.js \"./tests/**/*.test.js\""
+    "test": "NODE_ENV=test mocha --timeout 10000 --ui tdd --delay --require ./tests/bootstrap.test.js \"./tests/**/*.test.js\""
   },
   "main": "app.js",
   "repository": {
