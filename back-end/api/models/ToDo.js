@@ -25,4 +25,7 @@ module.exports = {
       model: "user",
     },
   },
+  sayHi: function () {
+    console.log("Hi there! I'm a ToDo model.");
+  },
 };

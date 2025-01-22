@@ -23,6 +23,7 @@
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "chai": "4.5",
+    "chai-as-promised": "^7.1.2",
     "eslint": "^9.17.0",
     "eslint-config-google": "^0.14.0",
     "faker": "^5.5.3",
@@ -35,7 +36,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=development nodemon --inspect=0.0.0.0:9229 app.js",
-    "test": "NODE_ENV=test mocha --timeout 10000 --ui tdd --delay --require ./tests/bootstrap.test.js \"./tests/**/*.test.js\""
+    "test": "NODE_ENV=test mocha --timeout 10000 --ui tdd --require ./tests/bootstrap.test.js \"./tests/**/*.test.js\""
   },
   "main": "app.js",
   "repository": {

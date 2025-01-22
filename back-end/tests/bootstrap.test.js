@@ -6,12 +6,13 @@ const { run } = require("mocha");
 // https://mochajs.org/#root-hook-plugins
 // https://testrigor.com/sails-js-testing/#mocha
 
+// https://www.youtube.com/watch?v=i4aYlf292aE&list=LL&index=2
 // https://stackoverflow.com/questions/39739144/mocha-before-doesnt-execute-before-as-expected
 
 // Doesn't work (see similar (if not the same) issue here: https://github.com/mochajs/mocha/issues/5006)
 // On the other side it isn't necessary. It's enough to lift the service with: docker compose up --build  and from host's terminal do: npm test
 exports.mochaHooks = {
-  beforeAll(done) {
+  /*   beforeAll(done) {
     // this.timeout(5000);
     console.log("Starting Sails...");
     sails.lift(
@@ -35,5 +36,5 @@ exports.mochaHooks = {
   afterAll(done) {
     console.log("Stopping Sails...");
     sails.lower(done);
-  },
+  }, */
 };

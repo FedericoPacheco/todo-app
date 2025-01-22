@@ -1,17 +1,9 @@
-const chai = require("chai");
+const chaiAsPromised = require("chai-as-promised");
+const chai = require("chai").use(chaiAsPromised);
 const sinon = require("sinon");
-const {
-  test,
-  suite,
-  suiteSetup,
-  teardown,
-  suiteTeardown,
-  run,
-} = require("mocha");
-const ToDoService = require("../../../api/services/ToDoService");
-const ErrorTypes = require("../../../api/services/ErrorTypes");
+const { test, suite, suiteSetup, teardown, suiteTeardown } = require("mocha");
 
-const sails = require("sails");
+// const sails = require("sails");
 // Run: npx mocha ./back-end/tests/unit/ToDo/ToDoService.test
 
 /* Hacky solution:
@@ -37,41 +29,51 @@ const sails = require("sails");
 // https://sailsjs.com/documentation/reference/waterline-orm/models
 // https://sinonjs.org/releases/v19/stubs/
 
+// https://www.chaijs.com/plugins/chai-promised/
+// https://www.npmjs.com/package/chai-as-promised
+
 suite("ToDoService", function () {
-  let toDoStub;
+  const ToDoModelStub = {
+    ...require("../../../api/models/ToDo"),
+    create: sinon.stub(),
+    updateOne: sinon.stub(),
+    destroyOne: sinon.stub(),
+    find: sinon.stub(),
+    findOne: sinon.stub(),
+  };
+  const ToDoService = require("../../../api/services/ToDoService")(
+    ToDoModelStub
+  );
+  const ErrorTypes = require("../../../api/services/ErrorTypes");
 
-  // console.log("Model:", ToDo);
-  // console.log("Service:", ToDoService);
+  const toDoStub = {
+    id: 1,
+    text: "Test ToDo",
+    state: "PENDING",
+    owner: 1,
+  };
 
-  suiteSetup(async function () {
-    console.log("ToDoService suiteSetup()");
+  // console.log("ToDoModelStub:", ToDoModelStub);
+  // console.log("ToDoService:", ToDoService);
+  // console.log("toDoStub:", toDoStub);
 
-    // await sails.lift();
+  // suiteSetup(async function () {
+  //   console.log("ToDoService suiteSetup()");
+  //   // await sails.lift();
+  // });
 
-    toDoStub = {
-      id: 1,
-      text: "Test ToDo",
-      state: "PENDING",
-      owner: 1,
-    };
-  });
-
-  suiteTeardown(async function () {
-    console.log("ToDoService suiteTeardown()");
-    // await sails.lower();
-  });
+  // suiteTeardown(async function () {
+  //   console.log("ToDoService suiteTeardown()");
+  //   // await sails.lower();
+  // });
 
   suite("create", function () {
-    console.log("toDoStub:", toDoStub);
-
-    const createStub = sinon.stub(ToDo, "create");
-
     teardown(function () {
       sinon.restore();
     });
 
     test("successfully", async function () {
-      createStub.returns({
+      ToDoModelStub.create.returns({
         fetch: sinon.stub().resolves(toDoStub),
       });
       const createdToDo = await ToDoService.create(
@@ -83,27 +85,25 @@ suite("ToDoService", function () {
     });
 
     test("with db error", async function () {
-      createStub.returns({
-        fetch: sinon.stub().rejects(new Error("AdpaterError")),
+      ToDoModelStub.create.returns({
+        fetch: sinon.stub().rejects(new Error("AdapterError")),
       });
-      chai.assert.throws(
-        async () => await ToDoService.create(),
+      chai.assert.isRejected(
+        ToDoService.create(toDoStub.text, toDoStub.state, toDoStub.owner),
         ErrorTypes.DB_ERROR
       );
     });
   });
 
   suite("delete", function () {
-    const findByIdStub = sinon.stub(ToDoService, "findById");
-    const deleteStub = sinon.stub(ToDo, "destroyOne");
+    const findByIdStub = sinon.stub(ToDoService, "findById").resolves(toDoStub);
 
     teardown(function () {
       sinon.restore();
     });
 
     test("successfully", async function () {
-      findByIdStub.resolves(toDoStub);
-      deleteStub.resolves(toDoStub);
+      ToDoModelStub.destroyOne.resolves(toDoStub);
       const deletedToDo = await ToDoService.deleteById(
         toDoStub.id,
         toDoStub.owner
@@ -112,119 +112,113 @@ suite("ToDoService", function () {
     });
 
     test("with DB error", async function () {
-      deleteStub.rejects(new Error("AdapterError"));
-      chai.assert.throws(
-        async () => await ToDoService.deleteById(),
+      ToDoModelStub.destroyOne.rejects(new Error("AdapterError"));
+      chai.assert.isRejected(
+        ToDoService.deleteById(toDoStub.id, toDoStub.owner),
         ErrorTypes.DB_ERROR
       );
     });
   });
 
   suite("findAll", function () {
-    const findStub = sinon.stub(ToDo, "find");
-
     teardown(function () {
       sinon.restore();
     });
 
     test("successfully", async function () {
       const toDos = [toDoStub];
-      findStub.resolves(toDos);
+      ToDoModelStub.find.resolves(toDos);
       const allToDos = await ToDoService.findAll(toDoStub.owner);
       chai.assert.deepStrictEqual(toDos, allToDos);
     });
 
     test("with DB error", async function () {
-      findStub.rejects(new Error("AdapterError"));
-      chai.assert.throws(
-        async () => await ToDoService.findAll(),
+      ToDoModelStub.find.rejects(new Error("AdapterError"));
+      chai.assert.isRejected(
+        ToDoService.findAll(toDoStub.owner),
         ErrorTypes.DB_ERROR
       );
     });
 
     test("not found", async function () {
-      findStub.resolves([]);
+      ToDoModelStub.find.resolves([]);
       const allToDos = await ToDoService.findAll(toDoStub.owner);
       chai.assert.deepStrictEqual([], allToDos);
     });
   });
 
   suite("findById", function () {
-    const findOneStub = sinon.stub(ToDo, "findOne");
-
     teardown(function () {
       sinon.restore();
     });
 
     test("successfully", async function () {
-      findOneStub.resolves(toDoStub);
+      ToDoModelStub.findOne.resolves(toDoStub);
       const foundToDo = await ToDoService.findById(toDoStub.id, toDoStub.owner);
       chai.assert.deepStrictEqual(toDoStub, foundToDo);
     });
 
     test("not found", async function () {
-      findOneStub.resolves(undefined);
-      chai.assert.throws(
-        async () => await ToDoService.findById(toDoStub.id, toDoStub.owner),
+      ToDoModelStub.findOne.resolves(undefined);
+      chai.assert.isRejected(
+        ToDoService.findById(toDoStub.id, toDoStub.owner),
         ErrorTypes.ENTITY_NOT_FOUND
       );
     });
 
     test("with different owner", async function () {
       const toDoWithDifferentOwner = { ...toDoStub, owner: toDoStub.owner + 1 };
-      findOneStub.resolves(toDoWithDifferentOwner);
-      chai.assert.throws(
-        async () =>
-          await ToDoService.findById(toDoStub.id, toDoWithDifferentOwner.owner),
+      ToDoModelStub.findOne.resolves(toDoWithDifferentOwner);
+      chai.assert.isRejected(
+        ToDoService.findById(toDoStub.id, toDoStub.owner),
         ErrorTypes.INVALID_INPUT
       );
     });
 
     test("with DB error", async function () {
-      findOneStub.rejects(new Error("AdapterError"));
-      chai.assert.throws(
-        async () => await ToDoService.findById(toDoStub.id, toDoStub.owner),
+      ToDoModelStub.findOne.rejects(new Error("AdapterError"));
+      chai.assert.isRejected(
+        ToDoService.findById(toDoStub.id, toDoStub.owner),
         ErrorTypes.DB_ERROR
       );
     });
   });
 
   suite("changeState", function () {
-    const updateOneStub = sinon.stub(ToDo, "updateOne");
-
     teardown(function () {
       sinon.restore();
     });
 
     test("successfully", async function () {
       const toDoWithChangedState = { ...toDoStub, state: "COMPLETED" };
-      updateOneStub.resolves(toDoWithChangedState);
+      ToDoModelStub.updateOne.resolves(toDoWithChangedState);
       const updatedToDo = await ToDoService.changeState(
         toDoStub.id,
+        toDoStub.owner,
         "COMPLETED"
       );
       chai.assert.deepStrictEqual(toDoWithChangedState, updatedToDo);
     });
 
     test("with incorrect state", async function () {
-      chai.assert.throws(
-        async () => await ToDoService.changeState(toDoStub.id, "INVALID"),
+      chai.assert.isRejected(
+        ToDoService.changeState(toDoStub.id, toDoStub.owner, "INVALID"),
         ErrorTypes.INVALID_INPUT
       );
     });
 
     test("not found", async function () {
-      updateOneStub.resolves(undefined);
-      chai.assert.throws(
-        async () => await ToDoService.changeState(toDoStub.id, "COMPLETED"),
+      ToDoModelStub.updateOne.resolves(undefined);
+      chai.assert.isRejected(
+        ToDoService.changeState(toDoStub.id, toDoStub.owner, "COMPLETED"),
         ErrorTypes.ENTITY_NOT_FOUND
       );
     });
 
     test("with DB error", async function () {
-      updateOneStub.rejects(new Error("AdapterError"));
-      chai.assert.throws(
-        async () => await ToDoService.changeState(toDoStub.id, "COMPLETED"),
+      ToDoModelStub.updateOne.rejects(new Error("AdapterError"));
+      chai.assert.isRejected(
+        ToDoService.changeState(toDoStub.id, "COMPLETED"),
         ErrorTypes.DB_ERROR
       );
     });
