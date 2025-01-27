@@ -3,5 +3,9 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "mochaExplorer.files": "back-end/test/**/*.test.js",
+  "mochaExplorer.cwd": "${workspaceFolder}/back-end",
+  "mochaExplorer.ui": "tdd",
+  "mochaExplorer.logpanel": true
 }

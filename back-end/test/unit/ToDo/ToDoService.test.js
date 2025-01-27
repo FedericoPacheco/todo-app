@@ -1,71 +1,51 @@
 const chaiAsPromised = require("chai-as-promised");
 const chai = require("chai").use(chaiAsPromised);
 const sinon = require("sinon");
-const { test, suite, suiteSetup, teardown, suiteTeardown } = require("mocha");
+const { test, suite, setup, teardown } = require("mocha");
 
-// const sails = require("sails");
 // Run: npx mocha ./back-end/tests/unit/ToDo/ToDoService.test
 
-/* Hacky solution:
-  Requiring the ToDo model doesn't include the following functions,
-  which are "injected" by Waterline on runtime. Trying to lift the sails
-  instance haven't worked for me sofar as shown here: 
-    https://stackoverflow.com/questions/21048543/cannot-unit-test-my-model-in-sailsjs
-  and also adding in the suiteSetup():
-    ToDo = sails.models.todo;
-    ToDoService = sails.services.todoservice;
-  Besides that, lifting it shouldn't be necessary for unit tests.
-*/
-// const ToDo = {
-//   ...require("../../../api/models/ToDo"),
-//   create: () => {},
-//   find: () => {},
-//   findOne: () => {},
-//   destroyOne: () => {},
-//   updateOne: () => {},
-// };
-
-// Documentation:
+// Relevant documentation:
 // https://sailsjs.com/documentation/reference/waterline-orm/models
 // https://sinonjs.org/releases/v19/stubs/
-
-// https://www.chaijs.com/plugins/chai-promised/
 // https://www.npmjs.com/package/chai-as-promised
 
+// Configure debugger/vs code extension for tests:
+// https://stackoverflow.com/questions/30023736/mocha-breakpoints-using-visual-studio-code
+// https://stackoverflow.com/questions/23340968/debugging-node-js-with-node-inspector
+// https://code.visualstudio.com/docs/editor/variables-reference
+// https://github.com/hbenl/vscode-mocha-test-adapter
+
 suite("ToDoService", function () {
-  const ToDoModelStub = {
-    ...require("../../../api/models/ToDo"),
-    create: sinon.stub(),
-    updateOne: sinon.stub(),
-    destroyOne: sinon.stub(),
-    find: sinon.stub(),
-    findOne: sinon.stub(),
-  };
-  const ToDoService = require("../../../api/services/ToDoService")(
-    ToDoModelStub
-  );
-  const ErrorTypes = require("../../../api/services/ErrorTypes");
+  let ToDoModelStub, ToDoService, ErrorTypes, toDoStub;
 
-  const toDoStub = {
-    id: 1,
-    text: "Test ToDo",
-    state: "PENDING",
-    owner: 1,
-  };
+  setup(function () {
+    ToDoModelStub = {
+      ...require("../../../api/models/ToDo"),
+      create: sinon.stub(),
+      updateOne: sinon.stub(),
+      destroyOne: sinon.stub(),
+      find: sinon.stub(),
+      findOne: sinon.stub(),
+    };
+    ToDoService = require("../../../api/services/ToDoService")(ToDoModelStub);
+    ErrorTypes = require("../../../api/services/ErrorTypes");
 
-  // console.log("ToDoModelStub:", ToDoModelStub);
-  // console.log("ToDoService:", ToDoService);
-  // console.log("toDoStub:", toDoStub);
+    toDoStub = {
+      id: 1,
+      text: "Test ToDo",
+      state: "PENDING",
+      owner: 1,
+    };
 
-  // suiteSetup(async function () {
-  //   console.log("ToDoService suiteSetup()");
-  //   // await sails.lift();
-  // });
+    // console.log("ToDoModelStub:", ToDoModelStub);
+    // console.log("ToDoService:", ToDoService);
+    // console.log("toDoStub:", toDoStub);
+  });
 
-  // suiteTeardown(async function () {
-  //   console.log("ToDoService suiteTeardown()");
-  //   // await sails.lower();
-  // });
+  teardown(function () {
+    sinon.restore();
+  });
 
   suite("create", function () {
     teardown(function () {
@@ -96,7 +76,12 @@ suite("ToDoService", function () {
   });
 
   suite("delete", function () {
-    const findByIdStub = sinon.stub(ToDoService, "findById").resolves(toDoStub);
+    setup(function () {
+      ToDoService.findById = sinon
+        .stub()
+        .withArgs(toDoStub.id, toDoStub.owner)
+        .resolves(toDoStub);
+    });
 
     teardown(function () {
       sinon.restore();

@@ -45,9 +45,8 @@ module.exports = (ToDo) => {
   }
 
   async function deleteById(id, userId) {
-    console.log("ToDoService: deleteById");
+    debugger;
     const foundToDo = await findById(id, userId);
-    console.log("ToDoService: deleteById: foundToDo: ", foundToDo);
     try {
       return await ToDo.destroyOne({ id: foundToDo.id });
     } catch {
