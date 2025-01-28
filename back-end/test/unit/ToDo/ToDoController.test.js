@@ -1,236 +1,216 @@
-// const chai = require("chai");
-// const sinon = require("sinon");
-// const {
-//   test,
-//   suite,
-//   setup,
-//   suiteSetup,
-//   teardown,
-//   suiteTeardown,
-// } = require("mocha");
-// // const ToDoController = require("../../api/controllers/ToDoController");
-// const {
-//   createAuthenticatedUserAgent,
-//   logout,
-//   setCsrfToken,
-// } = require("../utils");
+const chai = require("chai");
+const sinon = require("sinon");
+const { test, suite, setup, teardown } = require("mocha");
 
-// // Documentation:
-// // https://sailsjs.com/documentation/reference/waterline-orm/models
-// // https://sinonjs.org/releases/v19/stubs/
+const ToDoController = require("../../../api/controllers/ToDoController");
+const ToDoService = require("../../../api/services/ToDoService")(); // No model is passed
+const ErrorTypes = require("../../../api/services/ErrorTypes");
 
-// suite.skip("ToDoController", function () {
-//   let agent;
-//   let toDo;
+suite("ToDoController", function () {
+  let toDoStub, ToDoServiceStub, req, res;
 
-//   suiteSetup(async function () {
-//     agent = await createAuthenticatedUserAgent();
-//     toDo = {
-//       id: 1,
-//       text: "Test ToDo",
-//       state: "PENDING",
-//       owner: 1,
-//     };
-//   });
+  setup(async function () {
+    toDoStub = {
+      id: 1,
+      text: "Test ToDo",
+      state: "PENDING",
+      owner: 1,
+    };
 
-//   suiteTeardown(async function () {
-//     await logout(agent);
-//   });
+    ToDoServiceStub = {
+      create: sinon.stub(ToDoService, "create"),
+      deleteById: sinon.stub(ToDoService, "deleteById"),
+      findAll: sinon.stub(ToDoService, "findAll"),
+      findById: sinon.stub(ToDoService, "findById"),
+      changeState: sinon.stub(ToDoService, "changeState"),
+    };
 
-//   suite("create", function () {
-//     const createStub = sinon.stub(ToDoController, "create");
+    req = {
+      body: {},
+      params: {},
+      session: { userId: toDoStub.owner },
+    };
 
-//     setup(async function () {
-//       await setCsrfToken(agent);
-//     });
+    res = {
+      badRequest: sinon.spy(),
+      serverError: sinon.spy(),
+      notFound: sinon.spy(),
+      json: sinon.spy(),
+    };
+  });
 
-//     teardown(function () {
-//       sinon.restore();
-//     });
+  teardown(async function () {
+    sinon.restore();
+  });
 
-//     test("successfully", async function () {
-//       createStub.returns({
-//         fetch: sinon.stub().resolves(toDo),
-//       });
+  suite("create", function () {
+    teardown(function () {
+      sinon.restore();
+    });
 
-//       await agent
-//         .post("/todo")
-//         .send(toDo)
-//         .expect(200)
-//         .expect((res) => {
-//           chai.assert.propertyVal(res.body, "id", toDo.id);
-//           chai.assert.propertyVal(res.body, "text", toDo.text);
-//           chai.assert.propertyVal(res.body, "state", toDo.state);
-//           chai.assert.propertyVal(res.body, "owner", toDo.owner);
-//         });
-//     });
+    test("successfully", async function () {
+      ToDoServiceStub.create.resolves(toDoStub);
+      req.body = { text: toDoStub.text, state: toDoStub.state };
 
-//     test("with no body", async function () {
-//       createStub.returns({
-//         fetch: sinon.stub().rejects("UsageError"),
-//       });
-//       await agent.post("/todo").send({}).expect(400);
-//     });
+      // debugger;
+      await ToDoController.create(req, res);
 
-//     test("produces DB error", async function () {
-//       createStub.returns({
-//         fetch: sinon.stub().rejects("AdapterError"),
-//       });
-//       await agent.post("/todo").send(toDo).expect(500);
-//     });
-//   });
+      // chai.assert.isFulfilled(ToDoController.create(req, res));
+      chai.assert(res.json.calledWith(toDoStub));
+    });
 
-//   suite("delete", function () {
-//     const deleteStub = sinon.stub(ToDoController, "delete");
+    test("incomplete body", async function () {
+      req.body = { text: toDoStub.text };
 
-//     setup(async function () {
-//       await setCsrfToken(agent);
-//     });
+      await ToDoController.create(req, res);
 
-//     teardown(function () {
-//       sinon.restore();
-//     });
+      chai.assert(res.badRequest.calledOnce);
+    });
 
-//     test("successfully", async function () {
-//       deleteStub.resolves({ id: toDo.id });
-//       await agent
-//         .delete(`/todo/${toDo.id}`)
-//         .expect(200)
-//         .expect((res) => {
-//           chai.assert.propertyVal(res.body, "id", toDo.id);
-//         });
-//     });
+    test("ToDoService's error", async function () {
+      ToDoServiceStub.create.rejects(new Error(ErrorTypes.DB_ERROR));
+      req.body = { text: toDoStub.text, state: toDoStub.state };
 
-//     test("not found", async function () {
-//       deleteStub.resolves(undefined);
-//       await agent.delete(`/todo/${toDo.id + 1}`).expect(404);
-//     });
+      await ToDoController.create(req, res);
 
-//     test("with no params", async function () {
-//       await agent.delete("/todo").expect(400);
-//     });
+      chai.assert(res.serverError.calledOnce);
+    });
+  });
 
-//     test("produces DB error", async function () {
-//       deleteStub.rejects(new Error("AdapterError"));
-//       await agent.delete(`/todo/${toDo.id}`).expect(500);
-//     });
-//   });
+  suite("delete", function () {
+    teardown(function () {
+      sinon.restore();
+    });
 
-//   suite("findAll", function () {
-//     const findAllStub = sinon.stub(ToDoController, "findAll");
+    test("successfully", async function () {
+      ToDoServiceStub.deleteById.resolves(toDoStub);
+      req.params.id = toDoStub.id;
 
-//     setup(async function () {
-//       await setCsrfToken(agent);
-//     });
+      await ToDoController.delete(req, res);
 
-//     teardown(function () {
-//       sinon.restore();
-//     });
+      chai.assert(res.json.calledWith(toDoStub));
+    });
 
-//     test("successfully", async function () {
-//       const toDos = [toDo];
-//       findAllStub.resolves(toDos);
-//       await agent
-//         .get("/todo")
-//         .expect(200)
-//         .expect((res) => {
-//           chai.assert.isArray(res.body);
-//           chai.assert.lengthOf(res.body, toDos.length);
-//           chai.assert.propertyVal(res.body[0], "id", toDos[0].id);
-//         });
-//     });
+    test("missing param", async function () {
+      await ToDoController.delete(req, res);
 
-//     test("with DB error", async function () {
-//       findAllStub.rejects("AdapterError");
-//       await agent.get("/todo").expect(500);
-//     });
-//   });
+      chai.assert(res.badRequest.calledOnce);
+    });
 
-//   suite("findOne", function () {
-//     const findOneStub = sinon.stub(ToDoController, "findOne");
+    test("ToDoService's error", async function () {
+      ToDoServiceStub.deleteById.rejects(new Error(ErrorTypes.DB_ERROR));
+      req.params.id = toDoStub.id;
 
-//     setup(async function () {
-//       await setCsrfToken(agent);
-//     });
+      await ToDoController.delete(req, res);
 
-//     teardown(function () {
-//       sinon.restore();
-//     });
+      chai.assert(res.serverError.calledOnce);
+    });
+  });
 
-//     test("successfully", async function () {
-//       findOneStub.resolves(toDo);
-//       await agent
-//         .get(`/todo/${toDo.id}`)
-//         .expect(200)
-//         .expect((res) => {
-//           chai.assert.propertyVal(res.body, "id", toDo.id);
-//         });
-//     });
+  suite("findAll", function () {
+    teardown(function () {
+      sinon.restore();
+    });
 
-//     test("not found", async function () {
-//       findOneStub.resolves(undefined);
-//       await agent.get(`/todo/${toDo.id + 1}`).expect(404);
-//     });
+    test("successfully", async function () {
+      ToDoServiceStub.findAll.resolves([toDoStub]);
 
-//     test("with DB error", async function () {
-//       findOneStub.rejects("AdapterError");
-//       await agent.get(`/todo/${toDo.id}`).expect(500);
-//     });
-//   });
+      await ToDoController.findAll(req, res);
 
-//   suite("changeState", function () {
-//     const changeStateStub = sinon.stub(ToDoController, "changeState");
+      chai.assert(res.json.calledWith([toDoStub]));
+    });
 
-//     setup(async function () {
-//       await setCsrfToken(agent);
-//     });
+    test("ToDoService's error", async function () {
+      ToDoServiceStub.findAll.rejects(new Error(ErrorTypes.DB_ERROR));
 
-//     teardown(function () {
-//       sinon.restore();
-//     });
+      await ToDoController.findAll(req, res);
 
-//     test("successfully", async function () {
-//       const updatedToDo = { id: toDo.id, state: "COMPLETED" };
-//       changeStateStub.resolves(updatedToDo);
-//       await agent
-//         .patch(`/todo/${toDo.id}/state`)
-//         .send({ state: "COMPLETED" })
-//         .expect(200)
-//         .expect((res) => {
-//           chai.assert.propertyVal(res.body, "id", toDo.id);
-//           chai.assert.propertyVal(res.body, "state", "COMPLETED");
-//         });
-//     });
+      chai.assert(res.serverError.calledOnce);
+    });
+  });
 
-//     test("with no body", async function () {
-//       await agent.patch(`/todo/${toDo.id}/state`).send({}).expect(400);
-//     });
+  suite("findOne", function () {
+    teardown(function () {
+      sinon.restore();
+    });
 
-//     test("with incorrect state", async function () {
-//       await agent
-//         .patch(`/todo/${toDo.id}/state`)
-//         .send({ state: "INVALID" })
-//         .expect(400);
-//     });
+    test("successfully", async function () {
+      ToDoServiceStub.findById.resolves(toDoStub);
+      req.params.id = toDoStub.id;
 
-//     test("with no params", async function () {
-//       await agent.patch("/todo/state").expect(400);
-//     });
+      await ToDoController.findOne(req, res);
 
-//     test("not found", async function () {
-//       changeStateStub.resolves(undefined);
-//       await agent
-//         .patch(`/todo/${toDo.id + 1}/state`)
-//         .send({ state: "COMPLETED" })
-//         .expect(404);
-//     });
+      chai.assert(res.json.calledWith(toDoStub));
+    });
 
-//     test("with DB error", async function () {
-//       changeStateStub.rejects(new Error("AdapterError"));
-//       await agent
-//         .patch(`/todo/${toDo.id}/state`)
-//         .send({ state: "COMPLETED" })
-//         .expect(500);
-//     });
-//   });
-// });
+    test("entity not found", async function () {
+      ToDoServiceStub.findById.throws(new Error(ErrorTypes.ENTITY_NOT_FOUND));
+      req.params.id = toDoStub.id;
+
+      await ToDoController.findOne(req, res);
+
+      chai.assert(res.notFound.calledOnce);
+    });
+
+    test("DB error", async function () {
+      ToDoServiceStub.findById.rejects(new Error(ErrorTypes.DB_ERROR));
+      req.params.id = toDoStub.id;
+
+      await ToDoController.findOne(req, res);
+
+      chai.assert(res.serverError.calledOnce);
+    });
+
+    test("invalid input", async function () {
+      ToDoServiceStub.findById.throws(new Error(ErrorTypes.INVALID_INPUT));
+      req.params.id = toDoStub.id;
+
+      await ToDoController.findOne(req, res);
+
+      chai.assert(res.badRequest.calledOnce);
+    });
+  });
+
+  suite("changeState", function () {
+    teardown(function () {
+      sinon.restore();
+    });
+
+    test("successfully", async function () {
+      const completedToDoStub = { ...toDoStub, state: "COMPLETED" };
+      ToDoServiceStub.changeState.resolves(completedToDoStub);
+      req.body.state = "COMPLETED";
+      req.params.id = toDoStub.id;
+
+      await ToDoController.changeState(req, res);
+
+      chai.assert(res.json.calledWith(completedToDoStub));
+    });
+
+    test("Missing body", async function () {
+      req.params.id = toDoStub.id;
+
+      await ToDoController.changeState(req, res);
+
+      chai.assert(res.badRequest.calledOnce);
+    });
+
+    test("Missing param", async function () {
+      req.body.state = "COMPLETED";
+
+      await ToDoController.changeState(req, res);
+
+      chai.assert(res.badRequest.calledOnce);
+    });
+
+    test("ToDoService's error", async function () {
+      ToDoServiceStub.changeState.rejects(new Error(ErrorTypes.DB_ERROR));
+      req.body.state = "COMPLETED";
+      req.params.id = toDoStub.id;
+
+      await ToDoController.changeState(req, res);
+
+      chai.assert(res.serverError.calledOnce);
+    });
+  });
+});

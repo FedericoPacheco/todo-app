@@ -3,18 +3,32 @@ const chai = require("chai").use(chaiAsPromised);
 const sinon = require("sinon");
 const { test, suite, setup, teardown } = require("mocha");
 
-// Run: npx mocha ./back-end/tests/unit/ToDo/ToDoService.test
+/*
+Run: 
+  * Normally: npm test (see package.json for details)
+  * Debugging: 
+    1) Set breakpoints by writing "debugger" in the code 
+    2) npm run test:debug 
+    3) When "Debugger listening on ..." appears in the console, attach debugger
+      ("Run and Debug" in the left sidebar > "back-end" (see .vscode/launch.json 
+      for details))
+    4) Hit the "Continue" button in the debugger until reaching the breakpoint
 
-// Relevant documentation:
-// https://sailsjs.com/documentation/reference/waterline-orm/models
-// https://sinonjs.org/releases/v19/stubs/
-// https://www.npmjs.com/package/chai-as-promised
+Implementation details:
+  * Requiring the model doesn't include the functions to interact with the database,
+    as they are "injected" by Waterline on runtime. As these are unit tests,
+    a Sails instance shouldn't be lifted to test the service. This creates the need
+    to mock those functions as it's done in the setup. Later, when requering the 
+    service, the mocked model must be passed as a parameter.
 
-// Configure debugger/vs code extension for tests:
-// https://stackoverflow.com/questions/30023736/mocha-breakpoints-using-visual-studio-code
-// https://stackoverflow.com/questions/23340968/debugging-node-js-with-node-inspector
-// https://code.visualstudio.com/docs/editor/variables-reference
-// https://github.com/hbenl/vscode-mocha-test-adapter
+Relevant documentation:
+  * https://sailsjs.com/documentation/reference/waterline-orm/models
+  * https://mochajs.org/#table-of-contents
+  * https://sinonjs.org/releases/v19/
+  * https://www.chaijs.com/api/assert/
+  * https://www.npmjs.com/package/chai-as-promised
+
+*/
 
 suite("ToDoService", function () {
   let ToDoModelStub, ToDoService, ErrorTypes, toDoStub;
@@ -37,10 +51,6 @@ suite("ToDoService", function () {
       state: "PENDING",
       owner: 1,
     };
-
-    // console.log("ToDoModelStub:", ToDoModelStub);
-    // console.log("ToDoService:", ToDoService);
-    // console.log("toDoStub:", toDoStub);
   });
 
   teardown(function () {
@@ -64,7 +74,7 @@ suite("ToDoService", function () {
       chai.assert.deepStrictEqual(toDoStub, createdToDo);
     });
 
-    test("with db error", async function () {
+    test("with DB error", async function () {
       ToDoModelStub.create.returns({
         fetch: sinon.stub().rejects(new Error("AdapterError")),
       });
@@ -170,13 +180,23 @@ suite("ToDoService", function () {
   });
 
   suite("changeState", function () {
+    setup(function () {
+      ToDoService.findById = sinon
+        .stub()
+        .withArgs(toDoStub.id, toDoStub.owner)
+        .resolves(toDoStub);
+    });
+
     teardown(function () {
       sinon.restore();
     });
 
     test("successfully", async function () {
       const toDoWithChangedState = { ...toDoStub, state: "COMPLETED" };
-      ToDoModelStub.updateOne.resolves(toDoWithChangedState);
+      ToDoModelStub.updateOne.returns({
+        set: sinon.stub().resolves(toDoWithChangedState),
+      });
+
       const updatedToDo = await ToDoService.changeState(
         toDoStub.id,
         toDoStub.owner,
@@ -193,7 +213,9 @@ suite("ToDoService", function () {
     });
 
     test("not found", async function () {
-      ToDoModelStub.updateOne.resolves(undefined);
+      ToDoModelStub.updateOne.returns({
+        set: sinon.stub().resolves(undefined),
+      });
       chai.assert.isRejected(
         ToDoService.changeState(toDoStub.id, toDoStub.owner, "COMPLETED"),
         ErrorTypes.ENTITY_NOT_FOUND
@@ -201,7 +223,9 @@ suite("ToDoService", function () {
     });
 
     test("with DB error", async function () {
-      ToDoModelStub.updateOne.rejects(new Error("AdapterError"));
+      ToDoModelStub.updateOne.returns({
+        set: sinon.stub().rejects(new Error("AdapterError")),
+      });
       chai.assert.isRejected(
         ToDoService.changeState(toDoStub.id, "COMPLETED"),
         ErrorTypes.DB_ERROR

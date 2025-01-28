@@ -16,7 +16,7 @@ module.exports = {
 
       if (!text || !state) return res.badRequest("Text and state are required");
 
-      const newToDo = ToDoService.create(text, state, userId);
+      const newToDo = await ToDoService.create(text, state, userId);
       return res.json(newToDo);
     } catch (error) {
       return res.serverError(error);
