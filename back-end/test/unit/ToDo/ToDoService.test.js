@@ -7,12 +7,14 @@ const { test, suite, setup, teardown } = require("mocha");
 Run: 
   * Normally: npm test (see package.json for details)
   * Debugging: 
-    1) Set breakpoints by writing "debugger" in the code 
+    1) Set breakpoints by writing "debugger;" in the code. 
     2) npm run test:debug 
     3) When "Debugger listening on ..." appears in the console, attach debugger
       ("Run and Debug" in the left sidebar > "back-end" (see .vscode/launch.json 
-      for details))
-    4) Hit the "Continue" button in the debugger until reaching the breakpoint
+      for details)).
+    4) Hit the "Continue" button in the debugger until reaching the breakpoint.
+    Tip: when hovering the cursor over a function, if it doesn't say "proxy(...)"
+    then it isn't being mocked correctly. 
 
 Implementation details:
   * Requiring the model doesn't include the functions to interact with the database,
@@ -24,10 +26,9 @@ Implementation details:
 Relevant documentation:
   * https://sailsjs.com/documentation/reference/waterline-orm/models
   * https://mochajs.org/#table-of-contents
-  * https://sinonjs.org/releases/v19/
+  * https://sinonjs.org/releases/v19/stubs/
   * https://www.chaijs.com/api/assert/
   * https://www.npmjs.com/package/chai-as-promised
-
 */
 
 suite("ToDoService", function () {
@@ -62,7 +63,7 @@ suite("ToDoService", function () {
       sinon.restore();
     });
 
-    test("successfully", async function () {
+    test("Successfully", async function () {
       ToDoModelStub.create.returns({
         fetch: sinon.stub().resolves(toDoStub),
       });
@@ -74,7 +75,7 @@ suite("ToDoService", function () {
       chai.assert.deepStrictEqual(toDoStub, createdToDo);
     });
 
-    test("with DB error", async function () {
+    test("With DB error", async function () {
       ToDoModelStub.create.returns({
         fetch: sinon.stub().rejects(new Error("AdapterError")),
       });
@@ -97,7 +98,7 @@ suite("ToDoService", function () {
       sinon.restore();
     });
 
-    test("successfully", async function () {
+    test("Successfully", async function () {
       ToDoModelStub.destroyOne.resolves(toDoStub);
       const deletedToDo = await ToDoService.deleteById(
         toDoStub.id,
@@ -106,7 +107,7 @@ suite("ToDoService", function () {
       chai.assert.deepStrictEqual(toDoStub, deletedToDo);
     });
 
-    test("with DB error", async function () {
+    test("With DB error", async function () {
       ToDoModelStub.destroyOne.rejects(new Error("AdapterError"));
       chai.assert.isRejected(
         ToDoService.deleteById(toDoStub.id, toDoStub.owner),
@@ -120,14 +121,14 @@ suite("ToDoService", function () {
       sinon.restore();
     });
 
-    test("successfully", async function () {
+    test("Successfully", async function () {
       const toDos = [toDoStub];
       ToDoModelStub.find.resolves(toDos);
       const allToDos = await ToDoService.findAll(toDoStub.owner);
       chai.assert.deepStrictEqual(toDos, allToDos);
     });
 
-    test("with DB error", async function () {
+    test("With DB error", async function () {
       ToDoModelStub.find.rejects(new Error("AdapterError"));
       chai.assert.isRejected(
         ToDoService.findAll(toDoStub.owner),
@@ -135,7 +136,7 @@ suite("ToDoService", function () {
       );
     });
 
-    test("not found", async function () {
+    test("Not found", async function () {
       ToDoModelStub.find.resolves([]);
       const allToDos = await ToDoService.findAll(toDoStub.owner);
       chai.assert.deepStrictEqual([], allToDos);
@@ -147,13 +148,13 @@ suite("ToDoService", function () {
       sinon.restore();
     });
 
-    test("successfully", async function () {
+    test("Successfully", async function () {
       ToDoModelStub.findOne.resolves(toDoStub);
       const foundToDo = await ToDoService.findById(toDoStub.id, toDoStub.owner);
       chai.assert.deepStrictEqual(toDoStub, foundToDo);
     });
 
-    test("not found", async function () {
+    test("Not found", async function () {
       ToDoModelStub.findOne.resolves(undefined);
       chai.assert.isRejected(
         ToDoService.findById(toDoStub.id, toDoStub.owner),
@@ -161,7 +162,7 @@ suite("ToDoService", function () {
       );
     });
 
-    test("with different owner", async function () {
+    test("With different owner", async function () {
       const toDoWithDifferentOwner = { ...toDoStub, owner: toDoStub.owner + 1 };
       ToDoModelStub.findOne.resolves(toDoWithDifferentOwner);
       chai.assert.isRejected(
@@ -170,7 +171,7 @@ suite("ToDoService", function () {
       );
     });
 
-    test("with DB error", async function () {
+    test("With DB error", async function () {
       ToDoModelStub.findOne.rejects(new Error("AdapterError"));
       chai.assert.isRejected(
         ToDoService.findById(toDoStub.id, toDoStub.owner),
@@ -191,7 +192,7 @@ suite("ToDoService", function () {
       sinon.restore();
     });
 
-    test("successfully", async function () {
+    test("Successfully", async function () {
       const toDoWithChangedState = { ...toDoStub, state: "COMPLETED" };
       ToDoModelStub.updateOne.returns({
         set: sinon.stub().resolves(toDoWithChangedState),
@@ -205,14 +206,14 @@ suite("ToDoService", function () {
       chai.assert.deepStrictEqual(toDoWithChangedState, updatedToDo);
     });
 
-    test("with incorrect state", async function () {
+    test("With incorrect state", async function () {
       chai.assert.isRejected(
         ToDoService.changeState(toDoStub.id, toDoStub.owner, "INVALID"),
         ErrorTypes.INVALID_INPUT
       );
     });
 
-    test("not found", async function () {
+    test("Not found", async function () {
       ToDoModelStub.updateOne.returns({
         set: sinon.stub().resolves(undefined),
       });
@@ -222,7 +223,7 @@ suite("ToDoService", function () {
       );
     });
 
-    test("with DB error", async function () {
+    test("With DB error", async function () {
       ToDoModelStub.updateOne.returns({
         set: sinon.stub().rejects(new Error("AdapterError")),
       });

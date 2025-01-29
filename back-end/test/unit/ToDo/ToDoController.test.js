@@ -1,13 +1,34 @@
 const chai = require("chai");
 const sinon = require("sinon");
 const { test, suite, setup, teardown } = require("mocha");
+const proxyquire = require("proxyquire").noPreserveCache();
 
-const ToDoController = require("../../../api/controllers/ToDoController");
-const ToDoService = require("../../../api/services/ToDoService")(); // No model is passed
-const ErrorTypes = require("../../../api/services/ErrorTypes");
+/*
+(see also ToDoService.test.js)
+
+Implementation details:
+  * Doing the following:
+      const ToDoService = require("../services/ToDoService")({});
+      (...)
+      sinon.stub(ToDoService, "create");  
+    doesn't stub the function correctly, which in turn make the tests fail.
+    For this reason, proxyquire is used to mock the ToDoService module.
+    Calling noPreserveCache() is necessary to prevent the module
+    being loaded from cache, which could have other mocks injected and
+    thus produce undefined behavior (see: 
+    https://dev.to/thekashey/please-stop-playing-with-proxyquire-11j4)
+
+Relevant documentation:
+  * https://sinonjs.org/releases/v19/spies/
+  * https://www.npmjs.com/package/proxyquire
+  * https://sinonjs.org/how-to/link-seams-commonjs/
+ 
+Misc:
+  * https://tsh.io/blog/dependency-injection-in-node-js/
+*/
 
 suite("ToDoController", function () {
-  let toDoStub, ToDoServiceStub, req, res;
+  let toDoStub, req, res, ToDoServiceStub, ToDoController, ErrorTypes;
 
   setup(async function () {
     toDoStub = {
@@ -15,14 +36,6 @@ suite("ToDoController", function () {
       text: "Test ToDo",
       state: "PENDING",
       owner: 1,
-    };
-
-    ToDoServiceStub = {
-      create: sinon.stub(ToDoService, "create"),
-      deleteById: sinon.stub(ToDoService, "deleteById"),
-      findAll: sinon.stub(ToDoService, "findAll"),
-      findById: sinon.stub(ToDoService, "findById"),
-      changeState: sinon.stub(ToDoService, "changeState"),
     };
 
     req = {
@@ -37,6 +50,19 @@ suite("ToDoController", function () {
       notFound: sinon.spy(),
       json: sinon.spy(),
     };
+
+    ToDoServiceStub = {
+      create: sinon.stub(),
+      deleteById: sinon.stub(),
+      findAll: sinon.stub(),
+      findById: sinon.stub(),
+      changeState: sinon.stub(),
+    };
+    ToDoController = proxyquire("../../../api/controllers/ToDoController", {
+      // eslint-disable-next-line no-unused-vars
+      "../services/ToDoService": (ToDoModel) => ToDoServiceStub,
+    });
+    ErrorTypes = require("../../../api/services/ErrorTypes");
   });
 
   teardown(async function () {
@@ -48,18 +74,17 @@ suite("ToDoController", function () {
       sinon.restore();
     });
 
-    test("successfully", async function () {
+    test("Successfully", async function () {
       ToDoServiceStub.create.resolves(toDoStub);
       req.body = { text: toDoStub.text, state: toDoStub.state };
 
-      // debugger;
       await ToDoController.create(req, res);
 
       // chai.assert.isFulfilled(ToDoController.create(req, res));
       chai.assert(res.json.calledWith(toDoStub));
     });
 
-    test("incomplete body", async function () {
+    test("Incomplete body", async function () {
       req.body = { text: toDoStub.text };
 
       await ToDoController.create(req, res);
@@ -82,7 +107,7 @@ suite("ToDoController", function () {
       sinon.restore();
     });
 
-    test("successfully", async function () {
+    test("Successfully", async function () {
       ToDoServiceStub.deleteById.resolves(toDoStub);
       req.params.id = toDoStub.id;
 
@@ -91,7 +116,7 @@ suite("ToDoController", function () {
       chai.assert(res.json.calledWith(toDoStub));
     });
 
-    test("missing param", async function () {
+    test("Missing param", async function () {
       await ToDoController.delete(req, res);
 
       chai.assert(res.badRequest.calledOnce);
@@ -112,7 +137,7 @@ suite("ToDoController", function () {
       sinon.restore();
     });
 
-    test("successfully", async function () {
+    test("Successfully", async function () {
       ToDoServiceStub.findAll.resolves([toDoStub]);
 
       await ToDoController.findAll(req, res);
@@ -134,7 +159,7 @@ suite("ToDoController", function () {
       sinon.restore();
     });
 
-    test("successfully", async function () {
+    test("Successfully", async function () {
       ToDoServiceStub.findById.resolves(toDoStub);
       req.params.id = toDoStub.id;
 
@@ -143,7 +168,7 @@ suite("ToDoController", function () {
       chai.assert(res.json.calledWith(toDoStub));
     });
 
-    test("entity not found", async function () {
+    test("Entity not found", async function () {
       ToDoServiceStub.findById.throws(new Error(ErrorTypes.ENTITY_NOT_FOUND));
       req.params.id = toDoStub.id;
 
@@ -161,7 +186,7 @@ suite("ToDoController", function () {
       chai.assert(res.serverError.calledOnce);
     });
 
-    test("invalid input", async function () {
+    test("Invalid param", async function () {
       ToDoServiceStub.findById.throws(new Error(ErrorTypes.INVALID_INPUT));
       req.params.id = toDoStub.id;
 
@@ -176,7 +201,7 @@ suite("ToDoController", function () {
       sinon.restore();
     });
 
-    test("successfully", async function () {
+    test("Successfully", async function () {
       const completedToDoStub = { ...toDoStub, state: "COMPLETED" };
       ToDoServiceStub.changeState.resolves(completedToDoStub);
       req.body.state = "COMPLETED";

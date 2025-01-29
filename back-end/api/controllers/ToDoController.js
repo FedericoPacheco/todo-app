@@ -5,7 +5,13 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-const ToDoService = require("../services/ToDoService");
+let ToDoModel;
+try {
+  ToDoModel = ToDo;
+} catch {
+  ToDoModel = {};
+}
+const ToDoService = require("../services/ToDoService")(ToDoModel);
 const ErrorTypes = require("../services/ErrorTypes");
 
 module.exports = {
@@ -87,7 +93,7 @@ module.exports = {
 };
 
 const handleErrors = (error, res) => {
-  switch (error) {
+  switch (error.message) {
     case ErrorTypes.DB_ERROR:
       return res.serverError(error);
     case ErrorTypes.INVALID_INPUT:
