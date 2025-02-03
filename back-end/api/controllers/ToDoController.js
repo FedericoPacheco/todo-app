@@ -28,21 +28,7 @@ module.exports = {
       return res.serverError(error);
     }
   },
-  update: async function (req, res) {
-    const { id } = req.params;
-    const { text, state } = req.body;
-    const { userId } = req.session;
 
-    if (!id) return res.badRequest("Id is required");
-    if (!text || !state) return res.badRequest("Text and state are required");
-
-    try {
-      const updatedToDo = await ToDoService.update(id, text, state, userId);
-      return res.json(updatedToDo);
-    } catch (error) {
-      handleErrors(error, res);
-    }
-  },
   delete: async function (req, res) {
     const { id } = req.params;
     const { userId } = req.session;
@@ -56,6 +42,7 @@ module.exports = {
       handleErrors(error, res);
     }
   },
+
   findAll: async function (req, res) {
     const { userId } = req.session;
 
@@ -66,6 +53,7 @@ module.exports = {
       handleErrors(error, res);
     }
   },
+
   findOne: async function (req, res) {
     const { id } = req.params;
 
@@ -76,6 +64,7 @@ module.exports = {
       handleErrors(error, res);
     }
   },
+
   changeState: async function (req, res) {
     const { id } = req.params;
     const { state } = req.body;

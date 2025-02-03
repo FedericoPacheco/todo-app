@@ -22,7 +22,6 @@ Other references (Service in MVC pattern):
 module.exports = (ToDo) => {
   return {
     create,
-    update,
     deleteById,
     findAll,
     findById,
@@ -35,19 +34,6 @@ module.exports = (ToDo) => {
       return await ToDo.create({ text, state, owner: userId }).fetch();
     } catch {
       throw new Error(ErrorTypes.DB_ERROR);
-    }
-  }
-
-  async function update(id, text, state, userId) {
-    const toDoToUpdate = await this.findById(id, userId);
-    if (toDoToUpdate) {
-      if (this.isValidToDoState(state))
-        try {
-          await ToDo.updateOne({ id }).set({ text, state, owner: userId });
-        } catch {
-          return new Error(ErrorTypes.DB_ERROR);
-        }
-      else throw new Error(ErrorTypes.INVALID_INPUT);
     }
   }
 

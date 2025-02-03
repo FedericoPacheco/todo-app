@@ -121,9 +121,10 @@ node_modules
 nbproject
 .idea
 *.iml
-.vscode
 .node_history
 dump.rdb
+coverage
+.nyc_output
 
 npm-debug.log
 lib-cov

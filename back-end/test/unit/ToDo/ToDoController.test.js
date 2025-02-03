@@ -25,6 +25,7 @@ Relevant documentation:
  
 Misc:
   * https://tsh.io/blog/dependency-injection-in-node-js/
+  * https://stackoverflow.com/questions/37836813/javascript-dependency-injection-dip-in-node-require-vs-constructor-injection
 */
 
 suite("ToDoController", function () {
@@ -80,7 +81,6 @@ suite("ToDoController", function () {
 
       await ToDoController.create(req, res);
 
-      // chai.assert.isFulfilled(ToDoController.create(req, res));
       chai.assert(res.json.calledWith(toDoStub));
     });
 

@@ -10,7 +10,7 @@ Run:
     1) Set breakpoints by writing "debugger;" in the code. 
     2) npm run test:debug 
     3) When "Debugger listening on ..." appears in the console, attach debugger
-      ("Run and Debug" in the left sidebar > "back-end" (see .vscode/launch.json 
+      (VS Code: "Run and Debug" in the left sidebar > "back-end" (see .vscode/launch.json 
       for details)).
     4) Hit the "Continue" button in the debugger until reaching the breakpoint.
     Tip: when hovering the cursor over a function, if it doesn't say "proxy(...)"
@@ -20,7 +20,7 @@ Implementation details:
   * Requiring the model doesn't include the functions to interact with the database,
     as they are "injected" by Waterline on runtime. As these are unit tests,
     a Sails instance shouldn't be lifted to test the service. This creates the need
-    to mock those functions as it's done in the setup. Later, when requering the 
+    to mock those functions as it's done in the setup. Later, when requiring the 
     service, the mocked model must be passed as a parameter.
 
 Relevant documentation:
