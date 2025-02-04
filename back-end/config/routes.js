@@ -34,7 +34,6 @@ module.exports.routes = {
   "GET /todo": "ToDoController.findAll",
   "GET /todo/:id": "ToDoController.findOne",
   "POST /todo": "ToDoController.create",
-  "PUT /todo/:id": "ToDoController.update",
   "DELETE /todo/:id": "ToDoController.delete",
   "PATCH /todo/:id": "ToDoController.changeState",
 

@@ -8,7 +8,7 @@ Run:
   * Normally: npm test (see package.json for details)
   * Debugging: 
     1) Set breakpoints by writing "debugger;" in the code. 
-    2) npm run test:debug 
+    2) npm run unit-test:debug 
     3) When "Debugger listening on ..." appears in the console, attach debugger
       (VS Code: "Run and Debug" in the left sidebar > "back-end" (see .vscode/launch.json 
       for details)).

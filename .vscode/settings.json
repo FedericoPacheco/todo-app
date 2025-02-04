@@ -7,5 +7,6 @@
   "mochaExplorer.files": "back-end/test/**/*.test.js",
   "mochaExplorer.cwd": "${workspaceFolder}/back-end",
   "mochaExplorer.ui": "tdd",
-  "mochaExplorer.logpanel": true
+  "mochaExplorer.logpanel": true,
+  "postman.settings.dotenv-detection-notification-visibility": false
 }

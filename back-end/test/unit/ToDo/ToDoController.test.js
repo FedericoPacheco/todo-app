@@ -13,9 +13,9 @@ Implementation details:
       sinon.stub(ToDoService, "create");  
     doesn't stub the function correctly, which in turn make the tests fail.
     For this reason, proxyquire is used to mock the ToDoService module.
-    Calling noPreserveCache() is necessary to prevent the module
-    being loaded from cache, which could have other mocks injected and
-    thus produce undefined behavior (see: 
+    Calling noPreserveCache() is necessary to prevent the module being 
+    loaded from cache, which could have other mocks injected and thus 
+    produce undefined behavior (see: 
     https://dev.to/thekashey/please-stop-playing-with-proxyquire-11j4)
 
 Relevant documentation:

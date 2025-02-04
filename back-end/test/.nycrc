@@ -1,0 +1,18 @@
+{
+  "all": true,
+  "include": ["api/controllers/*.js", "api/models/*.js", "api/services/*.js"],
+  "reporter": ["text", "html"],
+  "report-dir": "./test/coverage",
+  "temp-dir": "./test/.nyc_output",
+  "check-coverage": true,
+  "branches": 80,
+  "lines": 80,
+  "functions": 80,
+  "statements": 80,
+  "watermarks": {
+    "lines": [80, 95],
+    "functions": [80, 95],
+    "branches": [80, 95],
+    "statements": [80, 95]
+  }
+}

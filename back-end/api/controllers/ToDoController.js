@@ -56,9 +56,10 @@ module.exports = {
 
   findOne: async function (req, res) {
     const { id } = req.params;
+    const { userId } = req.session;
 
     try {
-      const toDo = await ToDoService.findById(id);
+      const toDo = await ToDoService.findById(id, userId);
       return res.json(toDo);
     } catch (error) {
       handleErrors(error, res);
@@ -68,12 +69,13 @@ module.exports = {
   changeState: async function (req, res) {
     const { id } = req.params;
     const { state } = req.body;
+    const { userId } = req.session;
 
     if (!id) return res.badRequest("Id is required");
     if (!state) return res.badRequest("New state is required");
 
     try {
-      const updatedToDo = await ToDoService.changeState(id, state);
+      const updatedToDo = await ToDoService.changeState(id, userId, state);
       return res.json(updatedToDo);
     } catch (error) {
       handleErrors(error, res);

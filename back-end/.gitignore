@@ -123,8 +123,8 @@ nbproject
 *.iml
 .node_history
 dump.rdb
-coverage
-.nyc_output
+test/coverage
+test/.nyc_output
 
 npm-debug.log
 lib-cov
