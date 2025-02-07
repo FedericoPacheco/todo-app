@@ -5,14 +5,17 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-let ToDoModel;
-try {
-  ToDoModel = ToDo;
-} catch {
-  ToDoModel = {};
-}
+/* 
+    While performing unit tests, the model (global variable) doesn't exist.
+    An empty object is used as placeholder, but fakes, stubs or mocks 
+    are needed. These can be injected through proxyquire. 
+    Note: a helper function can't be extracted since passing an undefined 
+    model raises a ReferenceError before calling the helper.
+  */
+const ToDoModel = typeof ToDo !== "undefined" ? ToDo : {};
 const ToDoService = require("../services/ToDoService")(ToDoModel);
-const ErrorTypes = require("../services/ErrorTypes");
+
+const { mapErrorToStatus } = require("./errorUtils");
 
 module.exports = {
   create: async function (req, res) {
@@ -39,7 +42,7 @@ module.exports = {
       const deletedToDo = await ToDoService.deleteById(id, userId);
       return res.json(deletedToDo);
     } catch (error) {
-      handleErrors(error, res);
+      mapErrorToStatus(error, res);
     }
   },
 
@@ -50,7 +53,7 @@ module.exports = {
       const allToDos = await ToDoService.findAll(userId);
       return res.json(allToDos);
     } catch (error) {
-      handleErrors(error, res);
+      mapErrorToStatus(error, res);
     }
   },
 
@@ -62,7 +65,7 @@ module.exports = {
       const toDo = await ToDoService.findById(id, userId);
       return res.json(toDo);
     } catch (error) {
-      handleErrors(error, res);
+      mapErrorToStatus(error, res);
     }
   },
 
@@ -78,20 +81,7 @@ module.exports = {
       const updatedToDo = await ToDoService.changeState(id, userId, state);
       return res.json(updatedToDo);
     } catch (error) {
-      handleErrors(error, res);
+      mapErrorToStatus(error, res);
     }
   },
-};
-
-const handleErrors = (error, res) => {
-  switch (error.message) {
-    case ErrorTypes.DB_ERROR:
-      return res.serverError(error);
-    case ErrorTypes.INVALID_INPUT:
-      return res.badRequest(error);
-    case ErrorTypes.ENTITY_NOT_FOUND:
-      return res.notFound(error);
-    default:
-      return res.serverError(error);
-  }
 };

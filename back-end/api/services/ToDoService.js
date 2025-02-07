@@ -1,4 +1,4 @@
-const ErrorTypes = require("./ErrorTypes");
+const ErrorTypes = require("../constants/ErrorTypes");
 
 /*
 

@@ -1,42 +1,51 @@
-/**
- * AuthenticationController
- *
- * @description :: Server-side actions for handling incoming requests.
- * @help        :: See https://sailsjs.com/docs/concepts/actions
- */
+const UserModel = typeof User !== "undefined" ? User : {};
+const AuthenticationService = require("../services/AuthenticationService")(
+  UserModel
+);
 
-const bcrypt = require("bcryptjs");
-const HASH_ROUNDS = 10;
+const { mapErrorToStatus } = require("./errorUtils");
 
 module.exports = {
   login: async function (req, res) {
     const { user, pass } = req.body;
-    const foundUser = await User.findOne({ user });
-    const matched = await bcrypt.compare(pass, foundUser?.pass);
-    if (!foundUser || !matched) {
-      return res.status(401).json({ error: "Invalid credentials" });
+
+    if (!user || !pass) {
+      return res.badRequest("User and password are required");
     }
-    req.session.userId = foundUser.id;
-    return res.json({ message: `User ${foundUser.user} logged in` });
+
+    try {
+      const foundUser = await AuthenticationService.login(user, pass);
+      req.session.userId = foundUser.id;
+      return res.json({ message: `User ${foundUser.user} logged in` });
+    } catch (error) {
+      mapErrorToStatus(error, res);
+    }
   },
 
   logout: function (req, res) {
-    req.session.destroy();
-    return res.json({ message: "Logged out" });
+    try {
+      AuthenticationService.logout();
+      req.session.destroy();
+      return res.json({ message: "Logged out" });
+    } catch (error) {
+      mapErrorToStatus(error, res);
+    }
   },
 
   signup: async function (req, res) {
     const { user, pass } = req.body;
-    const existingUser = await User.findOne({ user });
-    if (existingUser) {
-      return res
-        .status(409)
-        .json({ error: `User ${existingUser.user} already exists` });
+
+    if (!user || !pass) {
+      return res.badRequest("User and password are required");
     }
-    const hashedPass = await bcrypt.hash(pass, HASH_ROUNDS);
-    const newUser = await User.create({ user, pass: hashedPass }).fetch();
-    req.session.userId = newUser.id;
-    return res.json({ message: `User ${user} signed up` });
+
+    try {
+      const newUser = await AuthenticationService.signup(user, pass);
+      req.session.userId = newUser.id;
+      return res.json({ message: `User ${newUser.user} signed up` });
+    } catch (error) {
+      mapErrorToStatus(error, res);
+    }
   },
 
   status: function (req, res) {

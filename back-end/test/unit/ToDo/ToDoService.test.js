@@ -44,7 +44,7 @@ suite("ToDoService", function () {
       findOne: sinon.stub(),
     };
     ToDoService = require("../../../api/services/ToDoService")(ToDoModelStub);
-    ErrorTypes = require("../../../api/services/ErrorTypes");
+    ErrorTypes = require("../../../api/constants/ErrorTypes");
 
     toDoStub = {
       id: 1,

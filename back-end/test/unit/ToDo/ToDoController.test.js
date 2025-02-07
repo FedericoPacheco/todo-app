@@ -63,7 +63,7 @@ suite("ToDoController", function () {
       // eslint-disable-next-line no-unused-vars
       "../services/ToDoService": (ToDoModel) => ToDoServiceStub,
     });
-    ErrorTypes = require("../../../api/services/ErrorTypes");
+    ErrorTypes = require("../../../api/constants/ErrorTypes");
   });
 
   teardown(async function () {
