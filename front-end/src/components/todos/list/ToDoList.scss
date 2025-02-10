@@ -9,11 +9,15 @@
     width: $tab-width * 0.5;
     margin-bottom: 0;
     padding: 0.5rem 0;
+
+    &:hover {
+      color: $font-color;
+      cursor: pointer;
+    }
   }
 
-  h2:hover {
-    color: $font-color;
-    cursor: pointer;
+  li {
+    list-style: none;
   }
 
   .highlighted-tab {

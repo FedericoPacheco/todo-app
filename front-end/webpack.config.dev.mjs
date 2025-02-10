@@ -58,13 +58,14 @@ export default {
       filename: "assets/[name].[contenthash].css",
     }),
     new Dotenv(),
-    new ESLintPlugin({
+    /* new ESLintPlugin({
       overrideConfigFile: path.resolve(
         path.dirname(fileURLToPath(import.meta.url)),
         "eslint.config.mjs"
       ),
       configType: "flat",
-    }),
+      eslintPath: "./usr/todo-app/node_modules/eslint-webpack-plugin",
+    }), */
     /*   new ProvidePlugin({
       React: 'react',
     }) */

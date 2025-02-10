@@ -22,6 +22,7 @@ Relevant documentation:
   * https://sinonjs.org/releases/v19/spies/
   * https://www.npmjs.com/package/proxyquire
   * https://sinonjs.org/how-to/link-seams-commonjs/
+  * https://sailsjs.com/documentation/reference/response-res
  
 Misc:
   * https://tsh.io/blog/dependency-injection-in-node-js/

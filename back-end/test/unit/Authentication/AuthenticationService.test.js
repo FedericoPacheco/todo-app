@@ -4,9 +4,10 @@ const sinon = require("sinon");
 const { test, suite, setup, teardown } = require("mocha");
 
 suite("AuthenticationService", function () {
-  let user, pass, UserStub, AuthenticationService, ErrorTypes;
+  let id, user, pass, UserStub, AuthenticationService, ErrorTypes;
 
   setup(function () {
+    id = 1;
     user = "testUser";
     pass = "testPass";
     UserStub = {
@@ -33,7 +34,7 @@ suite("AuthenticationService", function () {
     });
 
     test("should throw INVALID_CREDENTIALS when password does not match", async function () {
-      UserStub.findOne.resolves({ user, pass: "wrongPass" });
+      UserStub.findOne.resolves({ id, user, pass: "wrongPass" });
 
       chai.assert.isRejected(
         AuthenticationService.login(user, pass),
@@ -42,11 +43,12 @@ suite("AuthenticationService", function () {
     });
 
     test("should return user when credentials match", async function () {
-      UserStub.findOne.resolves({ user, pass });
+      UserStub.findOne.resolves({ id, user, pass });
 
+      // chai.assert.isFulfilled(AuthenticationService.login(user, pass));
       chai.assert.eventually.deepEqual(
         AuthenticationService.login(user, pass),
-        { user, pass }
+        { id, user }
       );
     });
   });
@@ -66,7 +68,7 @@ suite("AuthenticationService", function () {
     });
 
     test("should throw USER_ALREADY_EXISTS when user already exists", async function () {
-      UserStub.findOne.resolves({ user, pass });
+      UserStub.findOne.resolves({ id, user, pass });
 
       chai.assert.isRejected(
         AuthenticationService.signup(user, pass),
@@ -89,8 +91,11 @@ suite("AuthenticationService", function () {
     test("should create new user on successful signup", async function () {
       UserStub.findOne.resolves(undefined);
 
-      chai.assert.isFulfilled(AuthenticationService.signup(user, pass));
-      chai.assert(UserStub.findOne.calledOnce);
+      // chai.assert.isFulfilled(AuthenticationService.signup(user, pass));
+      chai.assert.eventually.deepEqual(
+        AuthenticationService.signup(user, pass),
+        { id, user }
+      );
     });
   });
 

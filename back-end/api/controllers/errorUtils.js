@@ -15,7 +15,7 @@ function mapErrorToRes(error, res) {
     case ErrorTypes.INVALID_CREDENTIALS:
       return res.unauthorized(error);
     case ErrorTypes.USER_ALREADY_EXISTS:
-      return res.conflict(error);
+      return res.badRequest(error);
     default:
       return res.serverError(error);
   }

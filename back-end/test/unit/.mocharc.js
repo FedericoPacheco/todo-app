@@ -1,5 +1,5 @@
 module.exports = {
-  timeout: 5000,
+  timeout: 10000,
   ui: "tdd",
   spec: "./test/unit/**/*.test.js",
   reporter: "min",

@@ -21,6 +21,7 @@ module.exports = (User) => {
     if (!foundUser || !matched) {
       throw new Error(ErrorTypes.INVALID_CREDENTIALS);
     }
+    delete foundUser.pass;
     return foundUser;
   }
 
@@ -44,6 +45,7 @@ module.exports = (User) => {
     } catch {
       throw new Error(ErrorTypes.DB_ERROR);
     }
+    delete newUser.pass;
     return newUser;
   }
 };
