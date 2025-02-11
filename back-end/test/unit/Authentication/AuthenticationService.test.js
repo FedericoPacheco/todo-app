@@ -11,6 +11,7 @@ suite("AuthenticationService", function () {
     user = "testUser";
     pass = "testPass";
     UserStub = {
+      ...require("../../../api/models/User"),
       findOne: sinon.stub(),
       create: sinon.stub(),
     };
@@ -27,6 +28,10 @@ suite("AuthenticationService", function () {
     test("should throw DB_ERROR when User.findOne throws", async function () {
       UserStub.findOne.rejects(new Error("AdapterError"));
 
+      // chai.assert.throws(
+      //   async () => await AuthenticationService.login(user, pass),
+      //   ErrorTypes.DB_ERROR
+      // );
       chai.assert.isRejected(
         AuthenticationService.login(user, pass),
         ErrorTypes.DB_ERROR,
