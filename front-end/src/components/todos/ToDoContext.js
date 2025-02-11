@@ -47,7 +47,7 @@ export function ToDoContextProvider({ children }) {
       addTodo({
         text: description,
         state: tab,
-      })
+      }),
     );
     setIsCreateToDoVisible(false);
   };

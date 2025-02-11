@@ -29,7 +29,7 @@ suite("AuthenticationService", function () {
 
       chai.assert.isRejected(
         AuthenticationService.login(user, pass),
-        ErrorTypes.DB_ERROR
+        ErrorTypes.DB_ERROR,
       );
     });
 
@@ -38,7 +38,7 @@ suite("AuthenticationService", function () {
 
       chai.assert.isRejected(
         AuthenticationService.login(user, pass),
-        ErrorTypes.INVALID_CREDENTIALS
+        ErrorTypes.INVALID_CREDENTIALS,
       );
     });
 
@@ -48,7 +48,7 @@ suite("AuthenticationService", function () {
       // chai.assert.isFulfilled(AuthenticationService.login(user, pass));
       chai.assert.eventually.deepEqual(
         AuthenticationService.login(user, pass),
-        { id, user }
+        { id, user },
       );
     });
   });
@@ -63,7 +63,7 @@ suite("AuthenticationService", function () {
 
       chai.assert.isRejected(
         AuthenticationService.signup(user, pass),
-        ErrorTypes.DB_ERROR
+        ErrorTypes.DB_ERROR,
       );
     });
 
@@ -72,7 +72,7 @@ suite("AuthenticationService", function () {
 
       chai.assert.isRejected(
         AuthenticationService.signup(user, pass),
-        ErrorTypes.USER_ALREADY_EXISTS
+        ErrorTypes.USER_ALREADY_EXISTS,
       );
     });
 
@@ -84,7 +84,7 @@ suite("AuthenticationService", function () {
 
       chai.assert.isRejected(
         AuthenticationService.signup(user, pass),
-        ErrorTypes.DB_ERROR
+        ErrorTypes.DB_ERROR,
       );
     });
 
@@ -94,7 +94,7 @@ suite("AuthenticationService", function () {
       // chai.assert.isFulfilled(AuthenticationService.signup(user, pass));
       chai.assert.eventually.deepEqual(
         AuthenticationService.signup(user, pass),
-        { id, user }
+        { id, user },
       );
     });
   });

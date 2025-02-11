@@ -45,7 +45,7 @@ suite("AuthenticationController", function () {
         // eslint-disable-next-line no-unused-vars
         "../services/AuthenticationService": (User) =>
           AuthenticationServiceStub,
-      }
+      },
     );
     ErrorTypes = require("../../../api/constants/ErrorTypes");
   });
@@ -81,7 +81,7 @@ suite("AuthenticationController", function () {
     test("should handle INVALID_CREDENTIALS from service", async function () {
       req.body = { user: `invalid_${user}`, pass: `invalid_${pass}` };
       AuthenticationServiceStub.login.rejects(
-        new Error(ErrorTypes.INVALID_CREDENTIALS)
+        new Error(ErrorTypes.INVALID_CREDENTIALS),
       );
 
       await AuthenticationController.login(req, res);
@@ -139,7 +139,7 @@ suite("AuthenticationController", function () {
     test("should handle USER_ALREADY_EXISTS", async function () {
       req.body = { user, pass };
       AuthenticationServiceStub.signup.rejects(
-        new Error(ErrorTypes.USER_ALREADY_EXISTS)
+        new Error(ErrorTypes.USER_ALREADY_EXISTS),
       );
 
       await AuthenticationController.signup(req, res);

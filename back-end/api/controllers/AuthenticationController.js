@@ -1,6 +1,6 @@
 const UserModel = typeof User !== "undefined" ? User : {};
 const AuthenticationService = require("../services/AuthenticationService")(
-  UserModel
+  UserModel,
 );
 
 const { mapErrorToStatus } = require("./errorUtils");

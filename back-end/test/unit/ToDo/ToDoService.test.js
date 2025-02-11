@@ -70,7 +70,7 @@ suite("ToDoService", function () {
       const createdToDo = await ToDoService.create(
         toDoStub.text,
         toDoStub.state,
-        toDoStub.owner
+        toDoStub.owner,
       );
       chai.assert.deepStrictEqual(toDoStub, createdToDo);
     });
@@ -81,7 +81,7 @@ suite("ToDoService", function () {
       });
       chai.assert.isRejected(
         ToDoService.create(toDoStub.text, toDoStub.state, toDoStub.owner),
-        ErrorTypes.DB_ERROR
+        ErrorTypes.DB_ERROR,
       );
     });
   });
@@ -102,7 +102,7 @@ suite("ToDoService", function () {
       ToDoModelStub.destroyOne.resolves(toDoStub);
       const deletedToDo = await ToDoService.deleteById(
         toDoStub.id,
-        toDoStub.owner
+        toDoStub.owner,
       );
       chai.assert.deepStrictEqual(toDoStub, deletedToDo);
     });
@@ -111,7 +111,7 @@ suite("ToDoService", function () {
       ToDoModelStub.destroyOne.rejects(new Error("AdapterError"));
       chai.assert.isRejected(
         ToDoService.deleteById(toDoStub.id, toDoStub.owner),
-        ErrorTypes.DB_ERROR
+        ErrorTypes.DB_ERROR,
       );
     });
   });
@@ -132,7 +132,7 @@ suite("ToDoService", function () {
       ToDoModelStub.find.rejects(new Error("AdapterError"));
       chai.assert.isRejected(
         ToDoService.findAll(toDoStub.owner),
-        ErrorTypes.DB_ERROR
+        ErrorTypes.DB_ERROR,
       );
     });
 
@@ -158,7 +158,7 @@ suite("ToDoService", function () {
       ToDoModelStub.findOne.resolves(undefined);
       chai.assert.isRejected(
         ToDoService.findById(toDoStub.id, toDoStub.owner),
-        ErrorTypes.ENTITY_NOT_FOUND
+        ErrorTypes.ENTITY_NOT_FOUND,
       );
     });
 
@@ -167,7 +167,7 @@ suite("ToDoService", function () {
       ToDoModelStub.findOne.resolves(toDoWithDifferentOwner);
       chai.assert.isRejected(
         ToDoService.findById(toDoStub.id, toDoStub.owner),
-        ErrorTypes.INVALID_INPUT
+        ErrorTypes.INVALID_INPUT,
       );
     });
 
@@ -175,7 +175,7 @@ suite("ToDoService", function () {
       ToDoModelStub.findOne.rejects(new Error("AdapterError"));
       chai.assert.isRejected(
         ToDoService.findById(toDoStub.id, toDoStub.owner),
-        ErrorTypes.DB_ERROR
+        ErrorTypes.DB_ERROR,
       );
     });
   });
@@ -201,7 +201,7 @@ suite("ToDoService", function () {
       const updatedToDo = await ToDoService.changeState(
         toDoStub.id,
         toDoStub.owner,
-        "COMPLETED"
+        "COMPLETED",
       );
       chai.assert.deepStrictEqual(toDoWithChangedState, updatedToDo);
     });
@@ -209,7 +209,7 @@ suite("ToDoService", function () {
     test("With incorrect state", async function () {
       chai.assert.isRejected(
         ToDoService.changeState(toDoStub.id, toDoStub.owner, "INVALID"),
-        ErrorTypes.INVALID_INPUT
+        ErrorTypes.INVALID_INPUT,
       );
     });
 
@@ -219,7 +219,7 @@ suite("ToDoService", function () {
       });
       chai.assert.isRejected(
         ToDoService.changeState(toDoStub.id, toDoStub.owner, "COMPLETED"),
-        ErrorTypes.ENTITY_NOT_FOUND
+        ErrorTypes.ENTITY_NOT_FOUND,
       );
     });
 
@@ -229,7 +229,7 @@ suite("ToDoService", function () {
       });
       chai.assert.isRejected(
         ToDoService.changeState(toDoStub.id, "COMPLETED"),
-        ErrorTypes.DB_ERROR
+        ErrorTypes.DB_ERROR,
       );
     });
   });

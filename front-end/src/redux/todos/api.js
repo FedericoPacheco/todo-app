@@ -32,7 +32,7 @@ export const addTodo = async (todo) => {
     console.debug(`addTodo(${Object.values(todo).join(", ")}): successful`);
   } catch (error) {
     console.error(
-      `addTodo(${Object.values(todo).join(", ")}): error: ${error}`
+      `addTodo(${Object.values(todo).join(", ")}): error: ${error}`,
     );
   }
 };
