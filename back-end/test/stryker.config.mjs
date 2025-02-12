@@ -20,5 +20,6 @@ const config = {
     fileName: "test/mutation/index.html",
   },
   incremental: true,
+  incrementalFile: "test/mutation/stryker-incremental.json",
 };
 export default config;

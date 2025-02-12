@@ -44,7 +44,7 @@
     "unit-test": "NODE_ENV=test mocha --config test/unit/.mocharc.js",
     "unit-test:match": "npm run unit-test -- --grep",
     "unit-test:debug": "npm run unit-test -- --inspect-brk",
-    "unit-test:mutate": "stryker run test/stryker.config.mjs",
+    "unit-test:mutate": "stryker run test/stryker.config.mjs --mutate",
     "unit-test:coverage": "nyc --nycrc-path test/.nycrc npm run unit-test"
   },
   "main": "app.js",
