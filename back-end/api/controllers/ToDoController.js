@@ -15,7 +15,7 @@
 const ToDoModel = typeof ToDo !== "undefined" ? ToDo : {};
 const ToDoService = require("../services/ToDoService")(ToDoModel);
 
-const { mapErrorToStatus } = require("./errorUtils");
+const { mapErrorToRes } = require("./errorUtils");
 
 module.exports = {
   create: async function (req, res) {
@@ -28,7 +28,7 @@ module.exports = {
       const newToDo = await ToDoService.create(text, state, userId);
       return res.json(newToDo);
     } catch (error) {
-      return res.serverError(error);
+      mapErrorToRes(error, res);
     }
   },
 
@@ -42,7 +42,7 @@ module.exports = {
       const deletedToDo = await ToDoService.deleteById(id, userId);
       return res.json(deletedToDo);
     } catch (error) {
-      mapErrorToStatus(error, res);
+      mapErrorToRes(error, res);
     }
   },
 
@@ -53,7 +53,7 @@ module.exports = {
       const allToDos = await ToDoService.findAll(userId);
       return res.json(allToDos);
     } catch (error) {
-      mapErrorToStatus(error, res);
+      mapErrorToRes(error, res);
     }
   },
 
@@ -65,7 +65,7 @@ module.exports = {
       const toDo = await ToDoService.findById(id, userId);
       return res.json(toDo);
     } catch (error) {
-      mapErrorToStatus(error, res);
+      mapErrorToRes(error, res);
     }
   },
 
@@ -81,7 +81,7 @@ module.exports = {
       const updatedToDo = await ToDoService.changeState(id, userId, state);
       return res.json(updatedToDo);
     } catch (error) {
-      mapErrorToStatus(error, res);
+      mapErrorToRes(error, res);
     }
   },
 };

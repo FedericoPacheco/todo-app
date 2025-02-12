@@ -28,11 +28,7 @@ suite("AuthenticationService", function () {
     test("should throw DB_ERROR when User.findOne throws", async function () {
       UserStub.findOne.rejects(new Error("AdapterError"));
 
-      // chai.assert.throws(
-      //   async () => await AuthenticationService.login(user, pass),
-      //   ErrorTypes.DB_ERROR
-      // );
-      chai.assert.isRejected(
+      await chai.assert.isRejected(
         AuthenticationService.login(user, pass),
         ErrorTypes.DB_ERROR,
       );
@@ -41,7 +37,7 @@ suite("AuthenticationService", function () {
     test("should throw INVALID_CREDENTIALS when password does not match", async function () {
       UserStub.findOne.resolves({ id, user, pass: "wrongPass" });
 
-      chai.assert.isRejected(
+      await chai.assert.isRejected(
         AuthenticationService.login(user, pass),
         ErrorTypes.INVALID_CREDENTIALS,
       );
@@ -66,7 +62,7 @@ suite("AuthenticationService", function () {
     test("should throw DB_ERROR when User.findOne throws", async function () {
       UserStub.findOne.rejects(new Error("AdapterError"));
 
-      chai.assert.isRejected(
+      await chai.assert.isRejected(
         AuthenticationService.signup(user, pass),
         ErrorTypes.DB_ERROR,
       );
@@ -75,7 +71,7 @@ suite("AuthenticationService", function () {
     test("should throw USER_ALREADY_EXISTS when user already exists", async function () {
       UserStub.findOne.resolves({ id, user, pass });
 
-      chai.assert.isRejected(
+      await chai.assert.isRejected(
         AuthenticationService.signup(user, pass),
         ErrorTypes.USER_ALREADY_EXISTS,
       );
@@ -87,7 +83,7 @@ suite("AuthenticationService", function () {
         fetch: sinon.stub().rejects(new Error("AdapterError")),
       });
 
-      chai.assert.isRejected(
+      await chai.assert.isRejected(
         AuthenticationService.signup(user, pass),
         ErrorTypes.DB_ERROR,
       );

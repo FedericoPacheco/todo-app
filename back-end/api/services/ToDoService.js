@@ -32,6 +32,8 @@ module.exports = (ToDo) => {
   async function create(text, state, userId) {
     try {
       return await ToDo.create({ text, state, owner: userId }).fetch();
+      // const aux = await ToDo.create({ text, state, owner: userId });
+      // return aux.fetch();
     } catch {
       throw new Error(ErrorTypes.DB_ERROR);
     }
@@ -66,7 +68,7 @@ module.exports = (ToDo) => {
       throw new Error(ErrorTypes.ENTITY_NOT_FOUND);
     }
 
-    if (foundToDo?.owner !== userId) {
+    if (foundToDo.owner !== userId) {
       throw new Error(ErrorTypes.INVALID_INPUT);
     }
     return foundToDo;

@@ -17,7 +17,8 @@ const config = {
     config: "test/unit/.mocharc.js",
   },
   htmlReporter: {
-    baseDir: "test/mutation",
+    fileName: "test/mutation/index.html",
   },
+  incremental: true,
 };
 export default config;

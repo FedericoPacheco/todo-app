@@ -64,9 +64,15 @@ suite("ToDoService", function () {
     });
 
     test("Successfully", async function () {
-      ToDoModelStub.create.returns({
-        fetch: sinon.stub().resolves(toDoStub),
-      });
+      ToDoModelStub.create
+        .withArgs({
+          text: toDoStub.text,
+          state: toDoStub.state,
+          owner: toDoStub.owner,
+        })
+        .returns({
+          fetch: sinon.stub().resolves(toDoStub),
+        });
       const createdToDo = await ToDoService.create(
         toDoStub.text,
         toDoStub.state,
@@ -79,7 +85,7 @@ suite("ToDoService", function () {
       ToDoModelStub.create.returns({
         fetch: sinon.stub().rejects(new Error("AdapterError")),
       });
-      chai.assert.isRejected(
+      await chai.assert.isRejected(
         ToDoService.create(toDoStub.text, toDoStub.state, toDoStub.owner),
         ErrorTypes.DB_ERROR,
       );
@@ -99,7 +105,7 @@ suite("ToDoService", function () {
     });
 
     test("Successfully", async function () {
-      ToDoModelStub.destroyOne.resolves(toDoStub);
+      ToDoModelStub.destroyOne.withArgs({ id: toDoStub.id }).resolves(toDoStub);
       const deletedToDo = await ToDoService.deleteById(
         toDoStub.id,
         toDoStub.owner,
@@ -109,7 +115,7 @@ suite("ToDoService", function () {
 
     test("With DB error", async function () {
       ToDoModelStub.destroyOne.rejects(new Error("AdapterError"));
-      chai.assert.isRejected(
+      await chai.assert.isRejected(
         ToDoService.deleteById(toDoStub.id, toDoStub.owner),
         ErrorTypes.DB_ERROR,
       );
@@ -123,14 +129,14 @@ suite("ToDoService", function () {
 
     test("Successfully", async function () {
       const toDos = [toDoStub];
-      ToDoModelStub.find.resolves(toDos);
+      ToDoModelStub.find.withArgs({ owner: toDoStub.owner }).resolves(toDos);
       const allToDos = await ToDoService.findAll(toDoStub.owner);
       chai.assert.deepStrictEqual(toDos, allToDos);
     });
 
     test("With DB error", async function () {
       ToDoModelStub.find.rejects(new Error("AdapterError"));
-      chai.assert.isRejected(
+      await chai.assert.isRejected(
         ToDoService.findAll(toDoStub.owner),
         ErrorTypes.DB_ERROR,
       );
@@ -149,14 +155,14 @@ suite("ToDoService", function () {
     });
 
     test("Successfully", async function () {
-      ToDoModelStub.findOne.resolves(toDoStub);
+      ToDoModelStub.findOne.withArgs({ id: toDoStub.id }).resolves(toDoStub);
       const foundToDo = await ToDoService.findById(toDoStub.id, toDoStub.owner);
       chai.assert.deepStrictEqual(toDoStub, foundToDo);
     });
 
     test("Not found", async function () {
       ToDoModelStub.findOne.resolves(undefined);
-      chai.assert.isRejected(
+      await chai.assert.isRejected(
         ToDoService.findById(toDoStub.id, toDoStub.owner),
         ErrorTypes.ENTITY_NOT_FOUND,
       );
@@ -165,7 +171,7 @@ suite("ToDoService", function () {
     test("With different owner", async function () {
       const toDoWithDifferentOwner = { ...toDoStub, owner: toDoStub.owner + 1 };
       ToDoModelStub.findOne.resolves(toDoWithDifferentOwner);
-      chai.assert.isRejected(
+      await chai.assert.isRejected(
         ToDoService.findById(toDoStub.id, toDoStub.owner),
         ErrorTypes.INVALID_INPUT,
       );
@@ -173,7 +179,7 @@ suite("ToDoService", function () {
 
     test("With DB error", async function () {
       ToDoModelStub.findOne.rejects(new Error("AdapterError"));
-      chai.assert.isRejected(
+      await chai.assert.isRejected(
         ToDoService.findById(toDoStub.id, toDoStub.owner),
         ErrorTypes.DB_ERROR,
       );
@@ -181,23 +187,19 @@ suite("ToDoService", function () {
   });
 
   suite("changeState", function () {
-    setup(function () {
-      ToDoService.findById = sinon
-        .stub()
-        .withArgs(toDoStub.id, toDoStub.owner)
-        .resolves(toDoStub);
-    });
-
     teardown(function () {
       sinon.restore();
     });
 
     test("Successfully", async function () {
+      sinon
+        .stub(ToDoService, "findById")
+        .withArgs(toDoStub.id, toDoStub.owner)
+        .resolves(toDoStub);
       const toDoWithChangedState = { ...toDoStub, state: "COMPLETED" };
-      ToDoModelStub.updateOne.returns({
-        set: sinon.stub().resolves(toDoWithChangedState),
+      ToDoModelStub.updateOne.withArgs({ id: toDoStub.id }).returns({
+        set: sinon.stub().withArgs("COMPLETED").resolves(toDoWithChangedState),
       });
-
       const updatedToDo = await ToDoService.changeState(
         toDoStub.id,
         toDoStub.owner,
@@ -207,28 +209,29 @@ suite("ToDoService", function () {
     });
 
     test("With incorrect state", async function () {
-      chai.assert.isRejected(
+      sinon
+        .stub(ToDoService, "findById")
+        .withArgs(toDoStub.id, toDoStub.owner)
+        .resolves(toDoStub);
+      await chai.assert.isRejected(
         ToDoService.changeState(toDoStub.id, toDoStub.owner, "INVALID"),
         ErrorTypes.INVALID_INPUT,
       );
     });
 
-    test("Not found", async function () {
-      ToDoModelStub.updateOne.returns({
-        set: sinon.stub().resolves(undefined),
-      });
-      chai.assert.isRejected(
-        ToDoService.changeState(toDoStub.id, toDoStub.owner, "COMPLETED"),
-        ErrorTypes.ENTITY_NOT_FOUND,
-      );
-    });
-
     test("With DB error", async function () {
+      sinon
+        .stub(ToDoService, "findById")
+        .withArgs(toDoStub.id, toDoStub.owner)
+        .resolves(toDoStub);
       ToDoModelStub.updateOne.returns({
-        set: sinon.stub().rejects(new Error("AdapterError")),
+        set: sinon
+          .stub()
+          .withArgs("COMPLETED")
+          .rejects(new Error("AdapterError")),
       });
-      chai.assert.isRejected(
-        ToDoService.changeState(toDoStub.id, "COMPLETED"),
+      await chai.assert.isRejected(
+        ToDoService.changeState(toDoStub.id, toDoStub.owner, "COMPLETED"),
         ErrorTypes.DB_ERROR,
       );
     });

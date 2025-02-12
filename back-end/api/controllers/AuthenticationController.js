@@ -3,7 +3,7 @@ const AuthenticationService = require("../services/AuthenticationService")(
   UserModel,
 );
 
-const { mapErrorToStatus } = require("./errorUtils");
+const { mapErrorToRes } = require("./errorUtils");
 
 module.exports = {
   login: async function (req, res) {
@@ -18,7 +18,7 @@ module.exports = {
       req.session.userId = foundUser.id;
       return res.json({ message: `User ${foundUser.user} logged in` });
     } catch (error) {
-      mapErrorToStatus(error, res);
+      mapErrorToRes(error, res);
     }
   },
 
@@ -28,7 +28,7 @@ module.exports = {
       req.session.destroy();
       return res.json({ message: "Logged out" });
     } catch (error) {
-      mapErrorToStatus(error, res);
+      mapErrorToRes(error, res);
     }
   },
 
@@ -44,7 +44,7 @@ module.exports = {
       req.session.userId = newUser.id;
       return res.json({ message: `User ${newUser.user} signed up` });
     } catch (error) {
-      mapErrorToStatus(error, res);
+      mapErrorToRes(error, res);
     }
   },
 

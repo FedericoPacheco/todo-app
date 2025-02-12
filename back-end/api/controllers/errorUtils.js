@@ -1,7 +1,7 @@
 const ErrorTypes = require("../constants/ErrorTypes");
 
 module.exports = {
-  mapErrorToStatus: mapErrorToRes,
+  mapErrorToRes,
 };
 
 function mapErrorToRes(error, res) {

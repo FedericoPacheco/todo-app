@@ -1,0 +1,4615 @@
+{
+  "files": {
+    "api/controllers/AuthenticationController.js": {
+      "language": "javascript",
+      "mutants": [
+        {
+          "id": "0",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "User is not defined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "0"
+          ],
+          "coveredBy": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11"
+          ],
+          "location": {
+            "end": {
+              "column": 46,
+              "line": 1
+            },
+            "start": {
+              "column": 19,
+              "line": 1
+            }
+          }
+        },
+        {
+          "id": "1",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "status": "Survived",
+          "testsCompleted": 12,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11"
+          ],
+          "location": {
+            "end": {
+              "column": 46,
+              "line": 1
+            },
+            "start": {
+              "column": 19,
+              "line": 1
+            }
+          }
+        },
+        {
+          "id": "2",
+          "mutatorName": "EqualityOperator",
+          "replacement": "typeof User === \"undefined\"",
+          "statusReason": "User is not defined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "0"
+          ],
+          "coveredBy": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11"
+          ],
+          "location": {
+            "end": {
+              "column": 46,
+              "line": 1
+            },
+            "start": {
+              "column": 19,
+              "line": 1
+            }
+          }
+        },
+        {
+          "id": "3",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "statusReason": "User is not defined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "0"
+          ],
+          "coveredBy": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11"
+          ],
+          "location": {
+            "end": {
+              "column": 46,
+              "line": 1
+            },
+            "start": {
+              "column": 35,
+              "line": 1
+            }
+          }
+        },
+        {
+          "id": "4",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "statusReason": "AuthenticationController.login is not a function",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "0"
+          ],
+          "coveredBy": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11"
+          ],
+          "location": {
+            "end": {
+              "column": 2,
+              "line": 61
+            },
+            "start": {
+              "column": 18,
+              "line": 8
+            }
+          }
+        },
+        {
+          "id": "5",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "0"
+          ],
+          "coveredBy": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 23
+            },
+            "start": {
+              "column": 36,
+              "line": 9
+            }
+          }
+        },
+        {
+          "id": "6",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "1"
+          ],
+          "coveredBy": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
+          "location": {
+            "end": {
+              "column": 23,
+              "line": 12
+            },
+            "start": {
+              "column": 9,
+              "line": 12
+            }
+          }
+        },
+        {
+          "id": "7",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "0"
+          ],
+          "coveredBy": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
+          "location": {
+            "end": {
+              "column": 23,
+              "line": 12
+            },
+            "start": {
+              "column": 9,
+              "line": 12
+            }
+          }
+        },
+        {
+          "id": "8",
+          "mutatorName": "LogicalOperator",
+          "replacement": "!user && !pass",
+          "status": "Survived",
+          "testsCompleted": 4,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
+          "location": {
+            "end": {
+              "column": 23,
+              "line": 12
+            },
+            "start": {
+              "column": 9,
+              "line": 12
+            }
+          }
+        },
+        {
+          "id": "9",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "user",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "1"
+          ],
+          "coveredBy": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
+          "location": {
+            "end": {
+              "column": 14,
+              "line": 12
+            },
+            "start": {
+              "column": 9,
+              "line": 12
+            }
+          }
+        },
+        {
+          "id": "10",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "pass",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "1"
+          ],
+          "coveredBy": [
+            "1",
+            "2",
+            "3"
+          ],
+          "location": {
+            "end": {
+              "column": 23,
+              "line": 12
+            },
+            "start": {
+              "column": 18,
+              "line": 12
+            }
+          }
+        },
+        {
+          "id": "11",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "0"
+          ],
+          "coveredBy": [
+            "0"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 14
+            },
+            "start": {
+              "column": 25,
+              "line": 12
+            }
+          }
+        },
+        {
+          "id": "12",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "0"
+          ],
+          "location": {
+            "end": {
+              "column": 61,
+              "line": 13
+            },
+            "start": {
+              "column": 29,
+              "line": 13
+            }
+          }
+        },
+        {
+          "id": "13",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "1"
+          ],
+          "coveredBy": [
+            "1",
+            "2",
+            "3"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 20
+            },
+            "start": {
+              "column": 9,
+              "line": 16
+            }
+          }
+        },
+        {
+          "id": "14",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "3"
+          ],
+          "location": {
+            "end": {
+              "column": 70,
+              "line": 19
+            },
+            "start": {
+              "column": 23,
+              "line": 19
+            }
+          }
+        },
+        {
+          "id": "15",
+          "mutatorName": "StringLiteral",
+          "replacement": "``",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "3"
+          ],
+          "location": {
+            "end": {
+              "column": 68,
+              "line": 19
+            },
+            "start": {
+              "column": 34,
+              "line": 19
+            }
+          }
+        },
+        {
+          "id": "16",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "1"
+          ],
+          "coveredBy": [
+            "1",
+            "2"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 22
+            },
+            "start": {
+              "column": 21,
+              "line": 20
+            }
+          }
+        },
+        {
+          "id": "17",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "4"
+          ],
+          "coveredBy": [
+            "4"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 33
+            },
+            "start": {
+              "column": 31,
+              "line": 25
+            }
+          }
+        },
+        {
+          "id": "18",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "4"
+          ],
+          "coveredBy": [
+            "4"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 30
+            },
+            "start": {
+              "column": 9,
+              "line": 26
+            }
+          }
+        },
+        {
+          "id": "19",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "4"
+          ],
+          "location": {
+            "end": {
+              "column": 48,
+              "line": 29
+            },
+            "start": {
+              "column": 23,
+              "line": 29
+            }
+          }
+        },
+        {
+          "id": "20",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "4"
+          ],
+          "location": {
+            "end": {
+              "column": 46,
+              "line": 29
+            },
+            "start": {
+              "column": 34,
+              "line": 29
+            }
+          }
+        },
+        {
+          "id": "21",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "status": "NoCoverage",
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 32
+            },
+            "start": {
+              "column": 21,
+              "line": 30
+            }
+          }
+        },
+        {
+          "id": "22",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "5"
+          ],
+          "coveredBy": [
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 49
+            },
+            "start": {
+              "column": 37,
+              "line": 35
+            }
+          }
+        },
+        {
+          "id": "23",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "6"
+          ],
+          "coveredBy": [
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "location": {
+            "end": {
+              "column": 23,
+              "line": 38
+            },
+            "start": {
+              "column": 9,
+              "line": 38
+            }
+          }
+        },
+        {
+          "id": "24",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "5"
+          ],
+          "coveredBy": [
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "location": {
+            "end": {
+              "column": 23,
+              "line": 38
+            },
+            "start": {
+              "column": 9,
+              "line": 38
+            }
+          }
+        },
+        {
+          "id": "25",
+          "mutatorName": "LogicalOperator",
+          "replacement": "!user && !pass",
+          "status": "Survived",
+          "testsCompleted": 4,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "location": {
+            "end": {
+              "column": 23,
+              "line": 38
+            },
+            "start": {
+              "column": 9,
+              "line": 38
+            }
+          }
+        },
+        {
+          "id": "26",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "user",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "6"
+          ],
+          "coveredBy": [
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "location": {
+            "end": {
+              "column": 14,
+              "line": 38
+            },
+            "start": {
+              "column": 9,
+              "line": 38
+            }
+          }
+        },
+        {
+          "id": "27",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "pass",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "6"
+          ],
+          "coveredBy": [
+            "6",
+            "7",
+            "8"
+          ],
+          "location": {
+            "end": {
+              "column": 23,
+              "line": 38
+            },
+            "start": {
+              "column": 18,
+              "line": 38
+            }
+          }
+        },
+        {
+          "id": "28",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "5"
+          ],
+          "coveredBy": [
+            "5"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 40
+            },
+            "start": {
+              "column": 25,
+              "line": 38
+            }
+          }
+        },
+        {
+          "id": "29",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "5"
+          ],
+          "location": {
+            "end": {
+              "column": 61,
+              "line": 39
+            },
+            "start": {
+              "column": 29,
+              "line": 39
+            }
+          }
+        },
+        {
+          "id": "30",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "6"
+          ],
+          "coveredBy": [
+            "6",
+            "7",
+            "8"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 46
+            },
+            "start": {
+              "column": 9,
+              "line": 42
+            }
+          }
+        },
+        {
+          "id": "31",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "8"
+          ],
+          "location": {
+            "end": {
+              "column": 68,
+              "line": 45
+            },
+            "start": {
+              "column": 23,
+              "line": 45
+            }
+          }
+        },
+        {
+          "id": "32",
+          "mutatorName": "StringLiteral",
+          "replacement": "``",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "8"
+          ],
+          "location": {
+            "end": {
+              "column": 66,
+              "line": 45
+            },
+            "start": {
+              "column": 34,
+              "line": 45
+            }
+          }
+        },
+        {
+          "id": "33",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "6"
+          ],
+          "coveredBy": [
+            "6",
+            "7"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 48
+            },
+            "start": {
+              "column": 21,
+              "line": 46
+            }
+          }
+        },
+        {
+          "id": "34",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Cannot read properties of null (reading 'args')",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "9"
+          ],
+          "coveredBy": [
+            "9",
+            "10"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 57
+            },
+            "start": {
+              "column": 31,
+              "line": 51
+            }
+          }
+        },
+        {
+          "id": "35",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "expected { isAuthenticated: true } to have property 'isAuthenticated' of false, but got true",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "10"
+          ],
+          "coveredBy": [
+            "9",
+            "10"
+          ],
+          "location": {
+            "end": {
+              "column": 27,
+              "line": 52
+            },
+            "start": {
+              "column": 9,
+              "line": 52
+            }
+          }
+        },
+        {
+          "id": "36",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "expected { isAuthenticated: false } to have property 'isAuthenticated' of true, but got false",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "9"
+          ],
+          "coveredBy": [
+            "9",
+            "10"
+          ],
+          "location": {
+            "end": {
+              "column": 27,
+              "line": 52
+            },
+            "start": {
+              "column": 9,
+              "line": 52
+            }
+          }
+        },
+        {
+          "id": "37",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Cannot read properties of null (reading 'args')",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "9"
+          ],
+          "coveredBy": [
+            "9"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 54
+            },
+            "start": {
+              "column": 29,
+              "line": 52
+            }
+          }
+        },
+        {
+          "id": "38",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "statusReason": "expected {} to have property 'isAuthenticated'",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "9"
+          ],
+          "coveredBy": [
+            "9"
+          ],
+          "location": {
+            "end": {
+              "column": 48,
+              "line": 53
+            },
+            "start": {
+              "column": 23,
+              "line": 53
+            }
+          }
+        },
+        {
+          "id": "39",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "false",
+          "statusReason": "expected { isAuthenticated: false } to have property 'isAuthenticated' of true, but got false",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "9"
+          ],
+          "coveredBy": [
+            "9"
+          ],
+          "location": {
+            "end": {
+              "column": 46,
+              "line": 53
+            },
+            "start": {
+              "column": 42,
+              "line": 53
+            }
+          }
+        },
+        {
+          "id": "40",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Cannot read properties of null (reading 'args')",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "10"
+          ],
+          "coveredBy": [
+            "10"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 56
+            },
+            "start": {
+              "column": 12,
+              "line": 54
+            }
+          }
+        },
+        {
+          "id": "41",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "statusReason": "expected {} to have property 'isAuthenticated'",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "10"
+          ],
+          "coveredBy": [
+            "10"
+          ],
+          "location": {
+            "end": {
+              "column": 49,
+              "line": 55
+            },
+            "start": {
+              "column": 23,
+              "line": 55
+            }
+          }
+        },
+        {
+          "id": "42",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "true",
+          "statusReason": "expected { isAuthenticated: true } to have property 'isAuthenticated' of false, but got true",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "10"
+          ],
+          "coveredBy": [
+            "10"
+          ],
+          "location": {
+            "end": {
+              "column": 47,
+              "line": 55
+            },
+            "start": {
+              "column": 42,
+              "line": 55
+            }
+          }
+        },
+        {
+          "id": "43",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "11"
+          ],
+          "coveredBy": [
+            "11"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 60
+            },
+            "start": {
+              "column": 34,
+              "line": 58
+            }
+          }
+        },
+        {
+          "id": "44",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "statusReason": "expected {} to have property 'csrfToken'",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "11"
+          ],
+          "coveredBy": [
+            "11"
+          ],
+          "location": {
+            "end": {
+              "column": 51,
+              "line": 59
+            },
+            "start": {
+              "column": 21,
+              "line": 59
+            }
+          }
+        }
+      ],
+      "source": "const UserModel = typeof User !== \"undefined\" ? User : {};\nconst AuthenticationService = require(\"../services/AuthenticationService\")(\n  UserModel\n);\n\nconst { mapErrorToRes } = require(\"./errorUtils\");\n\nmodule.exports = {\n  login: async function (req, res) {\n    const { user, pass } = req.body;\n\n    if (!user || !pass) {\n      return res.badRequest(\"User and password are required\");\n    }\n\n    try {\n      const foundUser = await AuthenticationService.login(user, pass);\n      req.session.userId = foundUser.id;\n      return res.json({ message: `User ${foundUser.user} logged in` });\n    } catch (error) {\n      mapErrorToRes(error, res);\n    }\n  },\n\n  logout: function (req, res) {\n    try {\n      AuthenticationService.logout();\n      req.session.destroy();\n      return res.json({ message: \"Logged out\" });\n    } catch (error) {\n      mapErrorToRes(error, res);\n    }\n  },\n\n  signup: async function (req, res) {\n    const { user, pass } = req.body;\n\n    if (!user || !pass) {\n      return res.badRequest(\"User and password are required\");\n    }\n\n    try {\n      const newUser = await AuthenticationService.signup(user, pass);\n      req.session.userId = newUser.id;\n      return res.json({ message: `User ${newUser.user} signed up` });\n    } catch (error) {\n      mapErrorToRes(error, res);\n    }\n  },\n\n  status: function (req, res) {\n    if (req.session.userId) {\n      return res.json({ isAuthenticated: true });\n    } else {\n      return res.json({ isAuthenticated: false });\n    }\n  },\n  csrfToken: function (req, res) {\n    return res.json({ csrfToken: req.csrfToken() });\n  },\n};\n"
+    },
+    "api/controllers/ToDoController.js": {
+      "language": "javascript",
+      "mutants": [
+        {
+          "id": "45",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "ToDo is not defined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "20"
+          ],
+          "coveredBy": [
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 46,
+              "line": 15
+            },
+            "start": {
+              "column": 19,
+              "line": 15
+            }
+          }
+        },
+        {
+          "id": "46",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "status": "Survived",
+          "testsCompleted": 16,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 46,
+              "line": 15
+            },
+            "start": {
+              "column": 19,
+              "line": 15
+            }
+          }
+        },
+        {
+          "id": "47",
+          "mutatorName": "EqualityOperator",
+          "replacement": "typeof ToDo === \"undefined\"",
+          "statusReason": "ToDo is not defined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "20"
+          ],
+          "coveredBy": [
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 46,
+              "line": 15
+            },
+            "start": {
+              "column": 19,
+              "line": 15
+            }
+          }
+        },
+        {
+          "id": "48",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "statusReason": "ToDo is not defined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "20"
+          ],
+          "coveredBy": [
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 46,
+              "line": 15
+            },
+            "start": {
+              "column": 35,
+              "line": 15
+            }
+          }
+        },
+        {
+          "id": "49",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "statusReason": "ToDoController.create is not a function",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "20"
+          ],
+          "coveredBy": [
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 2,
+              "line": 87
+            },
+            "start": {
+              "column": 18,
+              "line": 20
+            }
+          }
+        },
+        {
+          "id": "50",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "20"
+          ],
+          "coveredBy": [
+            "20",
+            "21",
+            "22"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 33
+            },
+            "start": {
+              "column": 37,
+              "line": 21
+            }
+          }
+        },
+        {
+          "id": "51",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "20"
+          ],
+          "coveredBy": [
+            "20",
+            "21",
+            "22"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 30
+            },
+            "start": {
+              "column": 9,
+              "line": 22
+            }
+          }
+        },
+        {
+          "id": "52",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "20"
+          ],
+          "coveredBy": [
+            "20",
+            "21",
+            "22"
+          ],
+          "location": {
+            "end": {
+              "column": 26,
+              "line": 26
+            },
+            "start": {
+              "column": 11,
+              "line": 26
+            }
+          }
+        },
+        {
+          "id": "53",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "21"
+          ],
+          "coveredBy": [
+            "20",
+            "21",
+            "22"
+          ],
+          "location": {
+            "end": {
+              "column": 26,
+              "line": 26
+            },
+            "start": {
+              "column": 11,
+              "line": 26
+            }
+          }
+        },
+        {
+          "id": "54",
+          "mutatorName": "LogicalOperator",
+          "replacement": "!text && !state",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "21"
+          ],
+          "coveredBy": [
+            "20",
+            "21",
+            "22"
+          ],
+          "location": {
+            "end": {
+              "column": 26,
+              "line": 26
+            },
+            "start": {
+              "column": 11,
+              "line": 26
+            }
+          }
+        },
+        {
+          "id": "55",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "text",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "20"
+          ],
+          "coveredBy": [
+            "20",
+            "21",
+            "22"
+          ],
+          "location": {
+            "end": {
+              "column": 16,
+              "line": 26
+            },
+            "start": {
+              "column": 11,
+              "line": 26
+            }
+          }
+        },
+        {
+          "id": "56",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "state",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "20"
+          ],
+          "coveredBy": [
+            "20",
+            "21",
+            "22"
+          ],
+          "location": {
+            "end": {
+              "column": 26,
+              "line": 26
+            },
+            "start": {
+              "column": 20,
+              "line": 26
+            }
+          }
+        },
+        {
+          "id": "57",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "21"
+          ],
+          "location": {
+            "end": {
+              "column": 79,
+              "line": 26
+            },
+            "start": {
+              "column": 50,
+              "line": 26
+            }
+          }
+        },
+        {
+          "id": "58",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "22"
+          ],
+          "coveredBy": [
+            "22"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 32
+            },
+            "start": {
+              "column": 21,
+              "line": 30
+            }
+          }
+        },
+        {
+          "id": "59",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "23"
+          ],
+          "coveredBy": [
+            "23",
+            "24",
+            "25"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 47
+            },
+            "start": {
+              "column": 37,
+              "line": 35
+            }
+          }
+        },
+        {
+          "id": "60",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "id",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "23"
+          ],
+          "coveredBy": [
+            "23",
+            "24",
+            "25"
+          ],
+          "location": {
+            "end": {
+              "column": 12,
+              "line": 39
+            },
+            "start": {
+              "column": 9,
+              "line": 39
+            }
+          }
+        },
+        {
+          "id": "61",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "23"
+          ],
+          "coveredBy": [
+            "23",
+            "24",
+            "25"
+          ],
+          "location": {
+            "end": {
+              "column": 12,
+              "line": 39
+            },
+            "start": {
+              "column": 9,
+              "line": 39
+            }
+          }
+        },
+        {
+          "id": "62",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "24"
+          ],
+          "coveredBy": [
+            "23",
+            "24",
+            "25"
+          ],
+          "location": {
+            "end": {
+              "column": 12,
+              "line": 39
+            },
+            "start": {
+              "column": 9,
+              "line": 39
+            }
+          }
+        },
+        {
+          "id": "63",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "24"
+          ],
+          "location": {
+            "end": {
+              "column": 52,
+              "line": 39
+            },
+            "start": {
+              "column": 36,
+              "line": 39
+            }
+          }
+        },
+        {
+          "id": "64",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "23"
+          ],
+          "coveredBy": [
+            "23",
+            "25"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 44
+            },
+            "start": {
+              "column": 9,
+              "line": 41
+            }
+          }
+        },
+        {
+          "id": "65",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "25"
+          ],
+          "coveredBy": [
+            "25"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 46
+            },
+            "start": {
+              "column": 21,
+              "line": 44
+            }
+          }
+        },
+        {
+          "id": "66",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "26"
+          ],
+          "coveredBy": [
+            "26",
+            "27"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 58
+            },
+            "start": {
+              "column": 38,
+              "line": 49
+            }
+          }
+        },
+        {
+          "id": "67",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "26"
+          ],
+          "coveredBy": [
+            "26",
+            "27"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 55
+            },
+            "start": {
+              "column": 9,
+              "line": 52
+            }
+          }
+        },
+        {
+          "id": "68",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "27"
+          ],
+          "coveredBy": [
+            "27"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 57
+            },
+            "start": {
+              "column": 21,
+              "line": 55
+            }
+          }
+        },
+        {
+          "id": "69",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "28"
+          ],
+          "coveredBy": [
+            "28",
+            "29",
+            "30",
+            "31"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 70
+            },
+            "start": {
+              "column": 38,
+              "line": 60
+            }
+          }
+        },
+        {
+          "id": "70",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "28"
+          ],
+          "coveredBy": [
+            "28",
+            "29",
+            "30",
+            "31"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 67
+            },
+            "start": {
+              "column": 9,
+              "line": 64
+            }
+          }
+        },
+        {
+          "id": "71",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "29"
+          ],
+          "coveredBy": [
+            "29",
+            "30",
+            "31"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 69
+            },
+            "start": {
+              "column": 21,
+              "line": 67
+            }
+          }
+        },
+        {
+          "id": "72",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "32"
+          ],
+          "coveredBy": [
+            "32",
+            "33",
+            "34",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 86
+            },
+            "start": {
+              "column": 42,
+              "line": 72
+            }
+          }
+        },
+        {
+          "id": "73",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "id",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "32"
+          ],
+          "coveredBy": [
+            "32",
+            "33",
+            "34",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 12,
+              "line": 77
+            },
+            "start": {
+              "column": 9,
+              "line": 77
+            }
+          }
+        },
+        {
+          "id": "74",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "32"
+          ],
+          "coveredBy": [
+            "32",
+            "33",
+            "34",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 12,
+              "line": 77
+            },
+            "start": {
+              "column": 9,
+              "line": 77
+            }
+          }
+        },
+        {
+          "id": "75",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 3,
+          "static": false,
+          "killedBy": [
+            "34"
+          ],
+          "coveredBy": [
+            "32",
+            "33",
+            "34",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 12,
+              "line": 77
+            },
+            "start": {
+              "column": 9,
+              "line": 77
+            }
+          }
+        },
+        {
+          "id": "76",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "34"
+          ],
+          "location": {
+            "end": {
+              "column": 52,
+              "line": 77
+            },
+            "start": {
+              "column": 36,
+              "line": 77
+            }
+          }
+        },
+        {
+          "id": "77",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "state",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "32"
+          ],
+          "coveredBy": [
+            "32",
+            "33",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 15,
+              "line": 78
+            },
+            "start": {
+              "column": 9,
+              "line": 78
+            }
+          }
+        },
+        {
+          "id": "78",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "32"
+          ],
+          "coveredBy": [
+            "32",
+            "33",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 15,
+              "line": 78
+            },
+            "start": {
+              "column": 9,
+              "line": 78
+            }
+          }
+        },
+        {
+          "id": "79",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "33"
+          ],
+          "coveredBy": [
+            "32",
+            "33",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 15,
+              "line": 78
+            },
+            "start": {
+              "column": 9,
+              "line": 78
+            }
+          }
+        },
+        {
+          "id": "80",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "33"
+          ],
+          "location": {
+            "end": {
+              "column": 62,
+              "line": 78
+            },
+            "start": {
+              "column": 39,
+              "line": 78
+            }
+          }
+        },
+        {
+          "id": "81",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "32"
+          ],
+          "coveredBy": [
+            "32",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 83
+            },
+            "start": {
+              "column": 9,
+              "line": 80
+            }
+          }
+        },
+        {
+          "id": "82",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "35"
+          ],
+          "coveredBy": [
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 85
+            },
+            "start": {
+              "column": 21,
+              "line": 83
+            }
+          }
+        }
+      ],
+      "source": "/**\n * ToDoController\n *\n * @description :: Server-side actions for handling incoming requests.\n * @help        :: See https://sailsjs.com/docs/concepts/actions\n */\n\n/* \n    While performing unit tests, the model (global variable) doesn't exist.\n    An empty object is used as placeholder, but fakes, stubs or mocks \n    are needed. These can be injected through proxyquire. \n    Note: a helper function can't be extracted since passing an undefined \n    model raises a ReferenceError before calling the helper.\n  */\nconst ToDoModel = typeof ToDo !== \"undefined\" ? ToDo : {};\nconst ToDoService = require(\"../services/ToDoService\")(ToDoModel);\n\nconst { mapErrorToRes } = require(\"./errorUtils\");\n\nmodule.exports = {\n  create: async function (req, res) {\n    try {\n      const { text, state } = req.body;\n      const { userId } = req.session;\n\n      if (!text || !state) return res.badRequest(\"Text and state are required\");\n\n      const newToDo = await ToDoService.create(text, state, userId);\n      return res.json(newToDo);\n    } catch (error) {\n      mapErrorToRes(error, res);\n    }\n  },\n\n  delete: async function (req, res) {\n    const { id } = req.params;\n    const { userId } = req.session;\n\n    if (!id) return res.badRequest(\"Id is required\");\n\n    try {\n      const deletedToDo = await ToDoService.deleteById(id, userId);\n      return res.json(deletedToDo);\n    } catch (error) {\n      mapErrorToRes(error, res);\n    }\n  },\n\n  findAll: async function (req, res) {\n    const { userId } = req.session;\n\n    try {\n      const allToDos = await ToDoService.findAll(userId);\n      return res.json(allToDos);\n    } catch (error) {\n      mapErrorToRes(error, res);\n    }\n  },\n\n  findOne: async function (req, res) {\n    const { id } = req.params;\n    const { userId } = req.session;\n\n    try {\n      const toDo = await ToDoService.findById(id, userId);\n      return res.json(toDo);\n    } catch (error) {\n      mapErrorToRes(error, res);\n    }\n  },\n\n  changeState: async function (req, res) {\n    const { id } = req.params;\n    const { state } = req.body;\n    const { userId } = req.session;\n\n    if (!id) return res.badRequest(\"Id is required\");\n    if (!state) return res.badRequest(\"New state is required\");\n\n    try {\n      const updatedToDo = await ToDoService.changeState(id, userId, state);\n      return res.json(updatedToDo);\n    } catch (error) {\n      mapErrorToRes(error, res);\n    }\n  },\n};\n"
+    },
+    "api/controllers/errorUtils.js": {
+      "language": "javascript",
+      "mutants": [
+        {
+          "id": "83",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "0"
+          ],
+          "location": {
+            "end": {
+              "column": 2,
+              "line": 5
+            },
+            "start": {
+              "column": 18,
+              "line": 3
+            }
+          }
+        },
+        {
+          "id": "84",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "1"
+          ],
+          "coveredBy": [
+            "1",
+            "2",
+            "6",
+            "7",
+            "22",
+            "25",
+            "27",
+            "29",
+            "30",
+            "31",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 2,
+              "line": 22
+            },
+            "start": {
+              "column": 36,
+              "line": 7
+            }
+          }
+        },
+        {
+          "id": "85",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "case ErrorTypes.DB_ERROR:",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "1"
+          ],
+          "coveredBy": [
+            "1",
+            "6",
+            "22",
+            "25",
+            "27",
+            "30",
+            "35"
+          ],
+          "location": {
+            "end": {
+              "column": 37,
+              "line": 10
+            },
+            "start": {
+              "column": 5,
+              "line": 9
+            }
+          }
+        },
+        {
+          "id": "86",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "case ErrorTypes.INVALID_INPUT:",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "31"
+          ],
+          "coveredBy": [
+            "31"
+          ],
+          "location": {
+            "end": {
+              "column": 36,
+              "line": 12
+            },
+            "start": {
+              "column": 5,
+              "line": 11
+            }
+          }
+        },
+        {
+          "id": "87",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "case ErrorTypes.ENTITY_NOT_FOUND:",
+          "statusReason": "res.unauthorized is not a function",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "29"
+          ],
+          "coveredBy": [
+            "29"
+          ],
+          "location": {
+            "end": {
+              "column": 34,
+              "line": 14
+            },
+            "start": {
+              "column": 5,
+              "line": 13
+            }
+          }
+        },
+        {
+          "id": "88",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "case ErrorTypes.INVALID_CREDENTIALS:",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "2"
+          ],
+          "coveredBy": [
+            "2"
+          ],
+          "location": {
+            "end": {
+              "column": 38,
+              "line": 16
+            },
+            "start": {
+              "column": 5,
+              "line": 15
+            }
+          }
+        },
+        {
+          "id": "89",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "case ErrorTypes.USER_ALREADY_EXISTS:",
+          "statusReason": "Unspecified AssertionError",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "7"
+          ],
+          "coveredBy": [
+            "7"
+          ],
+          "location": {
+            "end": {
+              "column": 36,
+              "line": 18
+            },
+            "start": {
+              "column": 5,
+              "line": 17
+            }
+          }
+        },
+        {
+          "id": "90",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "default:",
+          "status": "NoCoverage",
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [],
+          "location": {
+            "end": {
+              "column": 37,
+              "line": 20
+            },
+            "start": {
+              "column": 5,
+              "line": 19
+            }
+          }
+        }
+      ],
+      "source": "const ErrorTypes = require(\"../constants/ErrorTypes\");\n\nmodule.exports = {\n  mapErrorToRes,\n};\n\nfunction mapErrorToRes(error, res) {\n  switch (error.message) {\n    case ErrorTypes.DB_ERROR:\n      return res.serverError(error);\n    case ErrorTypes.INVALID_INPUT:\n      return res.badRequest(error);\n    case ErrorTypes.ENTITY_NOT_FOUND:\n      return res.notFound(error);\n    case ErrorTypes.INVALID_CREDENTIALS:\n      return res.unauthorized(error);\n    case ErrorTypes.USER_ALREADY_EXISTS:\n      return res.badRequest(error);\n    default:\n      return res.serverError(error);\n  }\n}\n"
+    },
+    "api/services/AuthenticationService.js": {
+      "language": "javascript",
+      "mutants": [
+        {
+          "id": "91",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Cannot read properties of undefined (reading 'login')",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "12"
+          ],
+          "coveredBy": [
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18"
+          ],
+          "location": {
+            "end": {
+              "column": 2,
+              "line": 51
+            },
+            "start": {
+              "column": 28,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "92",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "statusReason": "AuthenticationService.login is not a function",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "12"
+          ],
+          "coveredBy": [
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 11
+            },
+            "start": {
+              "column": 10,
+              "line": 7
+            }
+          }
+        },
+        {
+          "id": "93",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Couldn\\'t complete operation in the d…' but it was fulfilled with undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "12"
+          ],
+          "coveredBy": [
+            "12",
+            "13",
+            "14"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 26
+            },
+            "start": {
+              "column": 36,
+              "line": 13
+            }
+          }
+        },
+        {
+          "id": "94",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Couldn\\'t complete operation in the d…' but got 'Cannot read properties of undefined (…'",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "12"
+          ],
+          "coveredBy": [
+            "12",
+            "13",
+            "14"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 17
+            },
+            "start": {
+              "column": 9,
+              "line": 15
+            }
+          }
+        },
+        {
+          "id": "95",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "status": "Survived",
+          "testsCompleted": 3,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "12",
+            "13",
+            "14"
+          ],
+          "location": {
+            "end": {
+              "column": 46,
+              "line": 16
+            },
+            "start": {
+              "column": 38,
+              "line": 16
+            }
+          }
+        },
+        {
+          "id": "96",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Couldn\\'t complete operation in the d…' but got 'Cannot read properties of undefined (…'",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "12"
+          ],
+          "coveredBy": [
+            "12"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 19
+            },
+            "start": {
+              "column": 13,
+              "line": 17
+            }
+          }
+        },
+        {
+          "id": "97",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "status": "Survived",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "13",
+            "14"
+          ],
+          "location": {
+            "end": {
+              "column": 31,
+              "line": 21
+            },
+            "start": {
+              "column": 9,
+              "line": 21
+            }
+          }
+        },
+        {
+          "id": "98",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "expected promise to be rejected with an error including 'Invalid credentials' but it was fulfilled with { id: 1, user: 'testUser' }",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "13"
+          ],
+          "coveredBy": [
+            "13",
+            "14"
+          ],
+          "location": {
+            "end": {
+              "column": 31,
+              "line": 21
+            },
+            "start": {
+              "column": 9,
+              "line": 21
+            }
+          }
+        },
+        {
+          "id": "99",
+          "mutatorName": "LogicalOperator",
+          "replacement": "!foundUser && !matched",
+          "statusReason": "expected promise to be rejected with an error including 'Invalid credentials' but it was fulfilled with { id: 1, user: 'testUser' }",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "13"
+          ],
+          "coveredBy": [
+            "13",
+            "14"
+          ],
+          "location": {
+            "end": {
+              "column": 31,
+              "line": 21
+            },
+            "start": {
+              "column": 9,
+              "line": 21
+            }
+          }
+        },
+        {
+          "id": "100",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "foundUser",
+          "status": "Survived",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "13",
+            "14"
+          ],
+          "location": {
+            "end": {
+              "column": 19,
+              "line": 21
+            },
+            "start": {
+              "column": 9,
+              "line": 21
+            }
+          }
+        },
+        {
+          "id": "101",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "matched",
+          "statusReason": "expected promise to be rejected with an error including 'Invalid credentials' but it was fulfilled with { id: 1, user: 'testUser' }",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "13"
+          ],
+          "coveredBy": [
+            "13",
+            "14"
+          ],
+          "location": {
+            "end": {
+              "column": 31,
+              "line": 21
+            },
+            "start": {
+              "column": 23,
+              "line": 21
+            }
+          }
+        },
+        {
+          "id": "102",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Invalid credentials' but it was fulfilled with { id: 1, user: 'testUser' }",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "13"
+          ],
+          "coveredBy": [
+            "13",
+            "14"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 23
+            },
+            "start": {
+              "column": 33,
+              "line": 21
+            }
+          }
+        },
+        {
+          "id": "103",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "status": "NoCoverage",
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 30
+            },
+            "start": {
+              "column": 27,
+              "line": 28
+            }
+          }
+        },
+        {
+          "id": "104",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Couldn\\'t complete operation in the d…' but it was fulfilled with undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "15"
+          ],
+          "coveredBy": [
+            "15",
+            "16",
+            "17",
+            "18"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 50
+            },
+            "start": {
+              "column": 37,
+              "line": 32
+            }
+          }
+        },
+        {
+          "id": "105",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'User already exists' but got 'Couldn\\'t complete operation in the d…'",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "16"
+          ],
+          "coveredBy": [
+            "15",
+            "16",
+            "17",
+            "18"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 36
+            },
+            "start": {
+              "column": 9,
+              "line": 34
+            }
+          }
+        },
+        {
+          "id": "106",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "status": "Survived",
+          "testsCompleted": 4,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "15",
+            "16",
+            "17",
+            "18"
+          ],
+          "location": {
+            "end": {
+              "column": 49,
+              "line": 35
+            },
+            "start": {
+              "column": 41,
+              "line": 35
+            }
+          }
+        },
+        {
+          "id": "107",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "status": "Survived",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "15"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 38
+            },
+            "start": {
+              "column": 13,
+              "line": 36
+            }
+          }
+        },
+        {
+          "id": "108",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "expected promise to be rejected with an error including 'Couldn\\'t complete operation in the d…' but got 'User already exists'",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "17"
+          ],
+          "coveredBy": [
+            "16",
+            "17",
+            "18"
+          ],
+          "location": {
+            "end": {
+              "column": 21,
+              "line": 39
+            },
+            "start": {
+              "column": 9,
+              "line": 39
+            }
+          }
+        },
+        {
+          "id": "109",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "expected promise to be rejected with an error including 'User already exists' but got 'Couldn\\'t complete operation in the d…'",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "16"
+          ],
+          "coveredBy": [
+            "16",
+            "17",
+            "18"
+          ],
+          "location": {
+            "end": {
+              "column": 21,
+              "line": 39
+            },
+            "start": {
+              "column": 9,
+              "line": 39
+            }
+          }
+        },
+        {
+          "id": "110",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'User already exists' but got 'Couldn\\'t complete operation in the d…'",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "16"
+          ],
+          "coveredBy": [
+            "16"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 41
+            },
+            "start": {
+              "column": 23,
+              "line": 39
+            }
+          }
+        },
+        {
+          "id": "111",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Couldn\\'t complete operation in the d…' but got 'Cannot convert undefined or null to o…'",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "17"
+          ],
+          "coveredBy": [
+            "17",
+            "18"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 45
+            },
+            "start": {
+              "column": 9,
+              "line": 43
+            }
+          }
+        },
+        {
+          "id": "112",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "status": "Survived",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "17",
+            "18"
+          ],
+          "location": {
+            "end": {
+              "column": 61,
+              "line": 44
+            },
+            "start": {
+              "column": 35,
+              "line": 44
+            }
+          }
+        },
+        {
+          "id": "113",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Couldn\\'t complete operation in the d…' but got 'Cannot convert undefined or null to o…'",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "17"
+          ],
+          "coveredBy": [
+            "17",
+            "18"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 47
+            },
+            "start": {
+              "column": 13,
+              "line": 45
+            }
+          }
+        }
+      ],
+      "source": "const bcrypt = require(\"bcryptjs\");\nconst HASH_ROUNDS = 10;\n\nconst ErrorTypes = require(\"../constants/ErrorTypes\");\n\nmodule.exports = (User) => {\n  return {\n    login,\n    logout,\n    signup,\n  };\n\n  async function login(user, pass) {\n    let foundUser, matched;\n    try {\n      foundUser = await User.findOne({ user });\n    } catch {\n      throw new Error(ErrorTypes.DB_ERROR);\n    }\n    matched = await bcrypt.compare(pass, foundUser.pass);\n    if (!foundUser || !matched) {\n      throw new Error(ErrorTypes.INVALID_CREDENTIALS);\n    }\n    delete foundUser.pass;\n    return foundUser;\n  }\n\n  async function logout() {\n    return;\n  }\n\n  async function signup(user, pass) {\n    let existingUser, newUser;\n    try {\n      existingUser = await User.findOne({ user });\n    } catch {\n      throw new Error(ErrorTypes.DB_ERROR);\n    }\n    if (existingUser) {\n      throw new Error(ErrorTypes.USER_ALREADY_EXISTS);\n    }\n    const hashedPass = await bcrypt.hash(pass, HASH_ROUNDS);\n    try {\n      newUser = await User.create({ user, pass: hashedPass }).fetch();\n    } catch {\n      throw new Error(ErrorTypes.DB_ERROR);\n    }\n    delete newUser.pass;\n    return newUser;\n  }\n};\n"
+    },
+    "api/services/ToDoService.js": {
+      "language": "javascript",
+      "mutants": [
+        {
+          "id": "114",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Cannot read properties of undefined (reading 'create')",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "36"
+          ],
+          "coveredBy": [
+            "36",
+            "37",
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 2,
+              "line": 92
+            },
+            "start": {
+              "column": 28,
+              "line": 22
+            }
+          }
+        },
+        {
+          "id": "115",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "statusReason": "ToDoService.create is not a function",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "36"
+          ],
+          "coveredBy": [
+            "36",
+            "37",
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 30
+            },
+            "start": {
+              "column": 10,
+              "line": 23
+            }
+          }
+        },
+        {
+          "id": "116",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected { id: 1, text: 'Test ToDo', …(2) } to deeply equal undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "36"
+          ],
+          "coveredBy": [
+            "36",
+            "37"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 40
+            },
+            "start": {
+              "column": 46,
+              "line": 32
+            }
+          }
+        },
+        {
+          "id": "117",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected { id: 1, text: 'Test ToDo', …(2) } to deeply equal undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "36"
+          ],
+          "coveredBy": [
+            "36",
+            "37"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 37
+            },
+            "start": {
+              "column": 9,
+              "line": 33
+            }
+          }
+        },
+        {
+          "id": "118",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "statusReason": "Couldn't complete operation in the database",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "36"
+          ],
+          "coveredBy": [
+            "36",
+            "37"
+          ],
+          "location": {
+            "end": {
+              "column": 62,
+              "line": 34
+            },
+            "start": {
+              "column": 32,
+              "line": 34
+            }
+          }
+        },
+        {
+          "id": "119",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Couldn\\'t complete operation in the d…' but it was fulfilled with undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "37"
+          ],
+          "coveredBy": [
+            "37"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 39
+            },
+            "start": {
+              "column": 13,
+              "line": 37
+            }
+          }
+        },
+        {
+          "id": "120",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected { id: 1, text: 'Test ToDo', …(2) } to deeply equal undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "38"
+          ],
+          "coveredBy": [
+            "38",
+            "39"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 49
+            },
+            "start": {
+              "column": 41,
+              "line": 42
+            }
+          }
+        },
+        {
+          "id": "121",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected { id: 1, text: 'Test ToDo', …(2) } to deeply equal undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "38"
+          ],
+          "coveredBy": [
+            "38",
+            "39"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 46
+            },
+            "start": {
+              "column": 9,
+              "line": 44
+            }
+          }
+        },
+        {
+          "id": "122",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "statusReason": "expected { id: 1, text: 'Test ToDo', …(2) } to deeply equal undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "38"
+          ],
+          "coveredBy": [
+            "38",
+            "39"
+          ],
+          "location": {
+            "end": {
+              "column": 56,
+              "line": 45
+            },
+            "start": {
+              "column": 36,
+              "line": 45
+            }
+          }
+        },
+        {
+          "id": "123",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Couldn\\'t complete operation in the d…' but it was fulfilled with undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "39"
+          ],
+          "coveredBy": [
+            "39"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 48
+            },
+            "start": {
+              "column": 13,
+              "line": 46
+            }
+          }
+        },
+        {
+          "id": "124",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected [ { id: 1, text: 'Test ToDo', …(2) } ] to deeply equal undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "40"
+          ],
+          "coveredBy": [
+            "40",
+            "41",
+            "42"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 57
+            },
+            "start": {
+              "column": 34,
+              "line": 51
+            }
+          }
+        },
+        {
+          "id": "125",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected [ { id: 1, text: 'Test ToDo', …(2) } ] to deeply equal undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "40"
+          ],
+          "coveredBy": [
+            "40",
+            "41",
+            "42"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 54
+            },
+            "start": {
+              "column": 9,
+              "line": 52
+            }
+          }
+        },
+        {
+          "id": "126",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "statusReason": "expected [ { id: 1, text: 'Test ToDo', …(2) } ] to deeply equal undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "40"
+          ],
+          "coveredBy": [
+            "40",
+            "41",
+            "42"
+          ],
+          "location": {
+            "end": {
+              "column": 47,
+              "line": 53
+            },
+            "start": {
+              "column": 30,
+              "line": 53
+            }
+          }
+        },
+        {
+          "id": "127",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Couldn\\'t complete operation in the d…' but it was fulfilled with undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "41"
+          ],
+          "coveredBy": [
+            "41"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 56
+            },
+            "start": {
+              "column": 13,
+              "line": 54
+            }
+          }
+        },
+        {
+          "id": "128",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected { id: 1, text: 'Test ToDo', …(2) } to deeply equal undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "43"
+          ],
+          "coveredBy": [
+            "43",
+            "44",
+            "45",
+            "46"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 75
+            },
+            "start": {
+              "column": 39,
+              "line": 59
+            }
+          }
+        },
+        {
+          "id": "129",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "Entity was not found",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "43"
+          ],
+          "coveredBy": [
+            "43",
+            "44",
+            "45",
+            "46"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 63
+            },
+            "start": {
+              "column": 9,
+              "line": 61
+            }
+          }
+        },
+        {
+          "id": "130",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "statusReason": "Entity was not found",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "43"
+          ],
+          "coveredBy": [
+            "43",
+            "44",
+            "45",
+            "46"
+          ],
+          "location": {
+            "end": {
+              "column": 44,
+              "line": 62
+            },
+            "start": {
+              "column": 38,
+              "line": 62
+            }
+          }
+        },
+        {
+          "id": "131",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Couldn\\'t complete operation in the d…' but got 'Entity was not found'",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "46"
+          ],
+          "coveredBy": [
+            "46"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 65
+            },
+            "start": {
+              "column": 13,
+              "line": 63
+            }
+          }
+        },
+        {
+          "id": "132",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "foundToDo",
+          "statusReason": "Entity was not found",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "43"
+          ],
+          "coveredBy": [
+            "43",
+            "44",
+            "45"
+          ],
+          "location": {
+            "end": {
+              "column": 19,
+              "line": 67
+            },
+            "start": {
+              "column": 9,
+              "line": 67
+            }
+          }
+        },
+        {
+          "id": "133",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "Entity was not found",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "43"
+          ],
+          "coveredBy": [
+            "43",
+            "44",
+            "45"
+          ],
+          "location": {
+            "end": {
+              "column": 19,
+              "line": 67
+            },
+            "start": {
+              "column": 9,
+              "line": 67
+            }
+          }
+        },
+        {
+          "id": "134",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "expected promise to be rejected with an error including 'Entity was not found' but got 'Cannot read properties of undefined (…'",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "44"
+          ],
+          "coveredBy": [
+            "43",
+            "44",
+            "45"
+          ],
+          "location": {
+            "end": {
+              "column": 19,
+              "line": 67
+            },
+            "start": {
+              "column": 9,
+              "line": 67
+            }
+          }
+        },
+        {
+          "id": "135",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Entity was not found' but got 'Cannot read properties of undefined (…'",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "44"
+          ],
+          "coveredBy": [
+            "44"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 69
+            },
+            "start": {
+              "column": 21,
+              "line": 67
+            }
+          }
+        },
+        {
+          "id": "136",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "The inputs are invalid",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "43"
+          ],
+          "coveredBy": [
+            "43",
+            "45"
+          ],
+          "location": {
+            "end": {
+              "column": 35,
+              "line": 71
+            },
+            "start": {
+              "column": 9,
+              "line": 71
+            }
+          }
+        },
+        {
+          "id": "137",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "expected promise to be rejected with an error including 'The inputs are invalid' but it was fulfilled with { id: 1, text: 'Test ToDo', …(2) }",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "45"
+          ],
+          "coveredBy": [
+            "43",
+            "45"
+          ],
+          "location": {
+            "end": {
+              "column": 35,
+              "line": 71
+            },
+            "start": {
+              "column": 9,
+              "line": 71
+            }
+          }
+        },
+        {
+          "id": "138",
+          "mutatorName": "EqualityOperator",
+          "replacement": "foundToDo.owner === userId",
+          "statusReason": "The inputs are invalid",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "43"
+          ],
+          "coveredBy": [
+            "43",
+            "45"
+          ],
+          "location": {
+            "end": {
+              "column": 35,
+              "line": 71
+            },
+            "start": {
+              "column": 9,
+              "line": 71
+            }
+          }
+        },
+        {
+          "id": "139",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'The inputs are invalid' but it was fulfilled with { id: 1, text: 'Test ToDo', …(2) }",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "45"
+          ],
+          "coveredBy": [
+            "45"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 73
+            },
+            "start": {
+              "column": 37,
+              "line": 71
+            }
+          }
+        },
+        {
+          "id": "140",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected { id: 1, text: 'Test ToDo', …(2) } to deeply equal undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "47"
+          ],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 87
+            },
+            "start": {
+              "column": 49,
+              "line": 77
+            }
+          }
+        },
+        {
+          "id": "141",
+          "mutatorName": "BooleanLiteral",
+          "replacement": "this.isValidToDoState(state)",
+          "statusReason": "The inputs are invalid",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "47"
+          ],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 38,
+              "line": 79
+            },
+            "start": {
+              "column": 9,
+              "line": 79
+            }
+          }
+        },
+        {
+          "id": "142",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "The inputs are invalid",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "47"
+          ],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 38,
+              "line": 79
+            },
+            "start": {
+              "column": 9,
+              "line": 79
+            }
+          }
+        },
+        {
+          "id": "143",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "expected promise to be rejected with an error including 'The inputs are invalid' but got 'Couldn\\'t complete operation in the d…'",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "48"
+          ],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 38,
+              "line": 79
+            },
+            "start": {
+              "column": 9,
+              "line": 79
+            }
+          }
+        },
+        {
+          "id": "144",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'The inputs are invalid' but got 'Couldn\\'t complete operation in the d…'",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "48"
+          ],
+          "coveredBy": [
+            "48"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 81
+            },
+            "start": {
+              "column": 40,
+              "line": 79
+            }
+          }
+        },
+        {
+          "id": "145",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected { id: 1, text: 'Test ToDo', …(2) } to deeply equal undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "47"
+          ],
+          "coveredBy": [
+            "47",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 84
+            },
+            "start": {
+              "column": 9,
+              "line": 82
+            }
+          }
+        },
+        {
+          "id": "146",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "statusReason": "Couldn't complete operation in the database",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "47"
+          ],
+          "coveredBy": [
+            "47",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 55,
+              "line": 83
+            },
+            "start": {
+              "column": 35,
+              "line": 83
+            }
+          }
+        },
+        {
+          "id": "147",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "status": "Survived",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "47",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 70,
+              "line": 83
+            },
+            "start": {
+              "column": 61,
+              "line": 83
+            }
+          }
+        },
+        {
+          "id": "148",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "expected promise to be rejected with an error including 'Couldn\\'t complete operation in the d…' but it was fulfilled with undefined",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "49"
+          ],
+          "coveredBy": [
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 6,
+              "line": 86
+            },
+            "start": {
+              "column": 13,
+              "line": 84
+            }
+          }
+        },
+        {
+          "id": "149",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "statusReason": "The inputs are invalid",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "47"
+          ],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 91
+            },
+            "start": {
+              "column": 36,
+              "line": 89
+            }
+          }
+        },
+        {
+          "id": "150",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "statusReason": "expected promise to be rejected with an error including 'The inputs are invalid' but got 'Couldn\\'t complete operation in the d…'",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "48"
+          ],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 56,
+              "line": 90
+            },
+            "start": {
+              "column": 12,
+              "line": 90
+            }
+          }
+        },
+        {
+          "id": "151",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "The inputs are invalid",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "47"
+          ],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 56,
+              "line": 90
+            },
+            "start": {
+              "column": 12,
+              "line": 90
+            }
+          }
+        },
+        {
+          "id": "152",
+          "mutatorName": "LogicalOperator",
+          "replacement": "state === \"PENDING\" && state === \"COMPLETED\"",
+          "statusReason": "The inputs are invalid",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "47"
+          ],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 56,
+              "line": 90
+            },
+            "start": {
+              "column": 12,
+              "line": 90
+            }
+          }
+        },
+        {
+          "id": "153",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "status": "Survived",
+          "testsCompleted": 3,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 31,
+              "line": 90
+            },
+            "start": {
+              "column": 12,
+              "line": 90
+            }
+          }
+        },
+        {
+          "id": "154",
+          "mutatorName": "EqualityOperator",
+          "replacement": "state !== \"PENDING\"",
+          "statusReason": "expected promise to be rejected with an error including 'The inputs are invalid' but got 'Couldn\\'t complete operation in the d…'",
+          "status": "Killed",
+          "testsCompleted": 2,
+          "static": false,
+          "killedBy": [
+            "48"
+          ],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 31,
+              "line": 90
+            },
+            "start": {
+              "column": 12,
+              "line": 90
+            }
+          }
+        },
+        {
+          "id": "155",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Survived",
+          "testsCompleted": 3,
+          "static": false,
+          "killedBy": [],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 31,
+              "line": 90
+            },
+            "start": {
+              "column": 22,
+              "line": 90
+            }
+          }
+        },
+        {
+          "id": "156",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "statusReason": "The inputs are invalid",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "47"
+          ],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 56,
+              "line": 90
+            },
+            "start": {
+              "column": 35,
+              "line": 90
+            }
+          }
+        },
+        {
+          "id": "157",
+          "mutatorName": "EqualityOperator",
+          "replacement": "state !== \"COMPLETED\"",
+          "statusReason": "The inputs are invalid",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "47"
+          ],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 56,
+              "line": 90
+            },
+            "start": {
+              "column": 35,
+              "line": 90
+            }
+          }
+        },
+        {
+          "id": "158",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "statusReason": "The inputs are invalid",
+          "status": "Killed",
+          "testsCompleted": 1,
+          "static": false,
+          "killedBy": [
+            "47"
+          ],
+          "coveredBy": [
+            "47",
+            "48",
+            "49"
+          ],
+          "location": {
+            "end": {
+              "column": 56,
+              "line": 90
+            },
+            "start": {
+              "column": 45,
+              "line": 90
+            }
+          }
+        }
+      ],
+      "source": "const ErrorTypes = require(\"../constants/ErrorTypes\");\n\n/*\n\nRationale:\n  Holds the business logic for the ToDo model to achieve better separation of concerns and testability.\n  Note that in this case said business logic is fairly trivial, as it only involves CRUD operations and \n  some validations.\n\nImplementation details: \n  * Receives the model as a parameter so that it can be mocked in the tests. Otherwise it will just\n    hold a reference to the actual model.\n  * Functions from the same service must be called with `this` so that the can be mocked.  \n  * Exports can be placed on top as functions are hoisted.\n\nOther references (Service in MVC pattern): \n  * https://softwareengineering.stackexchange.com/a/230312\n  * https://stackoverflow.com/a/2763071/27971560\n  * https://www.coreycleary.me/why-should-you-separate-controllers-from-services-in-node-rest-apis\n*/\n\nmodule.exports = (ToDo) => {\n  return {\n    create,\n    deleteById,\n    findAll,\n    findById,\n    changeState,\n    isValidToDoState,\n  };\n\n  async function create(text, state, userId) {\n    try {\n      return await ToDo.create({ text, state, owner: userId }).fetch();\n      // const aux = await ToDo.create({ text, state, owner: userId });\n      // return aux.fetch();\n    } catch {\n      throw new Error(ErrorTypes.DB_ERROR);\n    }\n  }\n\n  async function deleteById(id, userId) {\n    const foundToDo = await this.findById(id, userId);\n    try {\n      return await ToDo.destroyOne({ id: foundToDo.id });\n    } catch {\n      throw new Error(ErrorTypes.DB_ERROR);\n    }\n  }\n\n  async function findAll(userId) {\n    try {\n      return await ToDo.find({ owner: userId });\n    } catch {\n      throw new Error(ErrorTypes.DB_ERROR);\n    }\n  }\n\n  async function findById(id, userId) {\n    let foundToDo;\n    try {\n      foundToDo = await ToDo.findOne({ id });\n    } catch {\n      throw new Error(ErrorTypes.DB_ERROR);\n    }\n\n    if (!foundToDo) {\n      throw new Error(ErrorTypes.ENTITY_NOT_FOUND);\n    }\n\n    if (foundToDo.owner !== userId) {\n      throw new Error(ErrorTypes.INVALID_INPUT);\n    }\n    return foundToDo;\n  }\n\n  async function changeState(id, userId, state) {\n    const foundToDo = await this.findById(id, userId);\n    if (!this.isValidToDoState(state)) {\n      throw new Error(ErrorTypes.INVALID_INPUT);\n    }\n    try {\n      return await ToDo.updateOne({ id: foundToDo.id }).set({ state });\n    } catch {\n      throw new Error(ErrorTypes.DB_ERROR);\n    }\n  }\n\n  function isValidToDoState(state) {\n    return state === \"PENDING\" || state === \"COMPLETED\";\n  }\n};\n"
+    }
+  },
+  "schemaVersion": "1.0",
+  "thresholds": {
+    "high": 80,
+    "low": 60,
+    "break": null
+  },
+  "testFiles": {
+    "test/unit/Authentication/AuthenticationController.test.js": {
+      "tests": [
+        {
+          "id": "0",
+          "name": "AuthenticationController login should return 400 if 'user' or 'pass' is missing"
+        },
+        {
+          "id": "1",
+          "name": "AuthenticationController login should handle DB_ERROR from service"
+        },
+        {
+          "id": "2",
+          "name": "AuthenticationController login should handle INVALID_CREDENTIALS from service"
+        },
+        {
+          "id": "3",
+          "name": "AuthenticationController login should set session.userId and return json on successful login"
+        },
+        {
+          "id": "4",
+          "name": "AuthenticationController logout should destroy session and return json on successful logout"
+        },
+        {
+          "id": "5",
+          "name": "AuthenticationController signup should return 400 if 'user' or 'pass' is missing"
+        },
+        {
+          "id": "6",
+          "name": "AuthenticationController signup should handle DB_ERROR when checking existing user or creating a new one"
+        },
+        {
+          "id": "7",
+          "name": "AuthenticationController signup should handle USER_ALREADY_EXISTS"
+        },
+        {
+          "id": "8",
+          "name": "AuthenticationController signup should set session.userId and return json on successful signup"
+        },
+        {
+          "id": "9",
+          "name": "AuthenticationController status should return isAuthenticated: true if session.userId is set"
+        },
+        {
+          "id": "10",
+          "name": "AuthenticationController status should return isAuthenticated: false if session.userId is not set"
+        },
+        {
+          "id": "11",
+          "name": "AuthenticationController csrfToken should return the csrf token in json"
+        }
+      ],
+      "source": "const chaiAsPromised = require(\"chai-as-promised\");\nconst chai = require(\"chai\").use(chaiAsPromised);\nconst sinon = require(\"sinon\");\nconst { suite, test, setup, teardown } = require(\"mocha\");\nconst { assert } = chai;\nconst proxyquire = require(\"proxyquire\").noPreserveCache();\n\nsuite(\"AuthenticationController\", function () {\n  let id,\n    user,\n    pass,\n    req,\n    res,\n    csrfToken,\n    AuthenticationServiceStub,\n    AuthenticationController,\n    ErrorTypes;\n\n  setup(function () {\n    id = 1;\n    user = \"testUser\";\n    pass = \"testPass\";\n    req = {\n      body: {},\n      session: { destroy: sinon.stub() },\n      csrfToken: sinon.stub(),\n    };\n    res = {\n      badRequest: sinon.stub(),\n      serverError: sinon.stub(),\n      unauthorized: sinon.stub(),\n      notFound: sinon.stub(),\n      json: sinon.stub(),\n    };\n    csrfToken = \"fakeToken\";\n\n    AuthenticationServiceStub = {\n      login: sinon.stub(),\n      logout: sinon.stub(),\n      signup: sinon.stub(),\n    };\n    AuthenticationController = proxyquire(\n      \"../../../api/controllers/AuthenticationController\",\n      {\n        // eslint-disable-next-line no-unused-vars\n        \"../services/AuthenticationService\": (User) =>\n          AuthenticationServiceStub,\n      },\n    );\n    ErrorTypes = require(\"../../../api/constants/ErrorTypes\");\n  });\n\n  teardown(function () {\n    sinon.restore();\n  });\n\n  suite(\"login\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"should return 400 if 'user' or 'pass' is missing\", async function () {\n      req.body = { user: undefined, pass: undefined };\n\n      await AuthenticationController.login(req, res);\n\n      assert(res.badRequest.calledOnce);\n      assert.isUndefined(req.session.userId);\n    });\n\n    test(\"should handle DB_ERROR from service\", async function () {\n      req.body = { user, pass };\n      AuthenticationServiceStub.login.rejects(new Error(ErrorTypes.DB_ERROR));\n\n      await AuthenticationController.login(req, res);\n\n      assert(res.serverError.calledOnce);\n      assert.isUndefined(req.session.userId);\n    });\n\n    test(\"should handle INVALID_CREDENTIALS from service\", async function () {\n      req.body = { user: `invalid_${user}`, pass: `invalid_${pass}` };\n      AuthenticationServiceStub.login.rejects(\n        new Error(ErrorTypes.INVALID_CREDENTIALS),\n      );\n\n      await AuthenticationController.login(req, res);\n\n      assert(res.unauthorized.calledOnce);\n      assert.isUndefined(req.session.userId);\n    });\n\n    test(\"should set session.userId and return json on successful login\", async function () {\n      req.body = { user, pass };\n      AuthenticationServiceStub.login.resolves({ id, user, pass });\n\n      await AuthenticationController.login(req, res);\n\n      assert(res.json.calledOnce);\n      assert.equal(req.session.userId, id);\n    });\n  });\n\n  suite(\"logout\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"should destroy session and return json on successful logout\", function () {\n      AuthenticationController.logout(req, res);\n\n      assert(req.session.destroy.calledOnce);\n      assert(res.json.calledOnce);\n    });\n  });\n\n  suite(\"signup\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"should return 400 if 'user' or 'pass' is missing\", async function () {\n      await AuthenticationController.signup(req, res);\n\n      assert(res.badRequest.calledOnce);\n      assert.isUndefined(req.session.userId);\n    });\n\n    test(\"should handle DB_ERROR when checking existing user or creating a new one\", async function () {\n      req.body = { user, pass };\n      AuthenticationServiceStub.signup.rejects(new Error(ErrorTypes.DB_ERROR));\n\n      await AuthenticationController.signup(req, res);\n\n      assert(res.serverError.calledOnce);\n      assert.isUndefined(req.session.userId);\n    });\n\n    test(\"should handle USER_ALREADY_EXISTS\", async function () {\n      req.body = { user, pass };\n      AuthenticationServiceStub.signup.rejects(\n        new Error(ErrorTypes.USER_ALREADY_EXISTS),\n      );\n\n      await AuthenticationController.signup(req, res);\n\n      assert(res.badRequest.calledOnce);\n      assert.isUndefined(req.session.userId);\n    });\n\n    test(\"should set session.userId and return json on successful signup\", async function () {\n      req.body = { user, pass };\n\n      AuthenticationServiceStub.signup.resolves({ id: id + 1, user });\n\n      await AuthenticationController.signup(req, res);\n      assert.equal(req.session.userId, id + 1);\n      assert(res.json.calledOnce);\n    });\n  });\n\n  suite(\"status\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"should return isAuthenticated: true if session.userId is set\", function () {\n      req.session.userId = id;\n\n      AuthenticationController.status(req, res);\n\n      const arg = res.json.firstCall.args[0];\n      assert.propertyVal(arg, \"isAuthenticated\", true);\n    });\n\n    test(\"should return isAuthenticated: false if session.userId is not set\", function () {\n      AuthenticationController.status(req, res);\n\n      const arg = res.json.firstCall.args[0];\n      assert.propertyVal(arg, \"isAuthenticated\", false);\n    });\n  });\n\n  suite(\"csrfToken\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"should return the csrf token in json\", function () {\n      req.csrfToken.returns(csrfToken);\n\n      AuthenticationController.csrfToken(req, res);\n\n      assert(res.json.calledOnce);\n      const arg = res.json.firstCall.args[0];\n      assert.propertyVal(arg, \"csrfToken\", csrfToken);\n    });\n  });\n});\n"
+    },
+    "test/unit/Authentication/AuthenticationService.test.js": {
+      "tests": [
+        {
+          "id": "12",
+          "name": "AuthenticationService login should throw DB_ERROR when User.findOne throws"
+        },
+        {
+          "id": "13",
+          "name": "AuthenticationService login should throw INVALID_CREDENTIALS when password does not match"
+        },
+        {
+          "id": "14",
+          "name": "AuthenticationService login should return user when credentials match"
+        },
+        {
+          "id": "15",
+          "name": "AuthenticationService signup should throw DB_ERROR when User.findOne throws"
+        },
+        {
+          "id": "16",
+          "name": "AuthenticationService signup should throw USER_ALREADY_EXISTS when user already exists"
+        },
+        {
+          "id": "17",
+          "name": "AuthenticationService signup should throw DB_ERROR when User.create fails"
+        },
+        {
+          "id": "18",
+          "name": "AuthenticationService signup should create new user on successful signup"
+        }
+      ],
+      "source": "const chaiAsPromised = require(\"chai-as-promised\");\nconst chai = require(\"chai\").use(chaiAsPromised);\nconst sinon = require(\"sinon\");\nconst { test, suite, setup, teardown } = require(\"mocha\");\n\nsuite(\"AuthenticationService\", function () {\n  let id, user, pass, UserStub, AuthenticationService, ErrorTypes;\n\n  setup(function () {\n    id = 1;\n    user = \"testUser\";\n    pass = \"testPass\";\n    UserStub = {\n      ...require(\"../../../api/models/User\"),\n      findOne: sinon.stub(),\n      create: sinon.stub(),\n    };\n    AuthenticationService =\n      require(\"../../../api/services/AuthenticationService\")(UserStub);\n    ErrorTypes = require(\"../../../api/constants/ErrorTypes\");\n  });\n\n  suite(\"login\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"should throw DB_ERROR when User.findOne throws\", async function () {\n      UserStub.findOne.rejects(new Error(\"AdapterError\"));\n\n      await chai.assert.isRejected(\n        AuthenticationService.login(user, pass),\n        ErrorTypes.DB_ERROR\n      );\n    });\n\n    test(\"should throw INVALID_CREDENTIALS when password does not match\", async function () {\n      UserStub.findOne.resolves({ id, user, pass: \"wrongPass\" });\n\n      await chai.assert.isRejected(\n        AuthenticationService.login(user, pass),\n        ErrorTypes.INVALID_CREDENTIALS\n      );\n    });\n\n    test(\"should return user when credentials match\", async function () {\n      UserStub.findOne.resolves({ id, user, pass });\n\n      // chai.assert.isFulfilled(AuthenticationService.login(user, pass));\n      chai.assert.eventually.deepEqual(\n        AuthenticationService.login(user, pass),\n        { id, user }\n      );\n    });\n  });\n\n  suite(\"signup\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"should throw DB_ERROR when User.findOne throws\", async function () {\n      UserStub.findOne.rejects(new Error(\"AdapterError\"));\n\n      await chai.assert.isRejected(\n        AuthenticationService.signup(user, pass),\n        ErrorTypes.DB_ERROR\n      );\n    });\n\n    test(\"should throw USER_ALREADY_EXISTS when user already exists\", async function () {\n      UserStub.findOne.resolves({ id, user, pass });\n\n      await chai.assert.isRejected(\n        AuthenticationService.signup(user, pass),\n        ErrorTypes.USER_ALREADY_EXISTS\n      );\n    });\n\n    test(\"should throw DB_ERROR when User.create fails\", async function () {\n      UserStub.findOne.resolves(undefined);\n      UserStub.create.returns({\n        fetch: sinon.stub().rejects(new Error(\"AdapterError\")),\n      });\n\n      await chai.assert.isRejected(\n        AuthenticationService.signup(user, pass),\n        ErrorTypes.DB_ERROR\n      );\n    });\n\n    test(\"should create new user on successful signup\", async function () {\n      UserStub.findOne.resolves(undefined);\n\n      // chai.assert.isFulfilled(AuthenticationService.signup(user, pass));\n      chai.assert.eventually.deepEqual(\n        AuthenticationService.signup(user, pass),\n        { id, user }\n      );\n    });\n  });\n\n  suite(\"logout\", function () {});\n});\n"
+    },
+    "test/unit/ToDo/ToDo.test.js": {
+      "tests": [
+        {
+          "id": "19",
+          "name": "ToDo sayHi"
+        }
+      ],
+      "source": "const chai = require(\"chai\");\nconst sinon = require(\"sinon\");\nconst { test, suite, setup, teardown } = require(\"mocha\");\n\n/*\nGeneral recomendation:\nIf other models must be called from the one being tested, I strongly\nrecommend to extract the behaviour to a service module and inject\nthe relevant model dependencies there. Otherwise, testing here is\nalmost impossible, as models are global variables instead of being \nrequired and sinon nor proxyquire can't be used. \nThe only alternative is to use another library, rewire, which performs \n\"monkey patching\" (i.e. changes code behaviour at runtime) and allows \nto overwrite requires and global variables. This can lead to unexpected\nbehaviour. It also fosters violating encapsulation and may create\nbrittle tests. If possible, don't use it.\n\nSources:\n* https://www.npmjs.com/package/rewire\n* https://www.audero.it/blog/2016/12/05/monkey-patching-javascript/\n* https://en.wikipedia.org/wiki/Monkey_patch#Pitfalls\n* https://github.com/thlorenz/proxyquire/issues/90#issuecomment-178056535\n* https://sailsjs.com/documentation/concepts/models-and-orm/models#?what-about-instance-methods\n*/\n\nsuite(\"ToDo\", function () {\n  let ToDo, logStub;\n\n  setup(function () {\n    ToDo = require(\"../../../api/models/ToDo\");\n  });\n\n  teardown(function () {\n    sinon.restore();\n  });\n\n  test(\"sayHi\", function () {\n    logStub = sinon.stub(console, \"log\").callsFake(() => {\n      /* Don't log anything */\n    });\n\n    ToDo.sayHi();\n\n    const arg = logStub.getCall(0).args[0].toLowerCase();\n    chai.assert(logStub.calledOnce);\n    chai.assert(arg.includes(\"hi\"));\n  });\n});\n"
+    },
+    "test/unit/ToDo/ToDoController.test.js": {
+      "tests": [
+        {
+          "id": "20",
+          "name": "ToDoController create Successfully"
+        },
+        {
+          "id": "21",
+          "name": "ToDoController create Incomplete body"
+        },
+        {
+          "id": "22",
+          "name": "ToDoController create ToDoService's error"
+        },
+        {
+          "id": "23",
+          "name": "ToDoController delete Successfully"
+        },
+        {
+          "id": "24",
+          "name": "ToDoController delete Missing param"
+        },
+        {
+          "id": "25",
+          "name": "ToDoController delete ToDoService's error"
+        },
+        {
+          "id": "26",
+          "name": "ToDoController findAll Successfully"
+        },
+        {
+          "id": "27",
+          "name": "ToDoController findAll ToDoService's error"
+        },
+        {
+          "id": "28",
+          "name": "ToDoController findOne Successfully"
+        },
+        {
+          "id": "29",
+          "name": "ToDoController findOne Entity not found"
+        },
+        {
+          "id": "30",
+          "name": "ToDoController findOne DB error"
+        },
+        {
+          "id": "31",
+          "name": "ToDoController findOne Invalid param"
+        },
+        {
+          "id": "32",
+          "name": "ToDoController changeState Successfully"
+        },
+        {
+          "id": "33",
+          "name": "ToDoController changeState Missing body"
+        },
+        {
+          "id": "34",
+          "name": "ToDoController changeState Missing param"
+        },
+        {
+          "id": "35",
+          "name": "ToDoController changeState ToDoService's error"
+        }
+      ],
+      "source": "const chai = require(\"chai\");\nconst sinon = require(\"sinon\");\nconst { test, suite, setup, teardown } = require(\"mocha\");\nconst proxyquire = require(\"proxyquire\").noPreserveCache();\n\n/*\n(see also ToDoService.test.js)\n\nImplementation details:\n  * Doing the following:\n      const ToDoService = require(\"../services/ToDoService\")({});\n      (...)\n      sinon.stub(ToDoService, \"create\");  \n    doesn't stub the function correctly, which in turn make the tests fail.\n    For this reason, proxyquire is used to mock the ToDoService module.\n    Calling noPreserveCache() is necessary to prevent the module being \n    loaded from cache, which could have other mocks injected and thus \n    produce undefined behavior (see: \n    https://dev.to/thekashey/please-stop-playing-with-proxyquire-11j4)\n\nRelevant documentation:\n  * https://sinonjs.org/releases/v19/spies/\n  * https://www.npmjs.com/package/proxyquire\n  * https://sinonjs.org/how-to/link-seams-commonjs/\n  * https://sailsjs.com/documentation/reference/response-res\n \nMisc:\n  * https://tsh.io/blog/dependency-injection-in-node-js/\n  * https://stackoverflow.com/questions/37836813/javascript-dependency-injection-dip-in-node-require-vs-constructor-injection\n*/\n\nsuite(\"ToDoController\", function () {\n  let toDoStub, req, res, ToDoServiceStub, ToDoController, ErrorTypes;\n\n  setup(async function () {\n    toDoStub = {\n      id: 1,\n      text: \"Test ToDo\",\n      state: \"PENDING\",\n      owner: 1,\n    };\n\n    req = {\n      body: {},\n      params: {},\n      session: { userId: toDoStub.owner },\n    };\n\n    res = {\n      badRequest: sinon.spy(),\n      serverError: sinon.spy(),\n      notFound: sinon.spy(),\n      json: sinon.spy(),\n    };\n\n    ToDoServiceStub = {\n      create: sinon.stub(),\n      deleteById: sinon.stub(),\n      findAll: sinon.stub(),\n      findById: sinon.stub(),\n      changeState: sinon.stub(),\n    };\n    ToDoController = proxyquire(\"../../../api/controllers/ToDoController\", {\n      // eslint-disable-next-line no-unused-vars\n      \"../services/ToDoService\": (ToDoModel) => ToDoServiceStub,\n    });\n    ErrorTypes = require(\"../../../api/constants/ErrorTypes\");\n  });\n\n  teardown(async function () {\n    sinon.restore();\n  });\n\n  suite(\"create\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"Successfully\", async function () {\n      ToDoServiceStub.create.resolves(toDoStub);\n      req.body = { text: toDoStub.text, state: toDoStub.state };\n\n      await ToDoController.create(req, res);\n\n      chai.assert(res.json.calledWith(toDoStub));\n    });\n\n    test(\"Incomplete body\", async function () {\n      req.body = { text: toDoStub.text };\n\n      await ToDoController.create(req, res);\n\n      chai.assert(res.badRequest.calledOnce);\n    });\n\n    test(\"ToDoService's error\", async function () {\n      ToDoServiceStub.create.rejects(new Error(ErrorTypes.DB_ERROR));\n      req.body = { text: toDoStub.text, state: toDoStub.state };\n\n      await ToDoController.create(req, res);\n\n      chai.assert(res.serverError.calledOnce);\n    });\n  });\n\n  suite(\"delete\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"Successfully\", async function () {\n      ToDoServiceStub.deleteById.resolves(toDoStub);\n      req.params.id = toDoStub.id;\n\n      await ToDoController.delete(req, res);\n\n      chai.assert(res.json.calledWith(toDoStub));\n    });\n\n    test(\"Missing param\", async function () {\n      await ToDoController.delete(req, res);\n\n      chai.assert(res.badRequest.calledOnce);\n    });\n\n    test(\"ToDoService's error\", async function () {\n      ToDoServiceStub.deleteById.rejects(new Error(ErrorTypes.DB_ERROR));\n      req.params.id = toDoStub.id;\n\n      await ToDoController.delete(req, res);\n\n      chai.assert(res.serverError.calledOnce);\n    });\n  });\n\n  suite(\"findAll\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"Successfully\", async function () {\n      ToDoServiceStub.findAll.resolves([toDoStub]);\n\n      await ToDoController.findAll(req, res);\n\n      chai.assert(res.json.calledWith([toDoStub]));\n    });\n\n    test(\"ToDoService's error\", async function () {\n      ToDoServiceStub.findAll.rejects(new Error(ErrorTypes.DB_ERROR));\n\n      await ToDoController.findAll(req, res);\n\n      chai.assert(res.serverError.calledOnce);\n    });\n  });\n\n  suite(\"findOne\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"Successfully\", async function () {\n      ToDoServiceStub.findById.resolves(toDoStub);\n      req.params.id = toDoStub.id;\n\n      await ToDoController.findOne(req, res);\n\n      chai.assert(res.json.calledWith(toDoStub));\n    });\n\n    test(\"Entity not found\", async function () {\n      ToDoServiceStub.findById.throws(new Error(ErrorTypes.ENTITY_NOT_FOUND));\n      req.params.id = toDoStub.id;\n\n      await ToDoController.findOne(req, res);\n\n      chai.assert(res.notFound.calledOnce);\n    });\n\n    test(\"DB error\", async function () {\n      ToDoServiceStub.findById.rejects(new Error(ErrorTypes.DB_ERROR));\n      req.params.id = toDoStub.id;\n\n      await ToDoController.findOne(req, res);\n\n      chai.assert(res.serverError.calledOnce);\n    });\n\n    test(\"Invalid param\", async function () {\n      ToDoServiceStub.findById.throws(new Error(ErrorTypes.INVALID_INPUT));\n      req.params.id = toDoStub.id;\n\n      await ToDoController.findOne(req, res);\n\n      chai.assert(res.badRequest.calledOnce);\n    });\n  });\n\n  suite(\"changeState\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"Successfully\", async function () {\n      const completedToDoStub = { ...toDoStub, state: \"COMPLETED\" };\n      ToDoServiceStub.changeState.resolves(completedToDoStub);\n      req.body.state = \"COMPLETED\";\n      req.params.id = toDoStub.id;\n\n      await ToDoController.changeState(req, res);\n\n      chai.assert(res.json.calledWith(completedToDoStub));\n    });\n\n    test(\"Missing body\", async function () {\n      req.params.id = toDoStub.id;\n\n      await ToDoController.changeState(req, res);\n\n      chai.assert(res.badRequest.calledOnce);\n    });\n\n    test(\"Missing param\", async function () {\n      req.body.state = \"COMPLETED\";\n\n      await ToDoController.changeState(req, res);\n\n      chai.assert(res.badRequest.calledOnce);\n    });\n\n    test(\"ToDoService's error\", async function () {\n      ToDoServiceStub.changeState.rejects(new Error(ErrorTypes.DB_ERROR));\n      req.body.state = \"COMPLETED\";\n      req.params.id = toDoStub.id;\n\n      await ToDoController.changeState(req, res);\n\n      chai.assert(res.serverError.calledOnce);\n    });\n  });\n});\n"
+    },
+    "test/unit/ToDo/ToDoService.test.js": {
+      "tests": [
+        {
+          "id": "36",
+          "name": "ToDoService create Successfully"
+        },
+        {
+          "id": "37",
+          "name": "ToDoService create With DB error"
+        },
+        {
+          "id": "38",
+          "name": "ToDoService delete Successfully"
+        },
+        {
+          "id": "39",
+          "name": "ToDoService delete With DB error"
+        },
+        {
+          "id": "40",
+          "name": "ToDoService findAll Successfully"
+        },
+        {
+          "id": "41",
+          "name": "ToDoService findAll With DB error"
+        },
+        {
+          "id": "42",
+          "name": "ToDoService findAll Not found"
+        },
+        {
+          "id": "43",
+          "name": "ToDoService findById Successfully"
+        },
+        {
+          "id": "44",
+          "name": "ToDoService findById Not found"
+        },
+        {
+          "id": "45",
+          "name": "ToDoService findById With different owner"
+        },
+        {
+          "id": "46",
+          "name": "ToDoService findById With DB error"
+        },
+        {
+          "id": "47",
+          "name": "ToDoService changeState Successfully"
+        },
+        {
+          "id": "48",
+          "name": "ToDoService changeState With incorrect state"
+        },
+        {
+          "id": "49",
+          "name": "ToDoService changeState With DB error"
+        }
+      ],
+      "source": "const chaiAsPromised = require(\"chai-as-promised\");\nconst chai = require(\"chai\").use(chaiAsPromised);\nconst sinon = require(\"sinon\");\nconst { test, suite, setup, teardown } = require(\"mocha\");\n\n/*\nRun: \n  * Normally: npm test (see package.json for details)\n  * Debugging: \n    1) Set breakpoints by writing \"debugger;\" in the code. \n    2) npm run unit-test:debug \n    3) When \"Debugger listening on ...\" appears in the console, attach debugger\n      (VS Code: \"Run and Debug\" in the left sidebar > \"back-end\" (see .vscode/launch.json \n      for details)).\n    4) Hit the \"Continue\" button in the debugger until reaching the breakpoint.\n    Tip: when hovering the cursor over a function, if it doesn't say \"proxy(...)\"\n    then it isn't being mocked correctly. \n\nImplementation details:\n  * Requiring the model doesn't include the functions to interact with the database,\n    as they are \"injected\" by Waterline on runtime. As these are unit tests,\n    a Sails instance shouldn't be lifted to test the service. This creates the need\n    to mock those functions as it's done in the setup. Later, when requiring the \n    service, the mocked model must be passed as a parameter.\n\nRelevant documentation:\n  * https://sailsjs.com/documentation/reference/waterline-orm/models\n  * https://mochajs.org/#table-of-contents\n  * https://sinonjs.org/releases/v19/stubs/\n  * https://www.chaijs.com/api/assert/\n  * https://www.npmjs.com/package/chai-as-promised\n*/\n\nsuite(\"ToDoService\", function () {\n  let ToDoModelStub, ToDoService, ErrorTypes, toDoStub;\n\n  setup(function () {\n    ToDoModelStub = {\n      ...require(\"../../../api/models/ToDo\"),\n      create: sinon.stub(),\n      updateOne: sinon.stub(),\n      destroyOne: sinon.stub(),\n      find: sinon.stub(),\n      findOne: sinon.stub(),\n    };\n    ToDoService = require(\"../../../api/services/ToDoService\")(ToDoModelStub);\n    ErrorTypes = require(\"../../../api/constants/ErrorTypes\");\n\n    toDoStub = {\n      id: 1,\n      text: \"Test ToDo\",\n      state: \"PENDING\",\n      owner: 1,\n    };\n  });\n\n  teardown(function () {\n    sinon.restore();\n  });\n\n  suite(\"create\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"Successfully\", async function () {\n      ToDoModelStub.create\n        .withArgs({\n          text: toDoStub.text,\n          state: toDoStub.state,\n          owner: toDoStub.owner,\n        })\n        .returns({\n          fetch: sinon.stub().resolves(toDoStub),\n        });\n      const createdToDo = await ToDoService.create(\n        toDoStub.text,\n        toDoStub.state,\n        toDoStub.owner\n      );\n      chai.assert.deepStrictEqual(toDoStub, createdToDo);\n    });\n\n    test(\"With DB error\", async function () {\n      ToDoModelStub.create.returns({\n        fetch: sinon.stub().rejects(new Error(\"AdapterError\")),\n      });\n      await chai.assert.isRejected(\n        ToDoService.create(toDoStub.text, toDoStub.state, toDoStub.owner),\n        ErrorTypes.DB_ERROR\n      );\n    });\n  });\n\n  suite(\"delete\", function () {\n    setup(function () {\n      ToDoService.findById = sinon\n        .stub()\n        .withArgs(toDoStub.id, toDoStub.owner)\n        .resolves(toDoStub);\n    });\n\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"Successfully\", async function () {\n      ToDoModelStub.destroyOne.withArgs({ id: toDoStub.id }).resolves(toDoStub);\n      const deletedToDo = await ToDoService.deleteById(\n        toDoStub.id,\n        toDoStub.owner\n      );\n      chai.assert.deepStrictEqual(toDoStub, deletedToDo);\n    });\n\n    test(\"With DB error\", async function () {\n      ToDoModelStub.destroyOne.rejects(new Error(\"AdapterError\"));\n      await chai.assert.isRejected(\n        ToDoService.deleteById(toDoStub.id, toDoStub.owner),\n        ErrorTypes.DB_ERROR\n      );\n    });\n  });\n\n  suite(\"findAll\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"Successfully\", async function () {\n      const toDos = [toDoStub];\n      ToDoModelStub.find.withArgs({ owner: toDoStub.owner }).resolves(toDos);\n      const allToDos = await ToDoService.findAll(toDoStub.owner);\n      chai.assert.deepStrictEqual(toDos, allToDos);\n    });\n\n    test(\"With DB error\", async function () {\n      ToDoModelStub.find.rejects(new Error(\"AdapterError\"));\n      await chai.assert.isRejected(\n        ToDoService.findAll(toDoStub.owner),\n        ErrorTypes.DB_ERROR\n      );\n    });\n\n    test(\"Not found\", async function () {\n      ToDoModelStub.find.resolves([]);\n      const allToDos = await ToDoService.findAll(toDoStub.owner);\n      chai.assert.deepStrictEqual([], allToDos);\n    });\n  });\n\n  suite(\"findById\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"Successfully\", async function () {\n      ToDoModelStub.findOne.withArgs({ id: toDoStub.id }).resolves(toDoStub);\n      const foundToDo = await ToDoService.findById(toDoStub.id, toDoStub.owner);\n      chai.assert.deepStrictEqual(toDoStub, foundToDo);\n    });\n\n    test(\"Not found\", async function () {\n      ToDoModelStub.findOne.resolves(undefined);\n      await chai.assert.isRejected(\n        ToDoService.findById(toDoStub.id, toDoStub.owner),\n        ErrorTypes.ENTITY_NOT_FOUND\n      );\n    });\n\n    test(\"With different owner\", async function () {\n      const toDoWithDifferentOwner = { ...toDoStub, owner: toDoStub.owner + 1 };\n      ToDoModelStub.findOne.resolves(toDoWithDifferentOwner);\n      await chai.assert.isRejected(\n        ToDoService.findById(toDoStub.id, toDoStub.owner),\n        ErrorTypes.INVALID_INPUT\n      );\n    });\n\n    test(\"With DB error\", async function () {\n      ToDoModelStub.findOne.rejects(new Error(\"AdapterError\"));\n      await chai.assert.isRejected(\n        ToDoService.findById(toDoStub.id, toDoStub.owner),\n        ErrorTypes.DB_ERROR\n      );\n    });\n  });\n\n  suite(\"changeState\", function () {\n    teardown(function () {\n      sinon.restore();\n    });\n\n    test(\"Successfully\", async function () {\n      sinon\n        .stub(ToDoService, \"findById\")\n        .withArgs(toDoStub.id, toDoStub.owner)\n        .resolves(toDoStub);\n      const toDoWithChangedState = { ...toDoStub, state: \"COMPLETED\" };\n      ToDoModelStub.updateOne.withArgs({ id: toDoStub.id }).returns({\n        set: sinon.stub().withArgs(\"COMPLETED\").resolves(toDoWithChangedState),\n      });\n      const updatedToDo = await ToDoService.changeState(\n        toDoStub.id,\n        toDoStub.owner,\n        \"COMPLETED\"\n      );\n      chai.assert.deepStrictEqual(toDoWithChangedState, updatedToDo);\n    });\n\n    test(\"With incorrect state\", async function () {\n      sinon\n        .stub(ToDoService, \"findById\")\n        .withArgs(toDoStub.id, toDoStub.owner)\n        .resolves(toDoStub);\n      await chai.assert.isRejected(\n        ToDoService.changeState(toDoStub.id, toDoStub.owner, \"INVALID\"),\n        ErrorTypes.INVALID_INPUT\n      );\n    });\n\n    test(\"With DB error\", async function () {\n      sinon\n        .stub(ToDoService, \"findById\")\n        .withArgs(toDoStub.id, toDoStub.owner)\n        .resolves(toDoStub);\n      ToDoModelStub.updateOne.returns({\n        set: sinon\n          .stub()\n          .withArgs(\"COMPLETED\")\n          .rejects(new Error(\"AdapterError\")),\n      });\n      await chai.assert.isRejected(\n        ToDoService.changeState(toDoStub.id, toDoStub.owner, \"COMPLETED\"),\n        ErrorTypes.DB_ERROR\n      );\n    });\n  });\n});\n"
+    }
+  },
+  "projectRoot": "/home/federicop/Capacitaciones/todo-app/back-end",
+  "config": {
+    "mutate": [
+      "api/services/**/*.js",
+      "api/controllers/**/*.js"
+    ],
+    "packageManager": "npm",
+    "reporters": [
+      "html",
+      "progress"
+    ],
+    "coverageAnalysis": "perTest",
+    "testRunner": "mocha",
+    "mochaOptions": {
+      "spec": [
+        "test/unit/**/*.test.js"
+      ],
+      "ui": "tdd",
+      "config": "test/unit/.mocharc.js"
+    },
+    "htmlReporter": {
+      "fileName": "test/mutation/index.html"
+    },
+    "incremental": true,
+    "configFile": "test/stryker.config.mjs",
+    "allowConsoleColors": true,
+    "checkers": [],
+    "checkerNodeArgs": [],
+    "commandRunner": {
+      "command": "npm test"
+    },
+    "clearTextReporter": {
+      "allowColor": true,
+      "allowEmojis": false,
+      "logTests": true,
+      "maxTestsToLog": 3,
+      "reportTests": true,
+      "reportMutants": true,
+      "reportScoreTable": true,
+      "skipFull": false
+    },
+    "dashboard": {
+      "baseUrl": "https://dashboard.stryker-mutator.io/api/reports",
+      "reportType": "full"
+    },
+    "dryRunOnly": false,
+    "eventReporter": {
+      "baseDir": "reports/mutation/events"
+    },
+    "ignorePatterns": [],
+    "ignoreStatic": false,
+    "incrementalFile": "reports/stryker-incremental.json",
+    "force": false,
+    "fileLogLevel": "off",
+    "inPlace": false,
+    "logLevel": "info",
+    "maxConcurrentTestRunners": 9007199254740991,
+    "maxTestRunnerReuse": 0,
+    "mutator": {
+      "plugins": null,
+      "excludedMutations": []
+    },
+    "plugins": [
+      "@stryker-mutator/*"
+    ],
+    "appendPlugins": [],
+    "jsonReporter": {
+      "fileName": "reports/mutation/mutation.json"
+    },
+    "disableTypeChecks": true,
+    "symlinkNodeModules": true,
+    "tempDirName": ".stryker-tmp",
+    "cleanTempDir": true,
+    "testRunnerNodeArgs": [],
+    "thresholds": {
+      "high": 80,
+      "low": 60,
+      "break": null
+    },
+    "timeoutFactor": 1.5,
+    "timeoutMS": 5000,
+    "dryRunTimeoutMinutes": 5,
+    "tsconfigFile": "tsconfig.json",
+    "warnings": true,
+    "disableBail": false,
+    "allowEmpty": false,
+    "ignorers": []
+  },
+  "framework": {
+    "name": "StrykerJS",
+    "version": "8.7.1",
+    "branding": {
+      "homepageUrl": "https://stryker-mutator.io",
+      "imageUrl": "data:image/svg+xml;utf8,%3Csvg viewBox='0 0 1458 1458' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2'%3E%3Cpath fill='none' d='M0 0h1458v1458H0z'/%3E%3CclipPath id='a'%3E%3Cpath d='M0 0h1458v1458H0z'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23a)'%3E%3Cpath d='M1458 729c0 402.655-326.345 729-729 729S0 1131.655 0 729C0 326.445 326.345 0 729 0s729 326.345 729 729' fill='%23e74c3c' fill-rule='nonzero'/%3E%3Cpath d='M778.349 1456.15L576.6 1254.401l233-105 85-78.668v-64.332l-257-257-44-187-50-208 251.806-82.793L1076.6 389.401l380.14 379.15c-19.681 367.728-311.914 663.049-678.391 687.599z' fill-opacity='.3'/%3E%3Cpath d='M753.4 329.503c41.79 0 74.579 7.83 97.925 25.444 23.571 18.015 41.69 43.956 55.167 77.097l11.662 28.679 165.733-58.183-14.137-32.13c-26.688-60.655-64.896-108.61-114.191-144.011-49.329-35.423-117.458-54.302-204.859-54.302-50.78 0-95.646 7.376-134.767 21.542-40.093 14.671-74.09 34.79-102.239 60.259-28.84 26.207-50.646 57.06-65.496 92.701-14.718 35.052-22.101 72.538-22.101 112.401 0 72.536 20.667 133.294 61.165 182.704 38.624 47.255 98.346 88.037 179.861 121.291 42.257 17.475 78.715 33.125 109.227 46.994 27.193 12.361 49.294 26.124 66.157 41.751 15.309 14.186 26.497 30.584 33.63 49.258 7.721 20.214 11.16 45.69 11.16 76.402 0 28.021-4.251 51.787-13.591 71.219-8.832 18.374-20.171 33.178-34.523 44.219-14.787 11.374-31.193 19.591-49.393 24.466-19.68 5.359-39.14 7.993-58.69 7.993-29.359 0-54.387-3.407-75.182-10.747-20.112-7.013-37.144-16.144-51.259-27.486-13.618-11.009-24.971-23.766-33.744-38.279-9.64-15.8-17.272-31.924-23.032-48.408l-10.965-31.376-161.669 60.585 10.734 30.124c10.191 28.601 24.197 56.228 42.059 82.748 18.208 27.144 41.322 51.369 69.525 72.745 27.695 21.075 60.904 38.218 99.481 51.041 37.777 12.664 82.004 19.159 132.552 19.159 49.998 0 95.818-8.321 137.611-24.622 42.228-16.471 78.436-38.992 108.835-67.291 30.719-28.597 54.631-62.103 71.834-100.642 17.263-38.56 25.923-79.392 25.923-122.248 0-54.339-8.368-100.37-24.208-138.32-16.29-38.759-38.252-71.661-65.948-98.797-26.965-26.418-58.269-48.835-93.858-67.175-33.655-17.241-69.196-33.11-106.593-47.533-35.934-13.429-65.822-26.601-89.948-39.525-22.153-11.868-40.009-24.21-53.547-37.309-11.429-11.13-19.83-23.678-24.718-37.664-5.413-15.49-7.98-33.423-7.98-53.577 0-40.883 11.293-71.522 37.086-90.539 28.443-20.825 64.985-30.658 109.311-30.658z' fill='%23f1c40f' fill-rule='nonzero'/%3E%3Cpath d='M720 0h18v113h-18zM1458 738v-18h-113v18h113zM720 1345h18v113h-18zM113 738v-18H0v18h113z'/%3E%3C/g%3E%3C/svg%3E"
+    },
+    "dependencies": {
+      "@stryker-mutator/mocha-runner": "8.7.1",
+      "mocha": "11.0.1",
+      "webpack": "5.97.1"
+    }
+  }
+}
