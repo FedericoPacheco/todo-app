@@ -10,7 +10,7 @@ const {
 Notes:
   * Lift the sails instance with docker compose up before running. 
   Otherwise, the tests will fail.
-  * Attach the debugger as you would do normally to the running 
+  * Attach the debugger as you would normally do to the running 
   instance to look for errors. 
 
 Relevant links:

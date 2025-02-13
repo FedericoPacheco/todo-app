@@ -123,9 +123,7 @@ nbproject
 *.iml
 .node_history
 dump.rdb
-test/coverage
-test/.nyc_output
-test/mutation
+test/reports
 
 npm-debug.log
 lib-cov
