@@ -1,8 +1,5 @@
 {
-  "mutate": [
-    "api/services/**/*.js",
-    "api/controllers/**/*.js"
-  ],
+  "mutate": ["api/services/**/*.js", "api/controllers/**/*.js"],
   "packageManager": "npm",
   "reporters": ["html", "progress"],
   "coverageAnalysis": "perTest",
@@ -10,10 +7,10 @@
   "mochaOptions": {
     "spec": ["test/unit/**/*.test.js"],
     "ui": "tdd",
-    "config": "test/unit/.mocharc.js"
+    "config": "test/unit/.mocharc"
   },
   "htmlReporter": {
-    "fileName": "test/reports/mutation.html"
+    "fileName": "test/reports/unit-mutation/results.html"
   },
   "incremental": true,
   "incrementalFile": "test/reports/.tmp/stryker/incremental.json"

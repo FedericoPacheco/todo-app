@@ -2,7 +2,7 @@
   "all": true,
   "include": ["api/controllers/*.js", "api/models/*.js", "api/services/*.js"],
   "reporter": ["text", "html"],
-  "report-dir": "./test/reports/coverage",
+  "report-dir": "./test/reports/unit-coverage",
   "temp-dir": "./test/reports/.tmp/nyc",
   "check-coverage": true,
   "branches": 80,
