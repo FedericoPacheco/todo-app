@@ -1,0 +1,13 @@
+{
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "mochaExplorer.files": "back-end/test/**/*.test.js",
+  "mochaExplorer.cwd": "${workspaceFolder}/back-end",
+  "mochaExplorer.ui": "tdd",
+  "mochaExplorer.nodePath": null,
+  "mochaExplorer.logpanel": true,
+  "postman.settings.dotenv-detection-notification-visibility": false
+}

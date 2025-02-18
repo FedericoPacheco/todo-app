@@ -1,0 +1,6 @@
+{
+  "timeout": 30000,
+  "ui": "tdd",
+  "spec": "./test/integration/*.test.js",
+  "reporter": "mocha-multi-reporters"
+}

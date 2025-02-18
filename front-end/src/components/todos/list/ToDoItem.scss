@@ -2,35 +2,34 @@
 @use "../../Variables.scss" as *;
 
 .todo-item-container {
-    @include flex-center(column);
-    border-bottom: 0.125rem solid rgba($border-color, 0.25);
-    padding: 0.5rem 0;
+  @include flex-center(column);
+  border-bottom: 0.125rem solid rgba($border-color, 0.25);
+  padding: 0.5rem 0;
 
-    li {
-        max-width: $tab-width;
-        list-style-type: none;
-        @include flex-center(row);
-        justify-content: space-evenly;
-    }
+  li {
+    max-width: $tab-width;
+    list-style-type: none;
+    @include flex-center(row);
+    justify-content: space-evenly;
+  }
 
-    p {
-        width: $tab-width * 0.65;
-        word-wrap: break-word;
-        margin: 0.5rem 2.5rem;
-    }
+  p {
+    width: $tab-width * 0.65;
+    word-wrap: break-word;
+    margin: 0.5rem 2.5rem;
+  }
 
-    span {
-        font-weight: bold;
-    }
+  span {
+    font-weight: bold;
+  }
 
-    .check:hover {
-        color: green;
-        cursor: pointer;
-    }
+  .check:hover {
+    color: green;
+    cursor: pointer;
+  }
 
-    .delete:hover {
-        color: red;
-        cursor: pointer;
-    }
+  .delete:hover {
+    color: red;
+    cursor: pointer;
+  }
 }
-

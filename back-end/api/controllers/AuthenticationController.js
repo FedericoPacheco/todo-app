@@ -1,51 +1,61 @@
-/**
- * AuthenticationController
- *
- * @description :: Server-side actions for handling incoming requests.
- * @help        :: See https://sailsjs.com/docs/concepts/actions
- */
+const UserModel = typeof User !== "undefined" ? User : {};
+const AuthenticationService = require("../services/AuthenticationService")(
+  UserModel,
+);
 
-const bcrypt = require('bcryptjs');
-const HASH_ROUNDS = 10;
+const { mapErrorToRes } = require("./errorUtils");
 
 module.exports = {
-    login: async function (req, res) {
-        const { user, pass } = req.body;
-        const foundUser = await User.findOne({ user });
-        const matched = await bcrypt.compare(pass, foundUser?.pass);
-        if (!foundUser || !matched) {
-            return res.status(401).json({ error: 'Invalid credentials' });
-        }
-        req.session.userId = foundUser.id;
-        return res.json({message: `User ${foundUser.user} logged in`});
-    },
+  login: async function (req, res) {
+    const { user, pass } = req.body;
 
-    logout: function (req, res) {
-        req.session.destroy();
-        return res.json({ message: 'Logged out' });
-    },
+    if (!user || !pass) {
+      return res.badRequest("User and password are required");
+    }
 
-    signup: async function (req, res) {
-        const { user, pass } = req.body;
-        const existingUser = await User.findOne({ user });
-        if (existingUser) {
-            return res.status(409).json({ error: `User ${existingUser.user} already exists` });
-        }
-        const hashedPass = await bcrypt.hash(pass, HASH_ROUNDS);
-        const newUser = await User.create({ user, pass: hashedPass }).fetch();
-        req.session.userId = newUser.id;
-        return res.json({message: `User ${user} signed up`});
-    },
-    
-    status: function (req, res) {
-        if (req.session.userId) {
-            return res.json({ isAuthenticated: true });
-        } else {
-            return res.json({ isAuthenticated: false });
-        }
-    },
-    csrfToken: function (req, res) {
+    try {
+      const foundUser = await AuthenticationService.login(user, pass);
+      req.session.userId = foundUser.id;
+      return res.json({ message: `User ${foundUser.user} logged in` });
+    } catch (error) {
+      mapErrorToRes(error, res);
+    }
+  },
+
+  logout: function (req, res) {
+    try {
+      AuthenticationService.logout();
+      req.session.destroy();
+      return res.json({ message: "Logged out" });
+    } catch (error) {
+      mapErrorToRes(error, res);
+    }
+  },
+
+  signup: async function (req, res) {
+    const { user, pass } = req.body;
+
+    if (!user || !pass) {
+      return res.badRequest("User and password are required");
+    }
+
+    try {
+      const newUser = await AuthenticationService.signup(user, pass);
+      req.session.userId = newUser.id;
+      return res.json({ message: `User ${newUser.user} signed up` });
+    } catch (error) {
+      mapErrorToRes(error, res);
+    }
+  },
+
+  status: function (req, res) {
+    if (req.session.userId) {
+      return res.json({ isAuthenticated: true });
+    } else {
+      return res.json({ isAuthenticated: false });
+    }
+  },
+  csrfToken: function (req, res) {
     return res.json({ csrfToken: req.csrfToken() });
-    },
+  },
 };
-

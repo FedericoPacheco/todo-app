@@ -3,20 +3,19 @@
 @use "../../Mixins.scss" as *;
 
 .search-container {
-    width: $tab-width;
-    @include flex-center(row);
-    margin: 0.5rem;
+  width: $tab-width;
+  @include flex-center(row);
+  margin: 0.5rem;
 
-    input {
-        @extend .std-input;
-        margin-left: 0;
-        width: 80%;
-    }
+  input {
+    @extend .std-input;
+    margin-left: 0;
+    width: 80%;
+  }
 
-    .search-button {
-        @extend .std-button;
-        width: 20%;
-        margin-right: 0;
-    }
+  .search-button {
+    @extend .std-button;
+    width: 20%;
+    margin-right: 0;
+  }
 }
-

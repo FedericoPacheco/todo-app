@@ -1,7 +1,7 @@
-@use '../Mixins' as *;
-@use '../Variables' as *;
-@use '../CommonStyles';
+@use "../Mixins" as *;
+@use "../Variables" as *;
+@use "../CommonStyles";
 
 .todos-container {
-    @extend .app-container;
+  @extend .app-container;
 }

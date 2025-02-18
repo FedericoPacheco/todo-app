@@ -1,7 +1,7 @@
 @use "../../CommonStyles.scss";
 
 .add-todo-button {
-    @extend .std-button;
-    width: 3.75rem;
-    margin-bottom: 0;
+  @extend .std-button;
+  width: 3.75rem;
+  margin-bottom: 0;
 }

@@ -9,13 +9,10 @@
  * https://sailsjs.com/config/session
  */
 
-const RedisStore = require('connect-redis').default;
-
 module.exports.session = {
-
   // https://sailsjs.com/documentation/reference/configuration/sails-config-session#?production-config
   // https://sailsjs.com/documentation/concepts/sessions
-  adapter: 'connect-redis',
+  adapter: "connect-redis",
   host: process.env.SESSION_HOST,
   port: process.env.SESSION_PORT,
   pass: process.env.SESSION_PASS,
@@ -26,28 +23,26 @@ module.exports.session = {
   },
 
   /***************************************************************************
-  *                                                                          *
-  * Session secret is automatically generated when your new app is created   *
-  * Replace at your own risk in production-- you will invalidate the cookies *
-  * of your users, forcing them to log in again.                             *
-  *                                                                          *
-  ***************************************************************************/
-  secret: '7f7916a8f7275129736cc868115cba9b',
-
+   *                                                                          *
+   * Session secret is automatically generated when your new app is created   *
+   * Replace at your own risk in production-- you will invalidate the cookies *
+   * of your users, forcing them to log in again.                             *
+   *                                                                          *
+   ***************************************************************************/
+  secret: "7f7916a8f7275129736cc868115cba9b",
 
   /***************************************************************************
-  *                                                                          *
-  * Customize when built-in session support will be skipped.                 *
-  *                                                                          *
-  * (Useful for performance tuning; particularly to avoid wasting cycles on  *
-  * session management when responding to simple requests for static assets, *
-  * like images or stylesheets.)                                             *
-  *                                                                          *
-  * https://sailsjs.com/config/session                                       *
-  *                                                                          *
-  ***************************************************************************/
+   *                                                                          *
+   * Customize when built-in session support will be skipped.                 *
+   *                                                                          *
+   * (Useful for performance tuning; particularly to avoid wasting cycles on  *
+   * session management when responding to simple requests for static assets, *
+   * like images or stylesheets.)                                             *
+   *                                                                          *
+   * https://sailsjs.com/config/session                                       *
+   *                                                                          *
+   ***************************************************************************/
   // isSessionDisabled: function (req){
   //   return !!req.path.match(req._sails.LOOKS_LIKE_ASSET_RX);
   // },
-
 };

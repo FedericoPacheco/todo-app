@@ -4,12 +4,12 @@
 services:
   gui:
     build:
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile
     container_name: todo-gui
     ports:
       - "3000:3000"
     env_file:
-      - .env  
+      - .env
     networks:
       - todo-net
     volumes:

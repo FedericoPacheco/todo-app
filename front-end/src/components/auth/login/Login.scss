@@ -2,45 +2,44 @@
 @use "../../Mixins.scss" as *;
 @use "../../CommonStyles.scss";
 
-
 .login {
-    @extend .app-container;
+  @extend .app-container;
 
-    h1 {
-        font-size: $font-size * 1.25;
-        margin: 1rem;
-        color: $font-color;
-        font-weight: bold;
-    }
+  h1 {
+    font-size: $font-size * 1.25;
+    margin: 1rem;
+    color: $font-color;
+    font-weight: bold;
+  }
 
-    .credential-container {
-        @include flex-center(row);
-    }
+  .credential-container {
+    @include flex-center(row);
+  }
 
-    label {
-        font-size: $font-size;
-        color: $font-color;
-        width: 7.5rem;
-        margin: 0.5rem;
-        display: block;
-        text-align: center;
-    }
+  label {
+    font-size: $font-size;
+    color: $font-color;
+    width: 7.5rem;
+    margin: 0.5rem;
+    display: block;
+    text-align: center;
+  }
 
-    input {
-        @extend .std-input;
-        min-width: 7.5rem;
-        max-width: 15rem;
-    }
+  input {
+    @extend .std-input;
+    min-width: 7.5rem;
+    max-width: 15rem;
+  }
 
-    .button-and-error-container {
-        @include flex-center(column);
-    }
+  .button-and-error-container {
+    @include flex-center(column);
+  }
 
-    .button-container {
-        @include flex-center(row);
-    }
+  .button-container {
+    @include flex-center(row);
+  }
 
-    button {
-        @extend .std-button;
-    }
+  button {
+    @extend .std-button;
+  }
 }

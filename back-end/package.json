@@ -21,14 +21,34 @@
     "sails-postgresql": "^5.0.1"
   },
   "devDependencies": {
-    "eslint": "^9.15.0",
-    "eslint-config-google": "^0.14.0"
+    "@eslint/js": "^9.17.0",
+    "@stryker-mutator/core": "^8.7.1",
+    "@stryker-mutator/mocha-runner": "^8.7.1",
+    "chai": "4.5",
+    "chai-as-promised": "^7.1.2",
+    "eslint": "^9.17.0",
+    "eslint-config-google": "^0.14.0",
+    "faker": "^5.5.3",
+    "globals": "^15.14.0",
+    "lint-staged": "^15.2.11",
+    "mocha": "^11.0.1",
+    "mocha-junit-reporter": "^2.2.1",
+    "mocha-multi-reporters": "^1.5.1",
+    "mochawesome": "^7.1.3",
+    "nodemon": "^3.1.9",
+    "nyc": "^17.1.0",
+    "proxyquire": "^2.1.3",
+    "sinon": "^19.0.2",
+    "supertest": "^7.0.0"
   },
   "scripts": {
-    "start": "NODE_ENV=development node app.js",
-    "test": "npm run lint && npm run custom-tests && echo 'Done.'",
-    "lint": "./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
-    "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
+    "start": "NODE_ENV=development nodemon --inspect=0.0.0.0:9229 app.js",
+    "integration-test": "NODE_ENV=test mocha --config test/integration/.mocharc --reporterOptions configFile=test/integration/.reportersrc",
+    "unit-test": "NODE_ENV=test mocha --config test/unit/.mocharc --reporterOptions configFile=test/unit/.reportersrc",
+    "unit-test:match": "npm run unit-test -- --grep",
+    "unit-test:debug": "npm run unit-test -- --inspect-brk",
+    "unit-test:mutate": "stryker run test/unit/.strykerrc.json --mutate",
+    "unit-test:coverage": "nyc --nycrc-path test/unit/.nycrc npm run unit-test"
   },
   "main": "app.js",
   "repository": {

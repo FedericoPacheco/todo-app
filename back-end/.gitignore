@@ -121,9 +121,9 @@ node_modules
 nbproject
 .idea
 *.iml
-.vscode
 .node_history
 dump.rdb
+test/reports
 
 npm-debug.log
 lib-cov
@@ -132,3 +132,6 @@ lib-cov
 *.out
 *.pid
 
+
+# stryker temp files
+.stryker-tmp

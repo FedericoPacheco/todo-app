@@ -1,30 +1,24 @@
-/**
- * ToDo.js
- *
- * @description :: A model definition represents a database table/collection.
- * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
- */
-
 module.exports = {
-
   attributes: {
     id: {
-      type: 'number',
+      type: "number",
       autoIncrement: true,
       unique: true,
     },
     text: {
-      type: 'string',
+      type: "string",
       required: true,
     },
     state: {
-      type: 'string',
-      isIn: ['PENDING', 'COMPLETED'],
+      type: "string",
+      isIn: ["PENDING", "COMPLETED"],
       required: true,
     },
     owner: {
-      model: 'user',
+      model: "user",
     },
   },
+  sayHi: function () {
+    console.log("Hi there! I'm a ToDo model.");
+  },
 };
-
