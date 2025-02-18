@@ -13,7 +13,7 @@ function mapErrorToRes(error, res) {
     case ErrorTypes.ENTITY_NOT_FOUND:
       return res.notFound(error);
     case ErrorTypes.INVALID_CREDENTIALS:
-      return res.unauthorized(error);
+      return res.badRequest(error);
     case ErrorTypes.USER_ALREADY_EXISTS:
       return res.badRequest(error);
     default:

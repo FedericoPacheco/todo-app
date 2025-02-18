@@ -9,7 +9,7 @@ export default [
     ...js.configs.recommended,
   },
   {
-    ignores: ["front-end/**/*"],
+    ignores: ["back-end/test/reports/**/*", "front-end/**/*"],
   },
   { languageOptions: { sourceType: "module" } },
   // { languageOptions: { sourceType: "commonjs" } },

@@ -34,6 +34,15 @@ suite("AuthenticationService", function () {
       );
     });
 
+    test("should throw INVALID_CREDENTIALS when user does not exist", async function () {
+      UserStub.findOne.resolves(undefined);
+
+      await chai.assert.isRejected(
+        AuthenticationService.login(user, pass),
+        ErrorTypes.INVALID_CREDENTIALS,
+      );
+    });
+
     test("should throw INVALID_CREDENTIALS when password does not match", async function () {
       UserStub.findOne.resolves({ id, user, pass: "wrongPass" });
 
@@ -46,7 +55,6 @@ suite("AuthenticationService", function () {
     test("should return user when credentials match", async function () {
       UserStub.findOne.resolves({ id, user, pass });
 
-      // chai.assert.isFulfilled(AuthenticationService.login(user, pass));
       chai.assert.eventually.deepEqual(
         AuthenticationService.login(user, pass),
         { id, user },

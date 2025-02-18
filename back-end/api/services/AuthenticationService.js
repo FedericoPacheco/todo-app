@@ -17,8 +17,11 @@ module.exports = (User) => {
     } catch {
       throw new Error(ErrorTypes.DB_ERROR);
     }
+    if (!foundUser) {
+      throw new Error(ErrorTypes.INVALID_CREDENTIALS);
+    }
     matched = await bcrypt.compare(pass, foundUser.pass);
-    if (!foundUser || !matched) {
+    if (!matched) {
       throw new Error(ErrorTypes.INVALID_CREDENTIALS);
     }
     delete foundUser.pass;

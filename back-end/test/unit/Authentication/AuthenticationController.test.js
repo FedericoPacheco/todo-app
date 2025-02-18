@@ -28,7 +28,6 @@ suite("AuthenticationController", function () {
     res = {
       badRequest: sinon.stub(),
       serverError: sinon.stub(),
-      unauthorized: sinon.stub(),
       notFound: sinon.stub(),
       json: sinon.stub(),
     };
@@ -86,7 +85,7 @@ suite("AuthenticationController", function () {
 
       await AuthenticationController.login(req, res);
 
-      assert(res.unauthorized.calledOnce);
+      assert(res.badRequest.calledOnce);
       assert.isUndefined(req.session.userId);
     });
 

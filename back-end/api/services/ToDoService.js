@@ -1,7 +1,6 @@
 const ErrorTypes = require("../constants/ErrorTypes");
 
 /*
-
 Rationale:
   Holds the business logic for the ToDo model to achieve better separation of concerns and testability.
   Note that in this case said business logic is fairly trivial, as it only involves CRUD operations and 
@@ -32,8 +31,6 @@ module.exports = (ToDo) => {
   async function create(text, state, userId) {
     try {
       return await ToDo.create({ text, state, owner: userId }).fetch();
-      // const aux = await ToDo.create({ text, state, owner: userId });
-      // return aux.fetch();
     } catch {
       throw new Error(ErrorTypes.DB_ERROR);
     }
