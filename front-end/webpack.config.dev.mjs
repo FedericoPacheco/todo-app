@@ -2,7 +2,7 @@ import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import Dotenv from "dotenv-webpack";
-import ESLintPlugin from "eslint-webpack-plugin";
+// import ESLintPlugin from "eslint-webpack-plugin";
 import { fileURLToPath } from "url";
 //import { ProvidePlugin } from 'webpack';
 

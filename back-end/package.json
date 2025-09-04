@@ -26,6 +26,7 @@
     "@stryker-mutator/mocha-runner": "^8.7.1",
     "chai": "4.5",
     "chai-as-promised": "^7.1.2",
+    "cross-env": "^10.0.0",
     "eslint": "^9.17.0",
     "eslint-config-google": "^0.14.0",
     "faker": "^5.5.3",
@@ -42,9 +43,9 @@
     "supertest": "^7.0.0"
   },
   "scripts": {
-    "start": "NODE_ENV=development nodemon --inspect=0.0.0.0:9229 app.js",
-    "integration-test": "NODE_ENV=test mocha --config test/integration/.mocharc --reporterOptions configFile=test/integration/.reportersrc",
-    "unit-test": "NODE_ENV=test mocha --config test/unit/.mocharc --reporterOptions configFile=test/unit/.reportersrc",
+    "start": "cross-env NODE_ENV=development nodemon --inspect=0.0.0.0:9229 app.js",
+    "integration-test": "cross-env NODE_ENV=test mocha --config test/integration/.mocharc --reporterOptions configFile=test/integration/.reportersrc",
+    "unit-test": "cross-env NODE_ENV=test mocha --config test/unit/.mocharc --reporterOptions configFile=test/unit/.reportersrc",
     "unit-test:match": "npm run unit-test -- --grep",
     "unit-test:debug": "npm run unit-test -- --inspect-brk",
     "unit-test:mutate": "stryker run test/unit/.strykerrc.json --mutate",
