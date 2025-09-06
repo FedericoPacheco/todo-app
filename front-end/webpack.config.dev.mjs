@@ -83,6 +83,7 @@ export default {
       paths: ["src/**/*"],
       options: {
         usePolling: true,
+        poll: 1000,
         ignored: /node_modules/,
       },
     },

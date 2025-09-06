@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "cd back-end && npm run unit-test",
-    "lint-front": "ESLINT_USE_FLAT_CONFIG=true npx eslint --config front-end/eslint.config.mjs \"front-end/src/**/*.js\" --fix",
-    "lint-back": "ESLINT_USE_FLAT_CONFIG=true npx eslint --config back-end/eslint.config.mjs \"back-end/**/*.js\" --fix",
+    "lint-front": "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint --config front-end/eslint.config.mjs \"front-end/src/**/*.js\" --fix",
+    "lint-back": "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint --config back-end/eslint.config.mjs \"back-end/**/*.js\" --fix",
     "prettier-front": "npx prettier --write \"front-end/src/**/*.{js,jsx,mjs}\" --log-level silent",
     "prettier-back": "npx prettier --write \"back-end/**/*.{js,mjs}\" --log-level silent",
     "lint-staged": "lint-staged",
@@ -12,16 +12,17 @@
   },
   "lint-staged": {
     "front-end/src/**/*.{js,mjs,jsx}": [
-      "ESLINT_USE_FLAT_CONFIG=true npx eslint --config front-end/eslint.config.mjs --fix --debug",
+      "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint --config front-end/eslint.config.mjs --fix --debug",
       "npx prettier --write"
     ],
     "back-end/**/*.js": [
-      "ESLINT_USE_FLAT_CONFIG=true npx eslint --config back-end/eslint.config.mjs --fix --debug",
+      "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint --config back-end/eslint.config.mjs --fix --debug",
       "npx prettier --write"
     ]
   },
   "devDependencies": {
     "@eslint/js": "^8.48.0",
+    "cross-env": "^10.0.0",
     "eslint": "^8.48.0",
     "eslint-plugin-react": "^7.33.2",
     "globals": "^13.20.0",
