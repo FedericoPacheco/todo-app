@@ -19,26 +19,24 @@ export function Login() {
 
   if (authStatus !== AUTH_SUCCESS) {
     return (
-      <div>
-        <div className="login">
-          <h1>Ingrese sus credenciales</h1>
-          <div className="credential-container">
-            <label htmlFor="username">Usuario</label>
-            <input
-              id="username"
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
-            />
-          </div>
-          <div className="credential-container">
-            <label htmlFor="password">Contraseña</label>
-            <input
-              id="password"
-              onChange={(e) => setPass(e.target.value)}
-              type="password"
-              value={pass}
-            />
-          </div>
+      <div className="login">
+        <h1>Ingrese sus credenciales</h1>
+        <div className="credential-container">
+          <label htmlFor="username">Usuario</label>
+          <input
+            id="username"
+            onChange={(e) => setUser(e.target.value)}
+            value={user}
+          />
+        </div>
+        <div className="credential-container">
+          <label htmlFor="password">Contraseña</label>
+          <input
+            id="password"
+            onChange={(e) => setPass(e.target.value)}
+            type="password"
+            value={pass}
+          />
         </div>
         <div className="button-and-error-container">
           <div className="button-container">

@@ -1,14 +1,19 @@
 @use "./Variables.scss" as *;
 @use "./Mixins.scss" as *;
 
-.app-container {
+html, body {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app-container {
   box-sizing: border-box;
   text-align: center;
   background-color: $background-color;
   width: 100vw;
   min-width: $tab-width * 1.125;
-  height: 100vh;
+  min-height: 100vh;
   border: 0.125rem solid $border-color;
   font-family: $font;
   @include flex-center(column);
