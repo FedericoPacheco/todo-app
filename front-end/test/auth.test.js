@@ -4,54 +4,65 @@ const WEB_URL = "http://localhost:3000";
 const API_URL = "http://localhost:1340";
 
 test.describe("Authentication", function () {
-  test.describe("Sign up", function () {
-    test("should sign up a new user successfully", async ({ page }) => {
-      await page.goto(WEB_URL);
-      await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
+  test("should complete new user auth flow successfully: sign up, log out, log in, log out", async ({
+    page,
+  }) => {
+    await page.goto(WEB_URL);
+    await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
 
-      const credentials = getRandomCredentials();
-      await fillSignUpCredentials(page, credentials);
+    const credentials = getRandomCredentials();
+    await fillSignUpCredentials(page, credentials);
+    await expect(page.getByText("ToDo App")).toBeVisible();
 
-      await expect(page.getByText("ToDo App")).toBeVisible();
-    });
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await expect(page.getByText("ToDo App")).toBeVisible();
 
-    test("should show an error when signing up with an existing username", async ({
-      request,
-      page,
-    }) => {
-      await page.goto(WEB_URL);
-      await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
-      // Create a user on the backend first if not present
-      const credentials = getExistingCredentials();
-      await createUser(credentials, request);
+    await page.getByRole("button", { name: "Salir" }).click();
+    await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
 
-      await fillSignUpCredentials(page, credentials);
+    await fillLoginCredentials(page, credentials);
+    await expect(page.getByText("ToDo App")).toBeVisible();
 
-      await expect(page.getByText(/usuario ya existente/i)).toBeVisible();
-    });
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await expect(page.getByText("ToDo App")).toBeVisible();
+
+    await page.getByRole("button", { name: "Salir" }).click();
+    await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
   });
 
-  test.describe("Log in", function () {
-    test("should log in and remain logged as an existing user successfully", async ({
-      page,
-      request,
-    }) => {
-      await page.goto(WEB_URL);
-      await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
-      await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
-      // Create a user on the backend first if not present
-      const credentials = getExistingCredentials();
-      await createUser(credentials, request);
+  test("should show an error when signing up with an existing username", async ({
+    request,
+    page,
+  }) => {
+    await page.goto(WEB_URL);
+    await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
+    // Create a user on the backend first if not present
+    const credentials = getExistingCredentials();
+    await createUser(credentials, request);
 
-      await fillLoginCredentials(page, credentials);
-      await expect(page.getByText("ToDo App")).toBeVisible();
+    await fillSignUpCredentials(page, credentials);
 
-      await page.reload({ waitUntil: 'domcontentloaded' });
-      await expect(page.getByText("ToDo App")).toBeVisible();
-    });
+    await expect(page.getByText(/usuario ya existente/i)).toBeVisible();
   });
 
-  test.describe("Log out", function () {});
+  test("should show an error when logging in with an incorrect password", async ({
+    request,
+    page,
+  }) => {
+    await page.goto(WEB_URL);
+    await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
+    // Create a user on the backend first if not present
+    const credentials = getExistingCredentials();
+    await createUser(credentials, request);
+
+    const wrongCredentials = {
+      user: credentials.user,
+      pass: credentials.pass + "_wrong",
+    };
+    await fillLoginCredentials(page, wrongCredentials);
+
+    await expect(page.getByText(/credenciales incorrectas/i)).toBeVisible();
+  });
 });
 
 function getExistingCredentials() {
@@ -91,7 +102,7 @@ async function fillLoginCredentials(page, { user, pass }) {
   const usernameInput = page.getByLabel("Usuario");
   await usernameInput.click();
   await usernameInput.fill(user);
-  
+
   const passwordInput = page.getByLabel("Contraseña");
   await passwordInput.click();
   await passwordInput.fill(pass);
