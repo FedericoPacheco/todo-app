@@ -10,7 +10,7 @@ test.describe("Authentication", function () {
       await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
 
       const credentials = getRandomCredentials();
-      await fillCredentials(page, credentials);
+      await fillCredentials(page, credentials, true);
 
       await expect(page.getByText("ToDo App")).toBeVisible();
     });
@@ -22,21 +22,42 @@ test.describe("Authentication", function () {
       await page.goto(WEB_URL);
       await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
       // Create a user on the backend first if not present
-      const credentials = { user: "existing_test_user", pass: "existing_test_pass" };
-      await createUser(
-        credentials,
-        request
-      );
+      const credentials = {
+        user: "existing_test_user",
+        pass: "existing_test_pass",
+      };
+      await createUser(credentials, request);
 
-      await fillCredentials(page, credentials);
+      await fillCredentials(page, credentials, true);
 
-      await expect(
-        page.getByText(/usuario ya existente/i)
-      ).toBeVisible();
+      await expect(page.getByText(/usuario ya existente/i)).toBeVisible();
     });
   });
 
-  test.describe("Log in", function () {});
+  test.describe("Log in", function () {
+    test("should log in and remain logged as an existing user successfully", async ({
+      page,
+      request,
+    }) => {
+      await page.goto(WEB_URL);
+      await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
+      await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
+      // Create a user on the backend first if not present
+      const credentials = {
+        user: "existing_test_user",
+        pass: "existing_test_pass",
+      };
+      await createUser(credentials, request);
+
+      await fillCredentials(page, credentials);
+
+      await expect(page.getByText("ToDo App")).toBeVisible();
+
+      await page.reload({ waitUntil: 'domcontentloaded' });
+
+      await expect(page.getByText("ToDo App")).toBeVisible();
+    });
+  });
 
   test.describe("Log out", function () {});
 });
@@ -57,7 +78,7 @@ function getRandomCredentials() {
   };
 }
 
-async function fillCredentials(page, { user, pass }) {
+async function fillCredentials(page, { user, pass }, isSignUp = false) {
   const usernameInput = page.getByLabel("Usuario");
   await usernameInput.click();
   await usernameInput.fill(user);
@@ -66,11 +87,12 @@ async function fillCredentials(page, { user, pass }) {
   await passwordInput.click();
   await passwordInput.fill(pass);
 
-  await page.getByRole("button", { name: "Sign Up" }).click();
+  if (!isSignUp) await page.getByRole("button", { name: "Login" }).click();
+  else await page.getByRole("button", { name: "Sign Up" }).click();
 }
 
 // https://playwright.dev/docs/api/class-apirequestcontext
-// https://playwright.dev/docs/api/class-apiresponse 
+// https://playwright.dev/docs/api/class-apiresponse
 async function getCsrfToken(request) {
   const response = await request.get(`${API_URL}/auth/csrf`);
   const parsedBody = await response.json();
@@ -86,4 +108,3 @@ async function createUser({ user, pass }, request) {
     },
   });
 }
-
