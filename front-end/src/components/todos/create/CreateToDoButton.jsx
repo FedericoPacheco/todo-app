@@ -11,6 +11,7 @@ function CreateToDoButton() {
     <button
       className="add-todo-button"
       onClick={() => setIsCreateToDoVisible(true)}
+      data-testid="create-todo-button"
     >
       <FontAwesomeIcon icon={faPlus} />
     </button>
