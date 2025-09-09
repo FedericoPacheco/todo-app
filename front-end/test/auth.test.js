@@ -10,7 +10,7 @@ test.describe("Authentication", function () {
       await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
 
       const credentials = getRandomCredentials();
-      await fillCredentials(page, credentials, true);
+      await fillSignUpCredentials(page, credentials);
 
       await expect(page.getByText("ToDo App")).toBeVisible();
     });
@@ -22,13 +22,10 @@ test.describe("Authentication", function () {
       await page.goto(WEB_URL);
       await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
       // Create a user on the backend first if not present
-      const credentials = {
-        user: "existing_test_user",
-        pass: "existing_test_pass",
-      };
+      const credentials = getExistingCredentials();
       await createUser(credentials, request);
 
-      await fillCredentials(page, credentials, true);
+      await fillSignUpCredentials(page, credentials);
 
       await expect(page.getByText(/usuario ya existente/i)).toBeVisible();
     });
@@ -43,18 +40,13 @@ test.describe("Authentication", function () {
       await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
       await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
       // Create a user on the backend first if not present
-      const credentials = {
-        user: "existing_test_user",
-        pass: "existing_test_pass",
-      };
+      const credentials = getExistingCredentials();
       await createUser(credentials, request);
 
-      await fillCredentials(page, credentials);
-
+      await fillLoginCredentials(page, credentials);
       await expect(page.getByText("ToDo App")).toBeVisible();
 
       await page.reload({ waitUntil: 'domcontentloaded' });
-
       await expect(page.getByText("ToDo App")).toBeVisible();
     });
   });
@@ -62,6 +54,12 @@ test.describe("Authentication", function () {
   test.describe("Log out", function () {});
 });
 
+function getExistingCredentials() {
+  return {
+    user: "existing_test_user",
+    pass: "existing_test_pass",
+  };
+}
 function getRandomCredentials() {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#getting_a_random_integer_between_two_values
   const getRandomInt = (min, max) => {
@@ -78,7 +76,7 @@ function getRandomCredentials() {
   };
 }
 
-async function fillCredentials(page, { user, pass }, isSignUp = false) {
+async function fillSignUpCredentials(page, { user, pass }) {
   const usernameInput = page.getByLabel("Usuario");
   await usernameInput.click();
   await usernameInput.fill(user);
@@ -87,8 +85,18 @@ async function fillCredentials(page, { user, pass }, isSignUp = false) {
   await passwordInput.click();
   await passwordInput.fill(pass);
 
-  if (!isSignUp) await page.getByRole("button", { name: "Login" }).click();
-  else await page.getByRole("button", { name: "Sign Up" }).click();
+  await page.getByRole("button", { name: "Sign Up" }).click();
+}
+async function fillLoginCredentials(page, { user, pass }) {
+  const usernameInput = page.getByLabel("Usuario");
+  await usernameInput.click();
+  await usernameInput.fill(user);
+  
+  const passwordInput = page.getByLabel("Contraseña");
+  await passwordInput.click();
+  await passwordInput.fill(pass);
+
+  await page.getByRole("button", { name: "Login" }).click();
 }
 
 // https://playwright.dev/docs/api/class-apirequestcontext
