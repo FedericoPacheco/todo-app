@@ -154,4 +154,31 @@ suite("ToDoIntegration", function () {
       await agent.delete(`todo/${-1}`).expect(404);
     });
   });
+
+  suite("Full lifecycle", function () {
+    setup(async function () {
+      await setCsrfToken(agent);
+    });
+
+    test("create -> complete -> verify -> delete", async function () {
+      const createdToDo = (await agent.post("todo").send({ ...toDo })).body;
+
+      await agent
+        .patch(`todo/${createdToDo.id}`)
+        .send({ state: "COMPLETED" })
+        .expect(200);
+
+      await agent
+        .get(`todo/${createdToDo.id}`)
+        .expect(200)
+        .expect((res) => {
+          chai.assert.propertyVal(res.body, "id", createdToDo.id);
+          chai.assert.propertyVal(res.body, "state", "COMPLETED");
+        });
+
+      await agent.delete(`todo/${createdToDo.id}`).expect(200);
+
+      await agent.get(`todo/${createdToDo.id}`).expect(404);
+    });
+  });
 });
