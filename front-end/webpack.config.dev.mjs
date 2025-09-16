@@ -5,6 +5,7 @@ import Dotenv from "dotenv-webpack";
 // import ESLintPlugin from "eslint-webpack-plugin";
 import { fileURLToPath } from "url";
 //import { ProvidePlugin } from 'webpack';
+import fs from "fs";
 
 export default {
   entry: "./src/index.js",
@@ -79,6 +80,15 @@ export default {
     compress: true,
     historyApiFallback: true,
     port: 3000,
+    // https://webpack.js.org/configuration/dev-server/#devserverserver
+    server: {
+      type: 'https',
+      options: {
+        key: fs.readFileSync("./ssl/localhost-key.pem"),
+        cert: fs.readFileSync("./ssl/localhost.pem"),
+        ca: fs.readFileSync("./ssl/rootCA.pem"),
+      },
+    },
     watchFiles: {
       paths: ["src/**/*"],
       options: {

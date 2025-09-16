@@ -135,3 +135,6 @@ lib-cov
 
 # stryker temp files
 .stryker-tmp
+
+# Certificates
+config/ssl/*.pem

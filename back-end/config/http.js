@@ -11,19 +11,18 @@
 
 const lusca = require("lusca");
 
-/* 
-  const fs = require("fs");
-  const path = require("path");
+const fs = require("fs");
+const path = require("path");
 
-  module.exports.ssl = {
-  key: fs.readFileSync(path.resolve(__dirname, 'ssl/toDoServer.key')),
-  cert: fs.readFileSync(path.resolve(__dirname, 'ssl/toDoServer.crt')),
-} */
+module.exports.ssl = {
+  key: fs.readFileSync(path.resolve(__dirname, "ssl/localhost-key.pem")),
+  cert: fs.readFileSync(path.resolve(__dirname, "ssl/localhost.pem")),
+};
 
 module.exports.http = {
-  /* protocol: 'https',
+  protocol: "https",
   port: process.env.API_PORT,
- */
+
   /****************************************************************************
    *                                                                           *
    * Sails/Express middleware to run for every HTTP request.                   *
@@ -56,12 +55,15 @@ module.exports.http = {
       "favicon",
     ],
 
-    // Middleware to redirect HTTP to HTTPS
     redirectToHTTPS: function (req, res, next) {
-      /* if (req.headers['x-forwarded-proto'] !== 'https') {
-        return res.redirect(301, 'https://' + req.headers.host + req.url);
-      } */
-      next();
+      // If running behind a proxy or browser connects via http redirect:
+      const proto =
+        req.headers["x-forwarded-proto"] ||
+        (req.connection && req.connection.encrypted ? "https" : "http");
+      if (proto !== "https") {
+        return res.redirect(301, "https://" + req.headers.host + req.url);
+      }
+      return next();
     },
 
     // https://sailsjs.com/documentation/concepts/security/clickjacking
