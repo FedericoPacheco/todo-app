@@ -12,11 +12,11 @@
   },
   "lint-staged": {
     "front-end/src/**/*.{js,mjs,jsx}": [
-      "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint --config front-end/eslint.config.mjs --fix --debug",
+      "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint --config front-end/eslint.config.mjs --fix",
       "npx prettier --write"
     ],
     "back-end/**/*.js": [
-      "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint --config back-end/eslint.config.mjs --fix --debug",
+      "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint --config back-end/eslint.config.mjs --fix",
       "npx prettier --write"
     ]
   },
@@ -27,6 +27,7 @@
     "eslint-plugin-react": "^7.33.2",
     "globals": "^13.20.0",
     "husky": "^8.0.0",
+    "lint-staged": "^16.1.6",
     "prettier": "^3.0.0"
   },
   "keywords": [],

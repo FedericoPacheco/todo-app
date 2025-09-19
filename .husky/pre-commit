@@ -1,14 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Doesn't work
-# npx lint-staged
-
-# Approximately equivalent to lint-staged
-npm run lint-front
-npm run lint-back
-npm run prettier-front
-npm run prettier-back
-git add .
-
-npm test
+npx lint-staged
