@@ -42,7 +42,8 @@
     "supertest": "^7.0.0"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon --inspect=0.0.0.0:9229 app.js",
+    "start:test": "cross-env NODE_ENV=test sails lift", 
+    "start:dev": "cross-env NODE_ENV=development nodemon --inspect=0.0.0.0:9229 app.js",
     "integration-test": "cross-env NODE_ENV=test mocha --config test/integration/.mocharc --reporterOptions configFile=test/integration/.reportersrc",
     "unit-test": "cross-env NODE_ENV=test mocha --config test/unit/.mocharc --reporterOptions configFile=test/unit/.reportersrc",
     "unit-test:match": "npm run unit-test -- --grep",

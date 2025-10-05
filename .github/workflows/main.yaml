@@ -1,0 +1,55 @@
+name: CI-main
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  integration-and-e2e:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v5
+
+    - name: Create system's network
+      run: docker network create todo-net || true
+
+    - name: Build and start all services
+      run: |
+        cd back-end
+        docker compose -f docker-compose.ci.yaml build --no-cache
+        docker compose -f docker-compose.ci.yaml up -d
+
+    - name: Run integration tests inside container
+      run: |
+        cd back-end
+        docker compose exec -T api sh -c "API_HOST=localhost API_PORT=1337 npm run integration-test"
+
+    #   - name: Run front-end e2e (Playwright) from runner
+    #     working-directory: ./front-end
+    #     env:
+    #       WEB_URL: "http://localhost:3000"
+    #     run: |
+    #       npm ci
+    #       npx playwright install --with-deps
+    #       WEB_URL="$WEB_URL" npx playwright test
+        
+    - name: Show container logs on failure
+      if: failure()
+      run: |
+        cd back-end
+        echo "===== API Logs ====="
+        docker compose logs api
+        echo "===== DB Logs ====="
+        docker compose logs db
+        echo "===== Redis Logs ====="
+        docker compose logs session-db
+
+    - name: Stop and clean up
+      if: always()
+      run: |
+        cd back-end
+        docker compose down -v || true
+        docker network rm todo-net || true
