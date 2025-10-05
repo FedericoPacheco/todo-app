@@ -10,7 +10,8 @@ services:
       - "1340:1337"
       - "9229:9229"
     environment:
-      - API_PORT=1337
+      # - API_HOST=todo-sails-app
+      # - API_PORT=1337
       - DATABASE_HOST=db
       - DATABASE_USER=postgres
       - DATABASE_PASSWORD=postgres
@@ -27,7 +28,8 @@ services:
       - todo-back-net
       - todo-net
     volumes:
-      - .:/usr/todo-app
+      # Mount source code for hot reloading
+      - .:/usr/todo-app 
       - /usr/todo-app/node_modules
 
   db:
@@ -67,13 +69,13 @@ services:
       - todo-back-net
       - todo-net
 
-  redisinsight:
-    image: redis/redisinsight:2.60
-    container_name: todo-redisinsight
-    ports:
-      - "5540:5540"
-    networks:
-      - todo-back-net
+  # redisinsight:
+  #   image: redis/redisinsight:2.60
+  #   container_name: todo-redisinsight
+  #   ports:
+  #     - "5540:5540"
+  #   networks:
+  #     - todo-back-net
 
 volumes:
   postgres-data:

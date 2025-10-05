@@ -20,7 +20,9 @@ async function createAuthenticatedUserAgent() {
 }
 
 function createUserAgent() {
-  const url = `http://localhost:${process.env.API_PORT || 1340}/`;
+  const host = process.env?.API_HOST || "localhost";
+  const port = process.env?.API_PORT || 1340;
+  const url = `http://${host}:${port}/`;
   // return supertest.agent(sails.hooks.http.app); // Doesn't work: sails.hooks returns undefined
   return supertest.agent(url);
 }

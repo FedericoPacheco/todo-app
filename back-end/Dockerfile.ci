@@ -1,0 +1,7 @@
+FROM node:20.13-alpine
+WORKDIR /usr/todo-app
+ENV NODE_ENV=test
+COPY package*.json ./
+RUN npm ci
+COPY . .
+CMD ["npx", "sails", "lift"]

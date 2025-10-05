@@ -11,16 +11,18 @@
 
 const lusca = require("lusca");
 
-const fs = require("fs");
-const path = require("path");
+if (process.env.NODE_ENV !== "test") {
+  const fs = require("fs");
+  const path = require("path");
 
-module.exports.ssl = {
-  key: fs.readFileSync(path.resolve(__dirname, "ssl/localhost-key.pem")),
-  cert: fs.readFileSync(path.resolve(__dirname, "ssl/localhost.pem")),
-};
+  module.exports.ssl = {
+    key: fs.readFileSync(path.resolve(__dirname, "ssl/localhost-key.pem")),
+    cert: fs.readFileSync(path.resolve(__dirname, "ssl/localhost.pem")),
+  };
+}
 
 module.exports.http = {
-  protocol: "https",
+  protocol: process.env.NODE_ENV !== "test" ? "https" : "http",
   port: process.env.API_PORT,
 
   /****************************************************************************
@@ -56,6 +58,7 @@ module.exports.http = {
     ],
 
     redirectToHTTPS: function (req, res, next) {
+      if (process.env.NODE_ENV === "test") return next();
       // If running behind a proxy or browser connects via http redirect:
       const proto =
         req.headers["x-forwarded-proto"] ||
