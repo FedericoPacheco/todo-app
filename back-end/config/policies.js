@@ -21,4 +21,7 @@ module.exports.policies = {
   AuthenticationController: {
     "*": true,
   },
+  HealthController: {
+    "*": true,
+  },
 };

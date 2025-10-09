@@ -42,4 +42,6 @@ module.exports.routes = {
   "POST /auth/login": "AuthenticationController.login",
   "GET /auth/status": "AuthenticationController.status",
   "GET /auth/csrf": "AuthenticationController.csrfToken",
+
+  "GET /health": "HealthController.isHealthy",
 };

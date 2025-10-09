@@ -10,19 +10,19 @@ jobs:
   integration-and-e2e:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
+    - name: Checkout code to runner
       uses: actions/checkout@v5
 
     - name: Create system's network
       run: docker network create todo-net || true
 
-    - name: Build and start all services
+    - name: Build, start all services and wait before they're all healthy
       run: |
         cd back-end
         docker compose -f docker-compose.ci.yaml build --no-cache
-        docker compose -f docker-compose.ci.yaml up -d
+        docker compose -f docker-compose.ci.yaml up -d --wait
 
-    - name: Run integration tests inside container
+    - name: Run integration tests inside the API container
       run: |
         cd back-end
         docker compose exec -T api sh -c "API_HOST=localhost API_PORT=1337 npm run integration-test"

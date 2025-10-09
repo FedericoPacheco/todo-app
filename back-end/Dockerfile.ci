@@ -3,6 +3,8 @@ WORKDIR /usr/todo-app
 ENV NODE_ENV=test
 COPY package*.json ./
 RUN npm ci
+# Install curl for api healthchecks in docker-compose.ci.yaml
+RUN apk add --no-cache curl
 COPY . .
 RUN ls -la
 CMD ["npm", "run", "start:test"]
