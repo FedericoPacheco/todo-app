@@ -27,6 +27,28 @@ jobs:
         cd back-end
         docker compose exec -T api sh -c "API_HOST=localhost API_PORT=1337 npm run integration-test"
 
+    - name: Copy integration reports from API container to runner
+      run: |
+        cd back-end
+        mkdir -p test/reports/integration
+        docker cp todo-sails-app:/usr/todo-app/test/reports/integration ./test/reports || true
+        ls -la test/reports/integration || true
+
+    - name: Upload human-readable integration test report
+      if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: integration-test-report
+        path: back-end/test/reports/integration
+
+    - name: Upload machine-readable JUnit-like integration report
+      if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+      uses: dorny/test-reporter@v2
+      with:
+        name: 'Integration tests'
+        path: 'back-end/test/reports/integration/results.xml'
+        reporter: 'java-junit'
+
     #   - name: Run front-end e2e (Playwright) from runner
     #     working-directory: ./front-end
     #     env:
