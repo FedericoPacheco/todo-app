@@ -16,16 +16,53 @@ jobs:
     - name: Create system's network
       run: docker network create todo-net || true
 
-    - name: Build, start all services and wait before they're all healthy
+    - name: Build, start back-end services and wait before they're all healthy
       run: |
         cd back-end
         docker compose -f docker-compose.ci.yaml build --no-cache
+        docker compose -f docker-compose.ci.yaml up -d --wait
+
+    - name: Start front-end services and wait before they're all healthy
+      run: |
+        cd front-end
+        docker compose -f docker-compose.ci.yaml build --no-cache --pull
         docker compose -f docker-compose.ci.yaml up -d --wait
 
     - name: Run integration tests inside the API container
       run: |
         cd back-end
         docker compose exec -T api sh -c "API_HOST=localhost API_PORT=1337 npm run integration-test"
+
+    - name: Debug - Check network connectivity
+      run: |
+        echo "Testing API from GUI container:"
+        docker exec todo-gui curl -v http://todo-sails-app:1337/health || true
+        echo "Testing webpack proxy from GUI container:"
+        docker exec todo-gui curl -v http://localhost:3000/health || true
+        docker exec todo-gui curl -v http://localhost:3000/auth/csrf || true
+        docker exec todo-gui curl -v http://localhost:3000/todo || true
+        echo "Testing API from e2e container:"
+        docker exec todo-e2e wget -O- http://todo-sails-app:1337/health || true
+        echo "Testing GUI from e2e container:"
+        docker exec todo-e2e wget -O- http://todo-gui:3000/ | head -100
+
+    # Alternative (too slow): https://playwright.dev/docs/ci-intro
+    - name: Run front-end e2e (Playwright) tests
+      run: |
+        cd front-end
+        # docker compose exec -T e2e-tests sh -c "PLAYWRIGHT_BASE_URL=http://todo-gui:3000 CI=true npm run e2e-test"
+        docker compose -f docker-compose.ci.yaml exec -T e2e-tests npm run e2e-test
+
+    # - name: Run front-end e2e (Playwright) from browser within runner
+    #   env: 
+    #     PLAYWRIGHT_BASE_URL: 'http://localhost:3000'
+    #     CI: true
+    #   run: |
+    #     cd front-end
+    #     npm ci
+    #     npx playwright install --with-deps
+    #     # CI=true npm run e2e-test
+    #     npm run e2e-test
 
     - name: Copy integration reports from API container to runner
       run: |
@@ -48,30 +85,61 @@ jobs:
         name: 'Integration tests'
         path: 'back-end/test/reports/integration/results.xml'
         reporter: 'java-junit'
-
-    #   - name: Run front-end e2e (Playwright) from runner
-    #     working-directory: ./front-end
-    #     env:
-    #       WEB_URL: "http://localhost:3000"
-    #     run: |
-    #       npm ci
-    #       npx playwright install --with-deps
-    #       WEB_URL="$WEB_URL" npx playwright test
         
-    - name: Show container logs on failure
+    # - name: Show back-end containers' logs on failure
+    #   if: failure()
+    #   run: |
+    #     cd back-end
+    #     echo "===== API Logs ====="
+    #     docker compose logs api
+    #     echo "===== DB Logs ====="
+    #     docker compose logs db
+    #     echo "===== Redis Logs ====="
+    #     docker compose logs session-db
+
+    # - name: Show back-end containers' logs on failure
+    #   if: failure()
+    #   run: |
+    #     cd front-end
+    #     echo "===== GUI Logs ====="
+    #     docker compose logs gui
+    #     echo "===== E2E Tests Logs ====="
+    #     docker compose logs e2e-tests
+    
+    - name: Show back-end containers' logs on failure
       if: failure()
       run: |
         cd back-end
         echo "===== API Logs ====="
-        docker compose logs api
+        docker compose -f docker-compose.ci.yaml logs api
         echo "===== DB Logs ====="
-        docker compose logs db
+        docker compose -f docker-compose.ci.yaml logs db
         echo "===== Redis Logs ====="
-        docker compose logs session-db
+        docker compose -f docker-compose.ci.yaml logs session-db
+
+    - name: Show front-end containers' logs on failure
+      if: failure()
+      run: |
+        cd front-end
+        echo "===== GUI Logs ====="
+        docker compose -f docker-compose.ci.yaml logs gui
+        echo "===== E2E Tests Logs ====="
+        docker compose -f docker-compose.ci.yaml logs e2e-tests
+
+    # - name: Stop and clean up
+    #   if: always()
+    #   run: |
+    #     cd back-end
+    #     docker compose down -v || true
+    #     cd ../front-end
+    #     docker compose down -v || true
+    #     docker network rm todo-net || true
 
     - name: Stop and clean up
       if: always()
       run: |
         cd back-end
-        docker compose down -v || true
+        docker compose -f docker-compose.ci.yaml down -v || true
+        cd ../front-end
+        docker compose -f docker-compose.ci.yaml down -v || true
         docker network rm todo-net || true

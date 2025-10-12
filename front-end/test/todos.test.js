@@ -1,4 +1,3 @@
-import { WEB_URL } from "./constants";
 import { test, expect } from "@playwright/test";
 import { fillLoginCredentials, getRandomCredentials } from "./utils/auth";
 import { createUser } from "./utils/api";
@@ -8,7 +7,26 @@ test.describe("Todos", function () {
     page,
     request,
   }) => {
-    await page.goto(WEB_URL);
+    await page.goto("/");
+
+    // Debugging purposes
+    console.log("Page title:", await page.title());
+    console.log("Page URL:", page.url());
+    // Check the actual HTML content
+    const bodyHTML = await page.locator("body").innerHTML();
+    console.log("Body HTML (first 500 chars):", bodyHTML.substring(0, 500));
+    // Check for any error messages
+    const bodyText = await page.locator("body").textContent();
+    console.log("Body text:", bodyText);
+    // Check console errors
+    page.on("console", (msg) =>
+      console.log("Browser console:", msg.type(), msg.text())
+    );
+    page.on("pageerror", (error) => console.log("Page error:", error.message));
+    await page.screenshot({ path: "debug-screenshot.png", fullPage: true });
+    await expect(page.locator("body")).toBeVisible({ timeout: 10000 });
+    // ------------
+
     const credentials = getRandomCredentials();
     await createUser(credentials, request);
     await fillLoginCredentials(page, credentials);
@@ -37,7 +55,7 @@ test.describe("Todos", function () {
     page,
     request,
   }) => {
-    await page.goto(WEB_URL);
+    await page.goto("/");
     const credentials = getRandomCredentials();
     await createUser(credentials, request);
     await fillLoginCredentials(page, credentials);

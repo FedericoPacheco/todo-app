@@ -1,0 +1,48 @@
+services:
+  gui:
+    build:
+      dockerfile: Dockerfile.ci
+    container_name: todo-gui
+    ports:
+      - "3000:3000"
+    environment:
+    #  - REACT_APP_TODO_API_URL=http://todo-sails-app:1337/todo
+    #  - REACT_APP_AUTH_API_URL=http://todo-sails-app:1337/auth
+     - REACT_APP_TODO_API_URL=/todo
+     - REACT_APP_AUTH_API_URL=/auth
+     - HOST=0.0.0.0
+     - DANGEROUSLY_DISABLE_HOST_CHECK=true
+     - WDS_SOCKET_HOST=0.0.0.0
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - todo-net
+
+  e2e-tests:
+    build:
+      dockerfile: Dockerfile.e2e
+    container_name: todo-e2e
+    environment:
+      - PLAYWRIGHT_BASE_URL=http://todo-gui:3000
+      - PLAYWRIGHT_API_URL=http://todo-sails-app:1337
+      # - PLAYWRIGHT_API_URL=http://todo-gui:3000
+      - CI=true
+    depends_on:
+      gui:
+        condition: service_healthy
+    # healthcheck:
+    #   test: ["CMD-SHELL", "wget --spider -q http://todo-gui:3000/ || exit 1"]
+    #   interval: 5s
+    #   timeout: 5s
+    #   retries: 5
+    #   start_period: 5s
+    networks:
+      - todo-net
+
+networks:
+  todo-net:
+    external: true

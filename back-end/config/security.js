@@ -31,7 +31,11 @@ module.exports.security = {
   cors: {
     allRoutes: true,
     // React frontend
-    allowOrigins: ["http://localhost:3000", "https://localhost:3000"], //'*',
+    allowOrigins: [
+      "http://localhost:3000",
+      "https://localhost:3000",
+      "http://todo-gui:3000",
+    ], //'*',
     allowCredentials: true,
     allowRequestHeaders: ["content-type", "x-csrf-token"],
   },

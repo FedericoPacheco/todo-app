@@ -6,13 +6,12 @@ import {
   fillLoginCredentials,
 } from "./utils/auth";
 import { createUser } from "./utils/api";
-import { WEB_URL } from "./constants";
 
 test.describe("Authentication", function () {
   test("should complete new user auth flow successfully: sign up, log out, log in, log out", async ({
     page,
   }) => {
-    await page.goto(WEB_URL);
+    await page.goto("/");
     await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
 
     const credentials = getRandomCredentials();
@@ -39,7 +38,7 @@ test.describe("Authentication", function () {
     request,
     page,
   }) => {
-    await page.goto(WEB_URL);
+    await page.goto("/");
     await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
     // Create a user on the backend first if not present
     const credentials = getExistingCredentials();
@@ -54,7 +53,7 @@ test.describe("Authentication", function () {
     request,
     page,
   }) => {
-    await page.goto(WEB_URL);
+    await page.goto("/");
     await expect(page.getByText("Ingrese sus credenciales")).toBeVisible();
     // Create a user on the backend first if not present
     const credentials = getExistingCredentials();

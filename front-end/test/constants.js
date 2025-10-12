@@ -1,2 +1,2 @@
-export const API_URL = "https://localhost:1340";
-export const WEB_URL = "https://localhost:3000";
+// eslint-disable-next-line no-undef
+export const API_URL = process.env.PLAYWRIGHT_API_URL || "https://localhost:1340";

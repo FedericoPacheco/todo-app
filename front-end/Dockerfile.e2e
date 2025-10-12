@@ -1,0 +1,10 @@
+# https://playwright.dev/docs/docker
+FROM mcr.microsoft.com/playwright:v1.56.0-noble
+WORKDIR /test
+COPY package.json package-lock.json ./
+RUN npm ci
+RUN npx playwright install
+COPY playwright.config.js ./
+COPY test ./test
+# CMD ["npm", "run", "e2e-test"]
+CMD ["sleep", "infinity"]

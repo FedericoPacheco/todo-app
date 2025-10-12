@@ -7,6 +7,22 @@ import { fileURLToPath } from "url";
 //import { ProvidePlugin } from 'webpack';
 import fs from "fs";
 
+// TODO: fix when e2e test work on CI
+let secureServerConfig = undefined;
+// try {
+//   secureServerConfig = {
+//     type: 'https',
+//     options: {
+//       key: fs.readFileSync("./ssl/localhost-key.pem"),
+//       cert: fs.readFileSync("./ssl/localhost.pem"),
+//       ca: fs.readFileSync("./ssl/rootCA.pem"),
+//     },
+//   };
+// } catch (error) {
+//   secureServerConfig = undefined;
+//   console.warn("Could not read SSL files, falling back to HTTP:", error);
+// }
+
 export default {
   entry: "./src/index.js",
   output: {
@@ -58,7 +74,11 @@ export default {
     new MiniCssExtractPlugin({
       filename: "assets/[name].[contenthash].css",
     }),
-    new Dotenv(),
+    new Dotenv({
+      // Expose environment variables injected by Docker to Webpack’s client build
+      systemvars: true,
+      allowEmptyValues: true
+    }),
     /* new ESLintPlugin({
       overrideConfigFile: path.resolve(
         path.dirname(fileURLToPath(import.meta.url)),
@@ -81,14 +101,7 @@ export default {
     historyApiFallback: true,
     port: 3000,
     // https://webpack.js.org/configuration/dev-server/#devserverserver
-    server: {
-      type: 'https',
-      options: {
-        key: fs.readFileSync("./ssl/localhost-key.pem"),
-        cert: fs.readFileSync("./ssl/localhost.pem"),
-        ca: fs.readFileSync("./ssl/rootCA.pem"),
-      },
-    },
+    server: secureServerConfig,
     watchFiles: {
       paths: ["src/**/*"],
       options: {
