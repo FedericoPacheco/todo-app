@@ -2,99 +2,107 @@ name: CI-main
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   integration-and-e2e:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code to runner
-      uses: actions/checkout@v5
+      - name: Checkout code to runner
+        uses: actions/checkout@v5
 
-    - name: Create system's network
-      run: docker network create todo-net || true
+      - name: Create system's network
+        run: docker network create todo-net || true
+      - name: Build, start back-end services and wait before they're all healthy
+        working-directory: back-end
+        run: |
+          docker compose -f docker-compose.ci.yaml build --no-cache
+          docker compose -f docker-compose.ci.yaml up -d --wait
+      - name: Build, start front-end services and wait before they're all healthy
+        working-directory: front-end
+        run: |
+          docker compose -f docker-compose.ci.yaml build --no-cache
+          docker compose -f docker-compose.ci.yaml up -d --wait
 
-    - name: Build, start back-end services and wait before they're all healthy
-      run: |
-        cd back-end
-        docker compose -f docker-compose.ci.yaml build --no-cache
-        docker compose -f docker-compose.ci.yaml up -d --wait
+      - name: Run integration tests inside the API container
+        working-directory: back-end
+        run: docker compose exec -T api sh -c "API_HOST=localhost API_PORT=1337 npm run integration-test"
 
-    - name: Start front-end services and wait before they're all healthy
-      run: |
-        cd front-end
-        docker compose -f docker-compose.ci.yaml build --no-cache
-        docker compose -f docker-compose.ci.yaml up -d --wait
+      - name: Copy integration reports from API container to runner
+        run: |
+          cd back-end
+          mkdir -p test/reports/integration
+          docker cp todo-sails-app:/usr/todo-app/test/reports/integration ./test/reports || true
+          ls -la test/reports/integration || true
+      - name: Upload human-readable integration test report
+        if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-report
+          path: back-end/test/reports/integration
+      - name: Upload machine-readable JUnit-like integration report
+        if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+        uses: dorny/test-reporter@v2
+        with:
+          name: "Integration tests"
+          path: "back-end/test/reports/integration/results.xml"
+          reporter: "java-junit"
 
-    - name: Run integration tests inside the API container
-      run: |
-        cd back-end
-        docker compose exec -T api sh -c "API_HOST=localhost API_PORT=1337 npm run integration-test"
+        # Alternative (too slow, specially due to --with-deps flag in browser installation): https://playwright.dev/docs/ci-intro
+      - name: Run front-end e2e (Playwright) tests
+        working-directory: front-end
+        run: docker compose -f docker-compose.ci.yaml exec -T e2e-tests npm run e2e-test
 
-    - name: Debug - Check network connectivity
-      run: |
-        echo "Testing API from GUI container:"
-        docker exec todo-gui curl -v http://todo-sails-app:1337/health || true
-        echo "Testing webpack proxy from GUI container:"
-        docker exec todo-gui curl -v http://localhost:3000/health || true
-        docker exec todo-gui curl -v http://localhost:3000/auth/csrf || true
-        docker exec todo-gui curl -v http://localhost:3000/todo || true
-        echo "Testing API from e2e container:"
-        docker exec todo-e2e wget -O- http://todo-sails-app:1337/health || true
-        echo "Testing GUI from e2e container:"
-        docker exec todo-e2e wget -O- http://todo-gui:3000/ | head -100
+      - name: Debug - Test API from GUI container
+        if: failure()
+        run: docker exec todo-gui curl -v http://todo-sails-app:1337/health || true
+      - name: Debug - Test webpack proxy /health from GUI container
+        if: failure()
+        run: docker exec todo-gui curl -v http://localhost:3000/health || true
+      - name: Debug - Test webpack proxy /auth/csrf from GUI container
+        if: failure()
+        run: docker exec todo-gui curl -v http://localhost:3000/auth/csrf || true
+      - name: Debug - Test webpack proxy /todo from GUI container
+        if: failure()
+        run: docker exec todo-gui curl -v http://localhost:3000/todo || true
+      - name: Debug - Test API from e2e container
+        if: failure()
+        run: docker exec todo-e2e wget -O- http://todo-sails-app:1337/health || true
+      - name: Debug - Test GUI from e2e container
+        if: failure()
+        run: docker exec todo-e2e wget -O- http://todo-gui:3000/ || true
 
-    # Alternative (too slow, specially due to --with-deps flag in browser installation): https://playwright.dev/docs/ci-intro
-    - name: Run front-end e2e (Playwright) tests
-      run: |
-        cd front-end
-        # docker compose exec -T e2e-tests sh -c "PLAYWRIGHT_BASE_URL=http://todo-gui:3000 CI=true npm run e2e-test"
-        docker compose -f docker-compose.ci.yaml exec -T e2e-tests npm run e2e-test
+      - name: Show api logs on failure
+        if: failure()
+        working-directory: back-end
+        run: docker compose -f docker-compose.ci.yaml logs api || true
+      - name: Show db logs on failure
+        if: failure()
+        working-directory: back-end
+        run: docker compose -f docker-compose.ci.yaml logs db || true
+      - name: Show session-db logs on failure
+        if: failure()
+        working-directory: back-end
+        run: docker compose -f docker-compose.ci.yaml logs session-db || true
+      - name: Show gui logs on failure
+        if: failure()
+        working-directory: front-end
+        run: docker compose -f docker-compose.ci.yaml logs gui || true
+      - name: Show e2e-tests logs on failure
+        if: failure()
+        working-directory: front-end
+        run: docker compose -f docker-compose.ci.yaml logs e2e-tests || true
 
-    - name: Copy integration reports from API container to runner
-      run: |
-        cd back-end
-        mkdir -p test/reports/integration
-        docker cp todo-sails-app:/usr/todo-app/test/reports/integration ./test/reports || true
-        ls -la test/reports/integration || true
-
-    - name: Upload human-readable integration test report
-      if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
-      uses: actions/upload-artifact@v4
-      with:
-        name: integration-test-report
-        path: back-end/test/reports/integration
-
-    - name: Upload machine-readable JUnit-like integration report
-      if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
-      uses: dorny/test-reporter@v2
-      with:
-        name: 'Integration tests'
-        path: 'back-end/test/reports/integration/results.xml'
-        reporter: 'java-junit'
-            
-    - name: Show back-end containers' logs on failure
-      if: failure()
-      run: |
-        cd back-end
-        docker compose -f docker-compose.ci.yaml logs api
-        docker compose -f docker-compose.ci.yaml logs db
-        docker compose -f docker-compose.ci.yaml logs session-db
-
-    - name: Show front-end containers' logs on failure
-      if: failure()
-      run: |
-        cd front-end
-        docker compose -f docker-compose.ci.yaml logs gui
-        docker compose -f docker-compose.ci.yaml logs e2e-tests
-
-    - name: Stop and clean up all services and network
-      if: always()
-      run: |
-        cd back-end
-        docker compose -f docker-compose.ci.yaml down -v || true
-        cd ../front-end
-        docker compose -f docker-compose.ci.yaml down -v || true
-        docker network rm todo-net || true
+      - name: Stop back-end services
+        if: always()
+        working-directory: back-end
+        run: docker compose -f docker-compose.ci.yaml down -v || true
+      - name: Stop front-end services
+        if: always()
+        working-directory: front-end
+        run: docker compose -f docker-compose.ci.yaml down -v || true
+      - name: Remove system network
+        if: always()
+        run: docker network rm todo-net || true
