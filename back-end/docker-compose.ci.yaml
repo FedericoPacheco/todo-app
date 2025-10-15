@@ -6,6 +6,8 @@ services:
     ports:
       - "1340:1337"
     environment:
+      - API_HOST=localhost
+      - API_PORT=1337
       - NODE_ENV=test
       - DATABASE_HOST=db
       - DATABASE_USER=postgres

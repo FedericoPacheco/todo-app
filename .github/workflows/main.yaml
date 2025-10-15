@@ -28,7 +28,7 @@ jobs:
 
       - name: Run integration tests inside the API container
         working-directory: back-end
-        run: docker compose exec -T api sh -c "API_HOST=localhost API_PORT=1337 npm run integration-test"
+        run: docker compose -f docker-compose.ci.yaml exec -T api npm run integration-test
 
       - name: Copy integration reports from API container to runner
         working-directory: back-end
