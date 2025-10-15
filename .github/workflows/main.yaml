@@ -84,8 +84,7 @@ jobs:
         docker compose -f docker-compose.ci.yaml logs session-db
 
     - name: Show front-end containers' logs on failure
-      if: always() 
-      #failure()
+      if: failure()
       run: |
         cd front-end
         docker compose -f docker-compose.ci.yaml logs gui

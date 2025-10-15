@@ -8,8 +8,7 @@ export default {
     // disable HTTPS in CI
     server: undefined,
     // Allow access from Docker containers, fixing "Invalid Host header" error
-    allowedHosts: 'all', 
-    // allowedHosts: ['todo-gui', 'localhost'],
+    allowedHosts: ['todo-gui', 'localhost'], // 'all'
     // Proxy API requests to the backend. The browser can't resolve the Docker service names
     proxy: [
       {
