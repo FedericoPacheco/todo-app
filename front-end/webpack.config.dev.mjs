@@ -2,31 +2,30 @@ import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import Dotenv from "dotenv-webpack";
-// import ESLintPlugin from "eslint-webpack-plugin";
 import { fileURLToPath } from "url";
-//import { ProvidePlugin } from 'webpack';
 import fs from "fs";
+// import ESLintPlugin from "eslint-webpack-plugin";
+//import { ProvidePlugin } from 'webpack';
 
-// TODO: fix when e2e test work on CI
-let secureServerConfig = undefined;
-// try {
-//   secureServerConfig = {
-//     type: 'https',
-//     options: {
-//       key: fs.readFileSync("./ssl/localhost-key.pem"),
-//       cert: fs.readFileSync("./ssl/localhost.pem"),
-//       ca: fs.readFileSync("./ssl/rootCA.pem"),
-//     },
-//   };
-// } catch (error) {
-//   secureServerConfig = undefined;
-//   console.warn("Could not read SSL files, falling back to HTTP:", error);
-// }
+let secureServerConfig;
+try {
+  secureServerConfig = {
+    type: "https",
+    options: {
+      key: fs.readFileSync("./ssl/localhost-key.pem"),
+      cert: fs.readFileSync("./ssl/localhost.pem"),
+      ca: fs.readFileSync("./ssl/rootCA.pem"),
+    },
+  };
+  console.log("Using HTTPS for webpack dev server");
+} catch (error) {
+  secureServerConfig = undefined;
+  console.log("Could not read SSL files, falling back to HTTP");
+}
 
 export default {
   entry: "./src/index.js",
   output: {
-    //path: path.resolve(path.dirname(new URL(import.meta.url).path), 'dist'),
     path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), "dist"),
     filename: "[name].[contenthash].js",
   },
@@ -77,7 +76,7 @@ export default {
     new Dotenv({
       // Expose environment variables injected by Docker to Webpack’s client build
       systemvars: true,
-      allowEmptyValues: true
+      allowEmptyValues: true,
     }),
     /* new ESLintPlugin({
       overrideConfigFile: path.resolve(
@@ -92,9 +91,6 @@ export default {
     }) */
   ],
   devServer: {
-    /* static: {
-      directory: path.join(path.dirname(fileURLToPath(import.meta.url)), 'dist'),
-    }, */
     hot: true,
     host: "0.0.0.0",
     compress: true,
