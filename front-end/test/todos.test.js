@@ -8,25 +8,7 @@ test.describe("Todos", function () {
     request,
   }) => {
     await page.goto("/");
-
-    // Debugging purposes
-    console.log("Page title:", await page.title());
-    console.log("Page URL:", page.url());
-    // Check the actual HTML content
-    const bodyHTML = await page.locator("body").innerHTML();
-    console.log("Body HTML (first 500 chars):", bodyHTML.substring(0, 500));
-    // Check for any error messages
-    const bodyText = await page.locator("body").textContent();
-    console.log("Body text:", bodyText);
-    // Check console errors
-    page.on("console", (msg) =>
-      console.log("Browser console:", msg.type(), msg.text())
-    );
-    page.on("pageerror", (error) => console.log("Page error:", error.message));
-    await page.screenshot({ path: "debug-screenshot.png", fullPage: true });
-    await expect(page.locator("body")).toBeVisible({ timeout: 10000 });
-    // ------------
-
+    //await logDebugData(page);
     const credentials = getRandomCredentials();
     await createUser(credentials, request);
     await fillLoginCredentials(page, credentials);
@@ -71,6 +53,16 @@ test.describe("Todos", function () {
     await expectAllInvisible(page, [todoName]);
   });
 });
+
+// eslint-disable-next-line no-unused-vars
+async function logDebugData(page) {
+  console.log("Page URL:", page.url());
+  console.log("Page title:", await page.title());
+  console.log("Page body HTML:", (await page.locator("body").innerHTML()));
+  page.on("console", (msg) => console.log("Browser console:", msg.type(), msg.text())
+  );
+  page.on("pageerror", (error) => console.log("Page error:", error.message));
+}
 
 async function switchTab(page, name) {
   await page.getByRole("heading", { name: name }).click();
