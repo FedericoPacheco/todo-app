@@ -6,8 +6,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-    #  - REACT_APP_TODO_API_URL=http://todo-sails-app:1337/todo
-    #  - REACT_APP_AUTH_API_URL=http://todo-sails-app:1337/auth
+     # Complete urls are resolved by webpack proxy
      - REACT_APP_TODO_API_URL=/todo
      - REACT_APP_AUTH_API_URL=/auth
      - HOST=0.0.0.0
@@ -29,17 +28,10 @@ services:
     environment:
       - PLAYWRIGHT_BASE_URL=http://todo-gui:3000
       - PLAYWRIGHT_API_URL=http://todo-sails-app:1337
-      # - PLAYWRIGHT_API_URL=http://todo-gui:3000
       - CI=true
     depends_on:
       gui:
         condition: service_healthy
-    # healthcheck:
-    #   test: ["CMD-SHELL", "wget --spider -q http://todo-gui:3000/ || exit 1"]
-    #   interval: 5s
-    #   timeout: 5s
-    #   retries: 5
-    #   start_period: 5s
     networks:
       - todo-net
 

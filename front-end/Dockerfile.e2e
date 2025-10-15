@@ -6,5 +6,4 @@ RUN npm ci
 RUN npx playwright install
 COPY playwright.config.js ./
 COPY test ./test
-# CMD ["npm", "run", "e2e-test"]
 CMD ["sleep", "infinity"]

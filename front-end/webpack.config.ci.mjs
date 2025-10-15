@@ -17,10 +17,6 @@ export default {
         target: 'http://todo-sails-app:1337',
         changeOrigin: true,
         secure: false,
-        // logLevel: 'debug',
-        // onProxyReq: (proxyReq, req, res) => {
-        //   console.log('[PROXY]', req.method, req.url, '→', proxyReq.path);
-        // },
       }
     ],
   },
