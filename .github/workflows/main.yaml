@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  integration-and-e2e:
+  integration-e2e-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code to runner
@@ -31,8 +31,8 @@ jobs:
         run: docker compose exec -T api sh -c "API_HOST=localhost API_PORT=1337 npm run integration-test"
 
       - name: Copy integration reports from API container to runner
+        working-directory: back-end
         run: |
-          cd back-end
           mkdir -p test/reports/integration
           docker cp todo-sails-app:/usr/todo-app/test/reports/integration ./test/reports || true
           ls -la test/reports/integration || true
@@ -54,6 +54,19 @@ jobs:
       - name: Run front-end e2e (Playwright) tests
         working-directory: front-end
         run: docker compose -f docker-compose.ci.yaml exec -T e2e-tests npm run e2e-test
+
+      - name: Copy e2e reports from e2e container to runner
+        working-directory: front-end
+        run: |
+          mkdir -p test/reports/e2e
+          docker cp todo-e2e:/usr/todo-app/playwright-report ./test/reports/e2e || true
+          ls -la test/reports/e2e || true
+      - name: Upload human-readable e2e test report
+        if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-report
+          path: front-end/test/reports/e2e
 
       - name: Debug - Test API from GUI container
         if: failure()
