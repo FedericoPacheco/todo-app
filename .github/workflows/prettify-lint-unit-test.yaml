@@ -1,0 +1,86 @@
+name: CI-common
+
+on:
+  workflow_call: {}
+
+jobs:
+  prettify-lint-unit-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository to container
+        uses: actions/checkout@v5
+
+      # https://github.com/actions/setup-node
+      - name: Setup Node.js 20.13 (with npm cache)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.13.0"
+          cache: "npm"
+
+      # https://github.com/actions/cache/blob/main/examples.md#node---npm
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+      - name: Cache npm cache (root)
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-root-${{ hashFiles('package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-root-
+      - name: Cache npm cache (front-end)
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-front-${{ hashFiles('front-end/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-front-
+      - name: Cache npm cache (back-end)
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-back-${{ hashFiles('back-end/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-back-
+
+      - name: Install root dev dependencies
+        run: npm ci
+      - name: Install front-end dependencies
+        working-directory: ./front-end
+        run: npm ci
+      - name: Install back-end dependencies
+        working-directory: ./back-end
+        run: npm ci
+
+      - name: Run Prettier (front & back)
+        run: |
+          npm run prettier-front
+          npm run prettier-back
+      - name: Run ESLint (front & back)
+        run: |
+          npm run lint-front
+          npm run lint-back
+
+      - name: Run back-end unit tests
+        working-directory: ./back-end
+        run: npm run unit-test:coverage
+
+      - name: Upload human-readable individual unit test report
+        if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-report
+          path: back-end/test/reports/unit
+        # https://github.com/marketplace/actions/test-reporter
+      - name: Upload machine-readable JUnit-like test report
+        if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+        uses: dorny/test-reporter@v2
+        with:
+          name: "Unit tests"
+          path: "back-end/test/reports/unit/results.xml"
+          reporter: "java-junit"
+      - name: Upload human-readable unit test coverage report
+        if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-coverage-report
+          path: back-end/test/reports/unit-coverage
