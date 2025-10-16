@@ -62,7 +62,7 @@ jobs:
         working-directory: front-end
         run: |
           mkdir -p test/reports/e2e
-          docker cp todo-e2e:/usr/todo-app/playwright-report ./test/reports/e2e || true
+          docker cp todo-e2e:/test/playwright-report ./test/reports/e2e || true
           ls -la test/reports/e2e || true
       - name: Upload human-readable e2e test report
         if: ${{ always() }}
