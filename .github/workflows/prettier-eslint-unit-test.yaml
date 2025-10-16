@@ -65,21 +65,21 @@ jobs:
         run: npm run unit-test:coverage
 
       - name: Upload human-readable individual unit test report
-        if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: unit-test-report
           path: back-end/test/reports/unit
         # https://github.com/marketplace/actions/test-reporter
       - name: Upload machine-readable JUnit-like test report
-        if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+        if: ${{ always() }}
         uses: dorny/test-reporter@v2
         with:
           name: "Unit tests"
           path: "back-end/test/reports/unit/results.xml"
           reporter: "java-junit"
       - name: Upload human-readable unit test coverage report
-        if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: unit-test-coverage-report

@@ -40,13 +40,13 @@ jobs:
           docker cp todo-sails-app:/usr/todo-app/test/reports/integration ./test/reports || true
           ls -la test/reports/integration || true
       - name: Upload human-readable integration test report
-        if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: integration-test-report
           path: back-end/test/reports/integration
       - name: Upload machine-readable JUnit-like integration report
-        if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+        if: ${{ always() }}
         uses: dorny/test-reporter@v2
         with:
           name: "Integration tests"
@@ -65,7 +65,7 @@ jobs:
           docker cp todo-e2e:/usr/todo-app/playwright-report ./test/reports/e2e || true
           ls -la test/reports/e2e || true
       - name: Upload human-readable e2e test report
-        if: ${{ always() && env.ACTIONS_RUNTIME_TOKEN != '' }}
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: e2e-test-report
