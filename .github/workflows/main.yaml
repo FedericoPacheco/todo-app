@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  prettify-lint-unit-test:
-    uses: ./.github/workflows/prettify-lint-unit-test.yaml
+  prettier-eslint-unit-test:
+    uses: ./.github/workflows/prettier-eslint-unit-test.yaml
 
   integration-e2e-test:
     runs-on: ubuntu-latest

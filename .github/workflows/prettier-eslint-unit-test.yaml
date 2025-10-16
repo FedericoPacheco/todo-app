@@ -4,7 +4,7 @@ on:
   workflow_call: {}
 
 jobs:
-  prettify-lint-unit-test:
+  prettier-eslint-unit-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -51,14 +51,14 @@ jobs:
         working-directory: ./back-end
         run: npm ci
 
-      - name: Run Prettier (front & back)
+      - name: Run Prettier checks (front & back)
         run: |
-          npm run prettier-front
-          npm run prettier-back
-      - name: Run ESLint (front & back)
+          npm run prettier-front:check
+          npm run prettier-back:check
+      - name: Run ESLint checks (front & back)
         run: |
-          npm run lint-front
-          npm run lint-back
+          npm run lint-front:check
+          npm run lint-back:check
 
       - name: Run back-end unit tests
         working-directory: ./back-end

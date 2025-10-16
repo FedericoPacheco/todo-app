@@ -7,5 +7,5 @@ on:
     branches: [development]
 
 jobs:
-  prettify-lint-unit-test:
-    uses: ./.github/workflows/prettify-lint-unit-test.yaml
+  prettier-eslint-unit-test:
+    uses: ./.github/workflows/prettier-eslint-unit-test.yaml

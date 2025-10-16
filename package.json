@@ -2,11 +2,14 @@
   "name": "todo-app",
   "version": "1.0.0",
   "scripts": {
-    "test": "cd back-end && npm run unit-test",
     "lint-front": "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint --config front-end/eslint.config.mjs \"front-end/src/**/*.js\" --fix",
     "lint-back": "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint --config back-end/eslint.config.mjs \"back-end/**/*.js\" --fix",
+    "lint-front:check": "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint --config front-end/eslint.config.mjs \"front-end/src/**/*.js\" --max-warnings=0",
+    "lint-back:check": "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint --config back-end/eslint.config.mjs \"back-end/**/*.js\" --max-warnings=0",
     "prettier-front": "npx prettier --write \"front-end/src/**/*.{js,jsx,mjs}\" --log-level silent",
     "prettier-back": "npx prettier --write \"back-end/**/*.{js,mjs}\" --log-level silent",
+    "prettier-front:check": "npx prettier --check \"front-end/src/**/*.{js,jsx,mjs}\"",
+    "prettier-back:check": "npx prettier --check \"back-end/**/*.{js,mjs}\"",
     "lint-staged": "lint-staged",
     "prepare": "husky install"
   },
