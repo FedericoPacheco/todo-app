@@ -29,7 +29,7 @@ Serverless architectures were disregarded due to overall high complexity.
 
 ## Decision
 
-Deploy the entire application stack on a single AWS Lightsail instance + Route 53 for DNS due to low cost, simplicity, and sufficient learning opportunity. Later, I can migrate to a bigger Lightsail instance, EC2 and/or managed services if needed.
+Deploy the entire application stack on a single AWS Lightsail instance + Porkbun DNS (Cloudflare under the hood) due to low cost, simplicity, and sufficient learning opportunity. Later, I can migrate to a bigger Lightsail instance, EC2 and/or managed services if needed.
 Within the Lightsail instance, use a monolithic setup where:
 
 - The API server, PostgreSQL, and Redis run as separate Docker containers managed by Docker Compose.
