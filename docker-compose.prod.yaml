@@ -45,4 +45,14 @@ services:
       - ./nginx/html:/usr/share/nginx/html:ro
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  # Mock REST API to test reverse proxy 
+  api:
+    image: clue/json-server
+    container_name: api-server
+    volumes:
+      - ./sample-api.json:/data/db.json
     restart: unless-stopped
