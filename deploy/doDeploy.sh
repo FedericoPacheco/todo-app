@@ -17,15 +17,21 @@ fi
 
 echo "Building frontend..."
 cd ../front-end
-npm install
+# Prefer npm ci for reproducible installs; fall back to npm install if no lockfile
+if [ -f package-lock.json ]; then
+  npm ci
+else
+  npm install
+fi
 npm run build:prod
 cd ../deploy
 
 # Deploy with Docker Compose
 echo "Starting Docker containers..."
-docker compose -f docker-compose.prod.yaml down
-docker compose -f docker-compose.prod.yaml up -d --build
+sudo docker compose -f docker-compose.prod.yaml down
+sudo docker network create todo-net
+sudo docker compose -f docker-compose.prod.yaml up -d --build
 
 # Show status
 echo "Deployment complete!"
-docker compose -f docker-compose.prod.yaml ps   
+sudo docker compose -f docker-compose.prod.yaml ps

@@ -1,4 +1,4 @@
-# Create network:configs:
+# Create network:
 # docker network create todo-net
 
 services:

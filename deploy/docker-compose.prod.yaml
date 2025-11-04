@@ -9,20 +9,11 @@
 # Set Let's Encrypt as CA
 # acme.sh --set-default-ca --server letsencrypt
 
-# Create deploy subdirectories for nginx
-# mkdir -p ~/deploy/nginx/html
-# mkdir -p ~/deploy/nginx/ssl
-
-# Copy file contents to container
-# nano ~/deploy/nginx/html/index.html
-# nano ~/deploy/docker-compose.prod.yaml
-# nano ~/deploy/nginx/nginx.conf
-
 # Start nginx first (needed for webroot validation)
 # sudo docker compose -f docker-compose.prod.yaml up -d
 
 # Issue certificate for todo subdomain
-# acme.sh --issue -d todo.federicopacheco.dev -w ~/deploy/nginx/html --keylength 4096
+# acme.sh --issue -d todo.federicopacheco.dev -w ~/todo-app/deploy/nginx/dist --keylength 4096 --force
 
 # Install certificate and set auto-reload
 # acme.sh --install-cert -d todo.federicopacheco.dev --key-file ~/todo-app/deploy/nginx/ssl/key.pem --fullchain-file ~/todo-app/deploy/nginx/ssl/cert.pem --reloadcmd "sudo docker exec nginx-server nginx -s reload"
