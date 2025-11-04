@@ -31,17 +31,17 @@ module.exports.routes = {
    *                                                                          *
    ***************************************************************************/
 
-  "GET /todo": "ToDoController.findAll",
-  "GET /todo/:id": "ToDoController.findOne",
-  "POST /todo": "ToDoController.create",
-  "DELETE /todo/:id": "ToDoController.delete",
-  "PATCH /todo/:id": "ToDoController.changeState",
+  "GET /api/todo": "ToDoController.findAll",
+  "GET /api/todo/:id": "ToDoController.findOne",
+  "POST /api/todo": "ToDoController.create",
+  "DELETE /api/todo/:id": "ToDoController.delete",
+  "PATCH /api/todo/:id": "ToDoController.changeState",
 
-  "POST /auth/signup": "AuthenticationController.signup",
-  "POST /auth/logout": "AuthenticationController.logout",
-  "POST /auth/login": "AuthenticationController.login",
-  "GET /auth/status": "AuthenticationController.status",
-  "GET /auth/csrf": "AuthenticationController.csrfToken",
+  "POST /api/auth/signup": "AuthenticationController.signup",
+  "POST /api/auth/logout": "AuthenticationController.logout",
+  "POST /api/auth/login": "AuthenticationController.login",
+  "GET /api/auth/status": "AuthenticationController.status",
+  "GET /api/auth/csrf": "AuthenticationController.csrfToken",
 
-  "GET /health": "HealthController.isHealthy",
+  "GET /api/health": "HealthController.isHealthy",
 };
