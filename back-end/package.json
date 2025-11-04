@@ -42,7 +42,7 @@
     "supertest": "^7.0.0"
   },
   "scripts": {
-    "start:prod": "cross-env NODE_ENV=production sails lift",
+    "start:prod": "cross-env NODE_ENV=production node app.js",
     "start:test": "cross-env NODE_ENV=test sails lift", 
     "start:dev": "cross-env NODE_ENV=development nodemon --inspect=0.0.0.0:9229 app.js",
     "integration-test": "cross-env NODE_ENV=test mocha --config test/integration/.mocharc --reporterOptions configFile=test/integration/.reportersrc",
