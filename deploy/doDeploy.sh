@@ -4,9 +4,7 @@
 
 echo "Starting deployment..."
 
-echo "Getting latest changes..."
-# Temporality on development branch for testing purposes
-git pull origin development
+# echo "Getting latest changes..."
 # git pull origin main
 
 echo "Checking for SSL certificates..."

@@ -37,6 +37,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }} # Your private key secret
           script: |
             cd ~/todo-app/deploy
+            git pull origin main
             chmod +x doDeploy.sh
             bash doDeploy.sh
 
