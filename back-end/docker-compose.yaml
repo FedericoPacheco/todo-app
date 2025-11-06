@@ -22,8 +22,19 @@ services:
       - SESSION_PASS=todo-redis
       - SESSION_DB=0
       - NODE_EXTRA_CA_CERTS=/usr/todo-app/config/ssl/rootCA.pem
+      # Node pg migrate connection string
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/todo-db
     depends_on:
-      - db
+      db:
+        condition: service_healthy  
+      session-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:1337/ || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 6
+      start_period: 30s
     networks:
       - todo-back-net
       - todo-net
@@ -39,12 +50,18 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: todo-db
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
       - todo-back-net
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d todo-db"] 
+      interval: 10s
+      timeout: 10s
+      retries: 6
+      start_period: 30s
 
   pgadmin:
     image: dpage/pgadmin4:8.13
@@ -62,20 +79,18 @@ services:
   session-db:
     image: redis:alpine3.20
     container_name: todo-redis
-    command: ["redis-server", "--requirepass", "todo-redis"]
     ports:
       - "6379:6379"
+    command: ["redis-server", "--requirepass", "todo-redis"]
     networks:
       - todo-back-net
       - todo-net
-
-  # redisinsight:
-  #   image: redis/redisinsight:2.60
-  #   container_name: todo-redisinsight
-  #   ports:
-  #     - "5540:5540"
-  #   networks:
-  #     - todo-back-net
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a todo-redis ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 6
+      start_period: 30s
 
 volumes:
   postgres-data:

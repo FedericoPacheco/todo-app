@@ -13,6 +13,7 @@
     "cross-env": "^10.1.0",
     "grunt": "1.0.4",
     "lusca": "^1.7.0",
+    "node-pg-migrate": "^8.0.3",
     "redis": "^4.7.0",
     "sails": "^1.5.13",
     "sails-hook-apianalytics": "^2.0.6",
@@ -42,9 +43,12 @@
     "supertest": "^7.0.0"
   },
   "scripts": {
+    "db-migrate:create": "node-pg-migrate create",
+    "db-migrate:up": "node-pg-migrate up",
+    "db-migrate:down": "node-pg-migrate down",
     "start:prod": "cross-env NODE_ENV=production node app.js",
-    "start:test": "cross-env NODE_ENV=test sails lift",
-    "start:dev": "cross-env NODE_ENV=development nodemon --inspect=0.0.0.0:9229 app.js",
+    "start:test": "cross-env NODE_ENV=test npm run db-migrate:up && sails lift",
+    "start:dev": "cross-env NODE_ENV=development npm run db-migrate:up && nodemon --inspect=0.0.0.0:9229 app.js",
     "integration-test": "cross-env NODE_ENV=test mocha --config test/integration/.mocharc --reporterOptions configFile=test/integration/.reportersrc",
     "unit-test": "cross-env NODE_ENV=test mocha --config test/unit/.mocharc --reporterOptions configFile=test/unit/.reportersrc",
     "unit-test:match": "npm run unit-test -- --grep",

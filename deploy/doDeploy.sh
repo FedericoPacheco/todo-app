@@ -5,10 +5,11 @@
 echo "Starting deployment..."
 
 echo "Getting latest changes..."
-git pull origin main
+# Temporality on development branch for testing purposes
+git pull origin development
+# git pull origin main
 
-# Certificates are preserved (not tracked by git)
-# Check if certificates exist
+echo "Checking for SSL certificates..."
 if [ ! -f "deploy/nginx/ssl/cert.pem" ]; then
     echo "Error: SSL certificates not found!"
     echo "Please ensure certificates are in deploy/nginx/ssl/"
@@ -26,12 +27,13 @@ fi
 npm run build:prod
 cd ../deploy
 
-# Deploy with Docker Compose
-echo "Starting Docker containers..."
+echo "Deploying with Docker Compose..."
 sudo docker compose -f docker-compose.prod.yaml down
 sudo docker network create todo-net
-sudo docker compose -f docker-compose.prod.yaml up -d --build
+sudo docker compose -f docker-compose.prod.yaml up -d --build --wait
 
-# Show status
+echo "Running database migrations..."
+sudo docker compose -f docker-compose.prod.yaml exec -T api npm run db-migrate:up
+
 echo "Deployment complete!"
 sudo docker compose -f docker-compose.prod.yaml ps

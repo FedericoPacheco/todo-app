@@ -18,6 +18,8 @@ services:
       - SESSION_PORT=6379
       - SESSION_PASS=todo-redis
       - SESSION_DB=0
+      # Node pg migrate connection string
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/todo-db
     depends_on:
       db:
         condition: service_healthy  
