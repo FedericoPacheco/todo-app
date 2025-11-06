@@ -1,6 +1,6 @@
-export const shorthands = undefined;
+module.exports.shorthands = undefined;
 
-export const up = (pgm) => {
+module.exports.up = (pgm) => {
   pgm.createTable(
     "todo",
     {
@@ -26,6 +26,6 @@ export const up = (pgm) => {
   );
 };
 
-export const down = (pgm) => {
+module.exports.down = (pgm) => {
   pgm.dropTable("todo", { ifExists: true });
 };
