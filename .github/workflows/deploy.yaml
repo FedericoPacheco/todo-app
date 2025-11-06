@@ -1,0 +1,20 @@
+name: CD-main
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository to container
+        uses: actions/checkout@v5
+
+      - name: SSH to AWS Lightsail and run deploy script
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}  # Add as secret: e.g., your-server.com
+          username: ${{ secrets.SERVER_USER }}  # Add as secret: e.g., ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # Your private key secret
+          script: bash /todo-app/deploy/doDeploy.sh
