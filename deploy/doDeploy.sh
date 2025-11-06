@@ -10,7 +10,7 @@ git pull origin development
 # git pull origin main
 
 echo "Checking for SSL certificates..."
-if [ ! -f "deploy/nginx/ssl/cert.pem" ]; then
+if [ ! -f "./nginx/ssl/cert.pem" ]; then
     echo "Error: SSL certificates not found!"
     echo "Please ensure certificates are in deploy/nginx/ssl/"
     exit 1
@@ -20,9 +20,11 @@ echo "Building frontend..."
 cd ../front-end
 # Prefer npm ci for reproducible installs; fall back to npm install if no lockfile
 if [ -f package-lock.json ]; then
-  npm ci
+  echo "Using npm ci for installation..."
+  npm ci --cache ../deploy/.npm-cache --no-audit --prefer-offline
 else
-  npm install
+  echo "Using npm install for installation..."
+  npm install --cache ../deploy/.npm-cache --no-audit --prefer-offline
 fi
 npm run build:prod
 cd ../deploy
