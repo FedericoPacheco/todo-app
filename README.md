@@ -61,23 +61,23 @@ The system has only two entities with the following corresponding attributes:
 The application server exposes the following RESTful API endpoints:
 
 ```text
-GET /todo
-GET /todo/:id
-POST /todo
-DELETE /todo/:id
-PATCH /todo/:id
+GET /api/todo
+GET /api/todo/:id
+POST /api/todo
+DELETE /api/todo/:id
+PATCH /api/todo/:id
 ```
 
 ```text
-POST /auth/signup
-POST /auth/logout
-POST /auth/login
-GET /auth/status
-GET /auth/csrf
+POST /api/auth/signup
+POST /api/auth/logout
+POST /api/auth/login
+GET /api/auth/status
+GET /api/auth/csrf
 ```
 
 ```text
-GET /health
+GET /api/health
 ```
 
 ## Front-end

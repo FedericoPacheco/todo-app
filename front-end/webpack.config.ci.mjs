@@ -12,7 +12,7 @@ export default {
     // Proxy API requests to the backend. The browser can't resolve the Docker service names
     proxy: [
       {
-        context: ['/auth', '/todo', '/health'],
+        context: ['/api/auth', '/api/todo', '/api/health'],
         target: 'http://todo-sails-app:1337',
         changeOrigin: true,
         secure: false,

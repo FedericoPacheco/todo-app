@@ -44,8 +44,8 @@ module.exports = {
      *                                                                          *
      ***************************************************************************/
     default: {
-      // adapter: 'sails-mysql',
-      // url: 'mysql://user:password@host:port/database',
+      adapter: "sails-postgresql",
+      url: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`,
       //--------------------------------------------------------------------------
       //  /\   To avoid checking it in to version control, you might opt to set
       //  ||   sensitive credentials like `url` using an environment variable.
@@ -66,7 +66,7 @@ module.exports = {
        * https://sailsjs.com/config/datastores                                     *
        *                                                                           *
        ****************************************************************************/
-      // ssl: { rejectUnauthorized: true },
+      ssl: false, // Not needed for internal Docker network
     },
   },
 
@@ -133,9 +133,7 @@ module.exports = {
      *                                                                          *
      ***************************************************************************/
     cors: {
-      // allowOrigins: [
-      //   'https://example.com',
-      // ]
+      allowOrigins: ["https://todo.federicopacheco.dev"],
     },
   },
 
@@ -165,8 +163,8 @@ module.exports = {
      * > (For a full list, see https://sailsjs.com/plugins/sessions)            *
      *                                                                          *
      ***************************************************************************/
-    // adapter: '@sailshq/connect-redis',
-    // url: 'redis://user:password@localhost:6379/databasenumber',
+    adapter: "@sailshq/connect-redis",
+    url: `redis://:${process.env.SESSION_PASS}@${process.env.SESSION_HOST}:${process.env.SESSION_PORT}/${process.env.SESSION_DB}`,
     //--------------------------------------------------------------------------
     // /\   OR, to avoid checking it in to version control, you might opt to
     // ||   set sensitive credentials like this using an environment variable.
@@ -193,7 +191,7 @@ module.exports = {
      * https://sailsjs.com/config/session#?the-session-id-cookie                *
      *                                                                          *
      ***************************************************************************/
-    // name: '__Host-sails.sid',
+    name: "__Host-sails.sid",
 
     /***************************************************************************
      *                                                                          *
@@ -217,7 +215,7 @@ module.exports = {
      *                                                                          *
      ***************************************************************************/
     cookie: {
-      // secure: true,
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
     },
   },
@@ -242,10 +240,7 @@ module.exports = {
      * > Be sure to use the right protocol!  ("http://" vs. "https://")         *
      *                                                                          *
      ***************************************************************************/
-    // onlyAllowOrigins: [
-    //   'https://example.com',
-    //   'https://staging.example.com',
-    // ],
+    onlyAllowOrigins: ["https://todo.federicopacheco.dev"],
     /***************************************************************************
      *                                                                          *
      * If you are deploying a cluster of multiple servers and/or processes,     *
@@ -279,7 +274,7 @@ module.exports = {
    *                                                                         *
    ***************************************************************************/
   log: {
-    level: "debug",
+    level: "info",
   },
 
   http: {
@@ -309,7 +304,7 @@ module.exports = {
      * (https://sailsjs.com/config/http)                                        *
      *                                                                          *
      ***************************************************************************/
-    // trustProxy: true,
+    trustProxy: true,
   },
 
   /**************************************************************************
@@ -351,8 +346,8 @@ module.exports = {
    *                                                                         *
    ***************************************************************************/
   custom: {
-    baseUrl: "https://example.com",
-    internalEmailAddress: "support@example.com",
+    baseUrl: "https://todo.federicopacheco.dev",
+    internalEmailAddress: "federico.ignacio.pacheco.pilan@gmail.com",
 
     // sendgridSecret: 'SG.fake.3e0Bn0qSQVnwb1E4qNPz9JZP5vLZYqjh7sn8S93oSHU',
     // stripeSecret: 'sk_prod__fake_Nfgh82401348jaDa3lkZ0d9Hm',

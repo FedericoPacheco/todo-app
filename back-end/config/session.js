@@ -19,7 +19,7 @@ module.exports.session = {
   db: process.env.SESSION_DB,
   cookie: {
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
-    secure: process.env.NODE_ENV !== "test" ? true : false, // true: https only
+    secure: process.env.NODE_ENV !== "test", // true: https only
   },
 
   /***************************************************************************

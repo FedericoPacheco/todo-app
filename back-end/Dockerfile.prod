@@ -1,0 +1,9 @@
+FROM node:20.13-alpine
+WORKDIR /usr/todo-app
+ENV NODE_ENV=production
+COPY package*.json ./
+RUN npm ci --only=production
+# Install curl for api healthchecks in docker-compose.ci.yaml
+RUN apk add --no-cache curl
+COPY . .
+CMD ["npm", "run", "start:prod"]

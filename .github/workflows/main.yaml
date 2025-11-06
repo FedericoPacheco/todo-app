@@ -1,8 +1,6 @@
 name: CI-main
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
@@ -73,19 +71,19 @@ jobs:
 
       - name: Debug - Test API from GUI container
         if: failure()
-        run: docker exec todo-gui curl -v http://todo-sails-app:1337/health || true
+        run: docker exec todo-gui curl -v http://todo-sails-app:1337/api/health || true
       - name: Debug - Test webpack proxy /health from GUI container
         if: failure()
-        run: docker exec todo-gui curl -v http://localhost:3000/health || true
+        run: docker exec todo-gui curl -v http://localhost:3000/api/health || true
       - name: Debug - Test webpack proxy /auth/csrf from GUI container
         if: failure()
-        run: docker exec todo-gui curl -v http://localhost:3000/auth/csrf || true
+        run: docker exec todo-gui curl -v http://localhost:3000/api/auth/csrf || true
       - name: Debug - Test webpack proxy /todo from GUI container
         if: failure()
-        run: docker exec todo-gui curl -v http://localhost:3000/todo || true
+        run: docker exec todo-gui curl -v http://localhost:3000/api/todo || true
       - name: Debug - Test API from e2e container
         if: failure()
-        run: docker exec todo-e2e wget -O- http://todo-sails-app:1337/health || true
+        run: docker exec todo-e2e wget -O- http://todo-sails-app:1337/api/health || true
       - name: Debug - Test GUI from e2e container
         if: failure()
         run: docker exec todo-e2e wget -O- http://todo-gui:3000/ || true

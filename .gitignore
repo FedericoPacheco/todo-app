@@ -1,1 +1,16 @@
 /node_modules
+
+# SSL Certificates (generated locally)
+deploy/nginx/ssl/*.pem
+deploy/nginx/ssl/*.key
+deploy/nginx/ssl/*.crt
+
+# Built frontend files
+deploy/nginx/dist/*.ico
+deploy/nginx/dist/*.html
+deploy/nginx/dist/*.css
+deploy/nginx/dist/*.js
+deploy/nginx/dist/*.json
+deploy/nginx/dist/*.txt
+deploy/nginx/dist/assets/
+

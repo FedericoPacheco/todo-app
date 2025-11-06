@@ -7,8 +7,8 @@ services:
       - "3000:3000"
     environment:
      # Complete urls are resolved by webpack proxy
-     - REACT_APP_TODO_API_URL=/todo
-     - REACT_APP_AUTH_API_URL=/auth
+     - REACT_APP_TODO_API_URL=/api/todo
+     - REACT_APP_AUTH_API_URL=/api/auth
      - HOST=0.0.0.0
      - DANGEROUSLY_DISABLE_HOST_CHECK=true
      - WDS_SOCKET_HOST=0.0.0.0
@@ -27,7 +27,7 @@ services:
     container_name: todo-e2e
     environment:
       - PLAYWRIGHT_BASE_URL=http://todo-gui:3000
-      - PLAYWRIGHT_API_URL=http://todo-sails-app:1337
+      - PLAYWRIGHT_API_URL=http://todo-sails-app:1337/api
       - CI=true
     depends_on:
       gui:

@@ -35,6 +35,7 @@ module.exports.security = {
       "http://localhost:3000",
       "https://localhost:3000",
       "http://todo-gui:3000",
+      "https://todo.federicopacheco.dev",
     ], //'*',
     allowCredentials: true,
     allowRequestHeaders: ["content-type", "x-csrf-token"],

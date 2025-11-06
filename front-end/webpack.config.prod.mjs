@@ -10,7 +10,7 @@ import { fileURLToPath } from "url";
 export default {
   entry: "./src/index.js",
   output: {
-    path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), "dist"),
+    path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../deploy/nginx/dist"),
     filename: "[name].[contenthash].js",
   },
   mode: "production",
@@ -52,7 +52,12 @@ export default {
     new MiniCssExtractPlugin({
       filename: "assets/[name].[contenthash].css",
     }),
-    new Dotenv(),
+    new Dotenv({
+      path: "./.env.prod",
+      safe: false,      // Don't require .env.example
+      systemvars: true, // Also load system environment variables
+      silent: false,    // Show errors if file is missing
+    }),
     new CleanWebpackPlugin(),
   ],
   optimization: {

@@ -1,0 +1,141 @@
+# Source: https://www.endpointdev.com/blog/2024/06/docker-nginx-acme/
+
+# Prior tests deployment notes:
+
+# Install acme.sh
+# curl https://get.acme.sh | sh -s email=federico.ignacio.pacheco.pilan@gmail.com
+# Close and reopen terminal or run: source ~/.bashrc
+
+# Set Let's Encrypt as CA
+# acme.sh --set-default-ca --server letsencrypt
+
+# Start nginx first (needed for webroot validation)
+# sudo docker compose -f docker-compose.prod.yaml up -d
+
+# Issue certificate for todo subdomain
+# acme.sh --issue -d todo.federicopacheco.dev -w ~/todo-app/deploy/nginx/dist --keylength 4096 --force
+
+# Install certificate and set auto-reload
+# acme.sh --install-cert -d todo.federicopacheco.dev --key-file ~/todo-app/deploy/nginx/ssl/key.pem --fullchain-file ~/todo-app/deploy/nginx/ssl/cert.pem --reloadcmd "sudo docker exec nginx-server nginx -s reload"
+
+# After updating nginx.conf with SSL config and uncommenting port 443 ssl volume, restart:
+# sudo docker compose -f docker-compose.prod.yaml down
+# sudo docker compose -f docker-compose.prod.yaml up -d
+
+# Troubleshooting:
+# Check config is valid: sudo docker exec nginx-server nginx -t
+# Check logs: sudo docker compose -f docker-compose.prod.yaml logs nginx
+# Verify certificate files exist in the container: sudo docker exec nginx-server ls -la /etc/nginx/ssl/
+# Check certificate location: acme.sh --info -d todo.federicopacheco.dev
+# Test certificate renewal: acme.sh --renew -d todo.federicopacheco.dev --force --dry-run
+
+services:
+  nginx:
+    image: nginx:1.28.0-alpine
+    container_name: nginx-server
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      # Sample static HTML
+      # - ./prior-tests:/usr/share/nginx/html:ro
+      # Actual front-end build files
+      - ./nginx/dist:/usr/share/nginx/html:ro
+    depends_on:
+      - api
+    networks:
+      - todo-net
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ../back-end
+      dockerfile: Dockerfile.prod
+    container_name: todo-sails-app
+    ports:
+      - "1337"
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=todo-db
+      - DATABASE_PORT=5432
+      # Node pg migrate connection string
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/todo-db
+      - SESSION_HOST=session-db
+      - SESSION_PORT=6379
+      - SESSION_PASS=todo-redis
+      - SESSION_DB=0
+    depends_on:
+      db:
+        condition: service_healthy  
+      session-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:1337/api/health || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 6
+      start_period: 30s
+    networks:
+      - todo-net
+      - todo-back-net
+    restart: unless-stopped
+
+  db:
+    image: postgres:12.21
+    container_name: todo-postgres-db
+    environment:
+      POSTGRES_DB: todo-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432"
+    networks:
+      - todo-back-net
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d todo-db"] 
+      interval: 10s
+      timeout: 10s
+      retries: 6
+      start_period: 30s
+    restart: unless-stopped
+
+  session-db:
+    image: redis:7.4.1-alpine
+    container_name: todo-redis
+    ports:
+      - "6379"
+    command: redis-server --requirepass todo-redis
+    networks:
+      - todo-back-net
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a todo-redis ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 6
+      start_period: 30s
+    restart: unless-stopped
+
+  # Mock REST API to test reverse proxy 
+  # api:
+  #   image: clue/json-server
+  #   container_name: api-server
+  #   volumes:
+  #     - ./prior-tests/sample-api.json:/data/db.json
+  #   restart: unless-stopped
+
+volumes:
+  postgres-data:
+
+networks:
+  todo-back-net:
+    driver: bridge
+  todo-net:
+    external: true
+
+

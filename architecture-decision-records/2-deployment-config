@@ -1,0 +1,56 @@
+# ADR-2: Deploy with AWS Lightsail and monolithic setup
+
+## Status
+
+Accepted
+
+## Date
+
+2025/10/20
+
+## Context
+
+This is my first time ever deploying a full-stack application to production. I'm on a limited budget (5-10 USD/month max). I want to balance my learning experience,  cost-effectiveness and complexity of the deployment. I want my project to be publicly accessible for demonstration purposes to potential employers and friends.
+
+As also pointed out in the readme, the application consists of:
+
+- Sails.js REST API (Node.js)
+- React SPA frontend
+- PostgreSQL database
+- Redis session store
+
+Alternatives considered include:
+
+- PaaS provider (e.g., Heroku, Railway, Render): simplifies deployment too much, limits infrastructure learning.
+- AWS Lightsail single instance (API + frontend + DB + Redis): fixed monthly cost, simpler setup, decent AWS services exposure.
+- EC2 single instance (API + frontend + DB + Redis): more flexible, but requires more management and has variable costs.
+- EC2 (API + frontend) + managed services (RDS + ElastiCache): mimics real productions systems better, but higher cost and complexity.
+Serverless architectures were disregarded due to overall high complexity.
+
+## Decision
+
+Deploy the entire application stack on a single AWS Lightsail instance + Porkbun DNS (Cloudflare under the hood) due to low cost, simplicity, and sufficient learning opportunity. Later, I can migrate to a bigger Lightsail instance, EC2 and/or managed services if needed.
+Within the Lightsail instance, use a monolithic setup where:
+
+- The API server, PostgreSQL, and Redis run as separate Docker containers managed by Docker Compose.
+
+- Nginx is installed on the host OS and serves the React frontend static files directly, as well as reverse proxies API requests to the Sails.js backend using SSL termination. This improves performance, simplifies certificate management and improves security (no CORS issues, hides internal ports, enforces HTTPS).
+
+Buy my own domain to look professional and register it from Porkbun as it is cheap and has a simple UI.
+Use a certificate from Let's Encrypt for HTTPS.
+Deploy automatically using GitHub Actions whenever I push to the main branch.
+
+## Consequences
+
+### Positive
+
+- I showcase basic DevOps competence.
+- I gain hands-on experience with AWS services and cloud deployment.
+- I don't run into unpredictable billing issues.
+- Simpler to manage and maintain.
+
+### Negative
+
+- Limited scalability (not likely an issue).
+- Limited performance due to limited resources of Lightsail instance.
+- Single point of failure (high availability is not a major concern).

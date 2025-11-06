@@ -11,7 +11,7 @@
 
 const lusca = require("lusca");
 
-if (process.env.NODE_ENV !== "test") {
+if (process.env.NODE_ENV === "development") {
   const fs = require("fs");
   const path = require("path");
 
@@ -22,7 +22,7 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 module.exports.http = {
-  protocol: process.env.NODE_ENV !== "test" ? "https" : "http",
+  protocol: process.env.NODE_ENV === "development" ? "https" : "http",
   port: process.env.API_PORT,
 
   /****************************************************************************
@@ -58,13 +58,13 @@ module.exports.http = {
     ],
 
     redirectToHTTPS: function (req, res, next) {
-      if (process.env.NODE_ENV === "test") return next();
-      // If running behind a proxy or browser connects via http redirect:
-      const proto =
-        req.headers["x-forwarded-proto"] ||
-        (req.connection && req.connection.encrypted ? "https" : "http");
-      if (proto !== "https") {
-        return res.redirect(301, "https://" + req.headers.host + req.url);
+      if (process.env.NODE_ENV === "development") {
+        const proto =
+          req.headers["x-forwarded-proto"] ||
+          (req.connection && req.connection.encrypted ? "https" : "http");
+        if (proto !== "https") {
+          return res.redirect(301, "https://" + req.headers.host + req.url);
+        }
       }
       return next();
     },
