@@ -16,6 +16,9 @@ if [ ! -f "./nginx/ssl/cert.pem" ]; then
     exit 1
 fi
 
+echo "Stopping existing containers to save instance resources..."
+sudo docker compose -f docker-compose.prod.yaml down
+
 echo "Building frontend..."
 cd ../front-end
 # Prefer npm ci for reproducible installs; fall back to npm install if no lockfile
@@ -30,8 +33,7 @@ npm run build:prod
 cd ../deploy
 
 echo "Deploying with Docker Compose..."
-sudo docker compose -f docker-compose.prod.yaml down
-sudo docker network create todo-net
+sudo docker network create todo-net || true
 sudo docker compose -f docker-compose.prod.yaml up -d --build --wait
 
 echo "Running database migrations..."
