@@ -8,7 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code to runner
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Verify latest commit
+        run: git log --oneline -1
 
       - name: Install front-end dependencies
         working-directory: front-end
@@ -18,8 +21,9 @@ jobs:
         working-directory: front-end
         run: npm run build:prod
 
+      # https://github.com/marketplace/actions/scp-command-to-transfer-files
       - name: Deploy front-end files to server
-        uses: appleboy/scp-action@v0.1.4
+        uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
@@ -27,10 +31,9 @@ jobs:
           source: "deploy/nginx/dist/*"  
           target: "~/todo-app/deploy/nginx/dist/"  
 
-      # https://nektosact.com/usage/index.html#secrets
-      # https://sanjulaganepola.github.io/github-local-actions-docs/usage/settings/#secrets
-      - name: SSH to AWS Lightsail and run deploy script
-        uses: appleboy/ssh-action@v1.0.3
+      # https://github.com/marketplace/actions/ssh-remote-commands
+      - name: SSH to server and run deploy script
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SERVER_HOST }} # Add as secret: e.g., your-server.com
           username: ${{ secrets.SERVER_USER }} # Add as secret: e.g., ubuntu
@@ -40,7 +43,11 @@ jobs:
             git pull origin main
             chmod +x doDeploy.sh
             bash doDeploy.sh
-
+        
 # Connect to instance manually:
-# Inside git bash:
-# ssh -i "/path/to/private-key.pem" user@server-ip
+  # Inside git bash:
+    # ssh -i "/path/to/private-key.pem" user@server-ip
+            
+# Secrets:
+# https://nektosact.com/usage/index.html#secrets
+# https://sanjulaganepola.github.io/github-local-actions-docs/usage/settings/#secrets
