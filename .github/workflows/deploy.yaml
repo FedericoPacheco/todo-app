@@ -37,7 +37,9 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # 'source' copies directory structure recursively
           source: "deploy/nginx/dist/*"  
+          strip_components: 3  # Removes 'deploy/nginx/dist'
           target: "~/todo-app/deploy/nginx/dist/"  
 
       # https://github.com/marketplace/actions/ssh-remote-commands
