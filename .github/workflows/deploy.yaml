@@ -51,7 +51,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }} 
           script: |
             cd ~/todo-app/deploy
-            git pull origin main
+            git checkout -- .
+            git checkout main
+            git pull
             chmod +x doDeploy.sh
             bash doDeploy.sh
         
