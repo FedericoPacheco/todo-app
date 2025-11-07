@@ -10,6 +10,13 @@ if [ ! -f "./nginx/ssl/cert.pem" ]; then
     exit 1
 fi
 
+echo "Creating database backup..."
+mkdir -p ./backups
+DATABASE_USER=postgres
+DATABASE_NAME=todo-db
+sudo docker compose -f docker-compose.prod.yaml exec -T db \
+  pg_dump -U $DATABASE_USER $DATABASE_NAME | gzip > "./backups/backup_$(date +%Y%m%d_%H%M%S).sql.gz"
+
 echo "Stopping containers..."
 sudo docker compose -f docker-compose.prod.yaml down
 
