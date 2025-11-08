@@ -68,6 +68,9 @@ services:
       - SESSION_PORT=6379
       - SESSION_PASSWORD=${SESSION_PASSWORD}
       - SESSION_DB=0
+      # Generate crypto-secure random string: 
+      # node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+      - SESSION_SECRET=${SESSION_SECRET}
     depends_on:
       db:
         condition: service_healthy  

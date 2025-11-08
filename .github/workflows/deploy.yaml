@@ -37,6 +37,7 @@ jobs:
             DATABASE_PASSWORD='${{ secrets.DATABASE_PASSWORD }}' \
             DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
             SESSION_PASSWORD='${{ secrets.SESSION_PASSWORD }}' \
+            SESSION_SECRET=${{ secrets.SESSION_SECRET }} \
             bash doBackup.sh
 
             chmod +x doDeploy.sh
@@ -44,6 +45,7 @@ jobs:
             DATABASE_PASSWORD='${{ secrets.DATABASE_PASSWORD }}' \
             DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
             SESSION_PASSWORD='${{ secrets.SESSION_PASSWORD }}' \
+            SESSION_SECRET=${{ secrets.SESSION_SECRET }} \
             bash doDeploy.sh
 
       - name: Run smoke tests
@@ -94,6 +96,7 @@ jobs:
             DATABASE_PASSWORD='${{ secrets.DATABASE_PASSWORD }}' \
             DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
             SESSION_PASSWORD='${{ secrets.SESSION_PASSWORD }}' \
+            SESSION_SECRET=${{ secrets.SESSION_SECRET }} \
             bash doRestore.sh
 
             chmod +x doDeploy.sh
@@ -101,6 +104,7 @@ jobs:
             DATABASE_PASSWORD='${{ secrets.DATABASE_PASSWORD }}' \
             DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
             SESSION_PASSWORD='${{ secrets.SESSION_PASSWORD }}' \
+            SESSION_SECRET=${{ secrets.SESSION_SECRET }} \
             bash doDeploy.sh
 
       - name: Run smoke tests on rollback

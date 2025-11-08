@@ -17,13 +17,14 @@ services:
       - DATABASE_PASSWORD=postgres
       - DATABASE_NAME=todo-db
       - DATABASE_PORT=5432
+      # Node pg migrate connection string
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/todo-db
       - SESSION_HOST=session-db
       - SESSION_PORT=6379
       - SESSION_PASSWORD=todo-redis
       - SESSION_DB=0
+      - SESSION_SECRET=${SESSION_SECRET}
       - NODE_EXTRA_CA_CERTS=/usr/todo-app/config/ssl/rootCA.pem
-      # Node pg migrate connection string
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/todo-db
     depends_on:
       db:
         condition: service_healthy  
