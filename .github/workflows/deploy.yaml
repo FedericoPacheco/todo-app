@@ -4,44 +4,19 @@ on:
   push:
     branches: [main]
 jobs:
+  deploy-frontend:
+    uses: ./.github/workflows/deploy-frontend.yaml
+    with:
+      mode: 'deploy'
+    secrets:
+      SERVER_HOST: ${{ secrets.SERVER_HOST }}
+      SERVER_USER: ${{ secrets.SERVER_USER }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
   deploy:
     runs-on: ubuntu-latest
+    needs: deploy-frontend
     steps:
-      - name: Checkout code to runner
-        uses: actions/checkout@v5
-
-      - name: Verify latest commit
-        run: git log --oneline -1
-
-      - name: Install front-end dependencies
-        working-directory: front-end
-        run: npm ci
-
-      - name: Build front-end with Webpack
-        working-directory: front-end
-        run: npm run build:prod
-
-      - name: SSH to server and delete previous front-end files
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            rm -rf ~/todo-app/deploy/nginx/dist/*
-
-      # https://github.com/marketplace/actions/scp-command-to-transfer-files
-      - name: Deploy front-end files to server
-        uses: appleboy/scp-action@v1
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # 'source' copies directory structure recursively
-          source: "deploy/nginx/dist/*"  
-          strip_components: 3  # Removes 'deploy/nginx/dist'
-          target: "~/todo-app/deploy/nginx/dist/"  
-
       # https://github.com/marketplace/actions/ssh-remote-commands
       - name: SSH to server and run deploy script
         uses: appleboy/ssh-action@v1
@@ -51,13 +26,71 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }} 
           script: |
             cd ~/todo-app/deploy
-            git checkout -- .
+            # Discard any local changes
+            git checkout -- . 
             git checkout main
             git pull
+            git log --oneline -1
+            chmod +x doBackup.sh
+            bash doBackup.sh
             chmod +x doDeploy.sh
             bash doDeploy.sh
+
+      - name: Wait for services and run smoke tests
+        run: |
+          sleep 30
+          curl --fail --silent --max-time 10 https://todo.federicopacheco.dev/api/health
+          curl --fail --silent --max-time 10 https://todo.federicopacheco.dev
+
+      - name: Deployment successful
+        if: success()
+        run: echo "Deployment to production completed successfully"
         
-# Connect to instance manually:
+      - name: Deployment failed
+        if: failure()
+        run: echo "Deployment to production failed, initiating rollback"
+
+  rollback-frontend:
+    needs: deploy
+    if: ${{ needs.deploy.result == 'failure' }}
+    uses: ./.github/workflows/deploy-frontend.yaml
+    with:
+      mode: 'rollback'
+    secrets:
+      SERVER_HOST: ${{ secrets.SERVER_HOST }}
+      SERVER_USER: ${{ secrets.SERVER_USER }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+  rollback:
+    needs: rollback-frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Rollback db and lift services on server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }} 
+          key: ${{ secrets.SSH_PRIVATE_KEY }} 
+          script: |
+            cd ~/todo-app/deploy
+            git checkout HEAD~1
+            git log --oneline -1
+            chmod +x doRestore.sh
+            bash doRestore.sh
+            chmod +x doDeploy.sh
+            bash doDeploy.sh
+
+      - name: Wait for services and run smoke tests on rollback
+        run: |
+          sleep 30
+          curl --fail --silent --max-time 10 https://todo.federicopacheco.dev/api/health
+          curl --fail --silent --max-time 10 https://todo.federicopacheco.dev
+          echo "Rollback completed successfully"
+
+      - name: Rollback failed
+        if: failure()
+        run: echo "CRITICAL. Rollback failed, manual intervention required!"
+
   # Inside git bash:
     # ssh -i "/path/to/private-key.pem" user@server-ip
             
