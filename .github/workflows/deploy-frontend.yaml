@@ -55,3 +55,7 @@ jobs:
           source: "deploy/nginx/dist/*"  
           strip_components: 3  # Removes 'deploy/nginx/dist'
           target: "~/todo-app/deploy/nginx/dist/" 
+
+      - name: Rollback failed
+        if: ${{ failure() && inputs.mode == 'rollback' }}
+        run: echo "CRITICAL. Rollback failed, manual intervention required!"

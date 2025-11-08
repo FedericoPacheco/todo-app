@@ -13,7 +13,7 @@ jobs:
       SERVER_USER: ${{ secrets.SERVER_USER }}
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
-  deploy:
+  deploy-backend:
     runs-on: ubuntu-latest
     needs: deploy-frontend
     steps:
@@ -53,8 +53,8 @@ jobs:
         run: echo "Deployment to production failed, initiating rollback"
 
   rollback-frontend:
-    needs: deploy
-    if: ${{ needs.deploy.result == 'failure' }}
+    needs: deploy-backend
+    if: ${{ always() && needs.deploy-backend.result == 'failure' }}
     uses: ./.github/workflows/deploy-frontend.yaml
     with:
       mode: 'rollback'
@@ -63,7 +63,7 @@ jobs:
       SERVER_USER: ${{ secrets.SERVER_USER }}
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
-  rollback:
+  rollback-backend:
     needs: rollback-frontend
     runs-on: ubuntu-latest
     steps:
