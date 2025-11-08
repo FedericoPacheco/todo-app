@@ -19,7 +19,7 @@ services:
       - DATABASE_PORT=5432
       - SESSION_HOST=session-db
       - SESSION_PORT=6379
-      - SESSION_PASS=todo-redis
+      - SESSION_PASSWORD=todo-redis
       - SESSION_DB=0
       - NODE_EXTRA_CA_CERTS=/usr/todo-app/config/ssl/rootCA.pem
       # Node pg migrate connection string

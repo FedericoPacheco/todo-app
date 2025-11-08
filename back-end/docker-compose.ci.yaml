@@ -16,7 +16,7 @@ services:
       - DATABASE_PORT=5432
       - SESSION_HOST=session-db
       - SESSION_PORT=6379
-      - SESSION_PASS=todo-redis
+      - SESSION_PASSWORD=todo-redis
       - SESSION_DB=0
       # Node pg migrate connection string
       - DATABASE_URL=postgres://postgres:postgres@db:5432/todo-db

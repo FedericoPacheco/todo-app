@@ -3,9 +3,6 @@
 # If no argument, restores from latest backup
 # Make script executable: chmod +x doRestore.sh
 
-DATABASE_USER=postgres
-DATABASE_NAME=todo-db
-
 if [ -z "$1" ]; then
     BACKUP_FILE=$(ls -t ./db-backups/backup_*.sql.gz 2>/dev/null | head -1)
     if [ -z "$BACKUP_FILE" ]; then
@@ -23,18 +20,18 @@ fi
 echo "Restoring from: $BACKUP_FILE"
 
 echo "Stopping api, session-db, and nginx containers and running db container..."
-sudo docker compose -f docker-compose.prod.yaml stop api session-db nginx || true
-sudo docker compose -f docker-compose.prod.yaml up db -d --wait || true 
+sudo --preserve-env docker compose -f docker-compose.prod.yaml stop api session-db nginx || true
+sudo --preserve-env docker compose -f docker-compose.prod.yaml up db -d --wait || true
 
 echo "Dropping and recreating database..."
-sudo docker compose -f docker-compose.prod.yaml exec -T db \
-  psql -U $DATABASE_USER -c "DROP DATABASE IF EXISTS \"$DATABASE_NAME\";"
+sudo --preserve-env docker compose -f docker-compose.prod.yaml exec -T db \
+  psql -U ${DATABASE_USER} -c "DROP DATABASE IF EXISTS \"${DATABASE_NAME}\";"
 
-sudo docker compose -f docker-compose.prod.yaml exec -T db \
-  psql -U $DATABASE_USER -c "CREATE DATABASE \"$DATABASE_NAME\";"
+sudo --preserve-env docker compose -f docker-compose.prod.yaml exec -T db \
+  psql -U ${DATABASE_USER} -c "CREATE DATABASE \"${DATABASE_NAME}\";"
 
-gunzip < "$BACKUP_FILE" | sudo docker compose -f docker-compose.prod.yaml exec -T db \
-  psql -U $DATABASE_USER -d $DATABASE_NAME
+gunzip < "$BACKUP_FILE" | sudo --preserve-env docker compose -f docker-compose.prod.yaml exec -T db \
+  psql -U ${DATABASE_USER} -d ${DATABASE_NAME}
 
 # Lift containers back up manually or on doDeploy.sh
 echo "Restoration complete! Please start the containers back up using doDeploy.sh" 
