@@ -31,13 +31,19 @@ jobs:
             git checkout main
             git pull
             git log --oneline -1
-            export DATABASE_USER=${{ secrets.DATABASE_USER }}
-            export DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
-            export DATABASE_NAME=${{ secrets.DATABASE_NAME }}
-            export SESSION_PASSWORD=${{ secrets.SESSION_PASSWORD }}
+            
             chmod +x doBackup.sh
+            DATABASE_USER=${{ secrets.DATABASE_USER }} \ 
+            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
+            DATABASE_NAME=${{ secrets.DATABASE_NAME }} \ 
+            SESSION_PASSWORD=${{ secrets.SESSION_PASSWORD }} \
             bash doBackup.sh
+
             chmod +x doDeploy.sh
+            DATABASE_USER=${{ secrets.DATABASE_USER }} \
+            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
+            DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
+            SESSION_PASSWORD=${{ secrets.SESSION_PASSWORD }} \
             bash doDeploy.sh
 
       - name: Run smoke tests
@@ -82,13 +88,19 @@ jobs:
             cd ~/todo-app/deploy
             git checkout HEAD~1
             git log --oneline -1
-            export DATABASE_USER=${{ secrets.DATABASE_USER }}
-            export DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
-            export DATABASE_NAME=${{ secrets.DATABASE_NAME }}
-            export SESSION_PASSWORD=${{ secrets.SESSION_PASSWORD }}
+            
             chmod +x doRestore.sh
+            DATABASE_USER=${{ secrets.DATABASE_USER }} \
+            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
+            DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
+            SESSION_PASSWORD=${{ secrets.SESSION_PASSWORD }} \
             bash doRestore.sh
+
             chmod +x doDeploy.sh
+            DATABASE_USER=${{ secrets.DATABASE_USER }} \
+            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
+            DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
+            SESSION_PASSWORD=${{ secrets.SESSION_PASSWORD }} \
             bash doDeploy.sh
 
       - name: Run smoke tests on rollback
