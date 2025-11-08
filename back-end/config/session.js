@@ -15,7 +15,7 @@ module.exports.session = {
   adapter: "connect-redis",
   host: process.env.SESSION_HOST,
   port: process.env.SESSION_PORT,
-  pass: process.env.SESSION_PASSWORD,
+  pass: encodeURIComponent(process.env.SESSION_PASSWORD),
   db: process.env.SESSION_DB,
   cookie: {
     maxAge: 24 * 60 * 60 * 1000, // 24 hours

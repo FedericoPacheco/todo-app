@@ -45,7 +45,7 @@ module.exports = {
      ***************************************************************************/
     default: {
       adapter: "sails-postgresql",
-      url: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`,
+      url: `postgresql://${process.env.DATABASE_USER}:${encodeURIComponent(process.env.DATABASE_PASSWORD)}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`,
       //--------------------------------------------------------------------------
       //  /\   To avoid checking it in to version control, you might opt to set
       //  ||   sensitive credentials like `url` using an environment variable.
@@ -164,7 +164,7 @@ module.exports = {
      *                                                                          *
      ***************************************************************************/
     adapter: "@sailshq/connect-redis",
-    url: `redis://:${process.env.SESSION_PASSWORD}@${process.env.SESSION_HOST}:${process.env.SESSION_PORT}/${process.env.SESSION_DB}`,
+    url: `redis://:${encodeURIComponent(process.env.SESSION_PASSWORD)}@${process.env.SESSION_HOST}:${process.env.SESSION_PORT}/${process.env.SESSION_DB}`,
     //--------------------------------------------------------------------------
     // /\   OR, to avoid checking it in to version control, you might opt to
     // ||   set sensitive credentials like this using an environment variable.

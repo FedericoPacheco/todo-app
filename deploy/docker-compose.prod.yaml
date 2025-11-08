@@ -89,6 +89,10 @@ services:
     container_name: todo-postgres-db
     ports:
       - "5432"
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     networks:
       - todo-back-net
     volumes:
