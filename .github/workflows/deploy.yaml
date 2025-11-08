@@ -65,6 +65,7 @@ jobs:
 
   rollback-backend:
     needs: rollback-frontend
+    if: ${{ always() && needs.rollback-frontend.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Rollback db and lift services on server
