@@ -14,3 +14,6 @@ deploy/nginx/dist/*.json
 deploy/nginx/dist/*.txt
 deploy/nginx/dist/assets/
 
+# DB backups
+back-end/db-backups/*.sql.gz
+
