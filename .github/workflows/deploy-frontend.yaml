@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout code to runner
         uses: actions/checkout@v5
+        with: 
+          fetch-depth: 2  # Fetch latest + 1 previous commit for rollback
 
       - name: Rollback to previous commit (if rollback mode)
         if: ${{ inputs.mode == 'rollback' }}
