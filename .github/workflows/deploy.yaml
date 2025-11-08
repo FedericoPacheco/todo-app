@@ -36,13 +36,13 @@ jobs:
             chmod +x doDeploy.sh
             bash doDeploy.sh
 
-      # - name: Run smoke tests
-      #   run: |
-      #     curl --fail --silent --max-time 15 https://todo.federicopacheco.dev/api/health
-      #     curl --fail --silent --max-time 15 https://todo.federicopacheco.dev
+      - name: Run smoke tests
+        run: |
+          curl --fail --silent --max-time 15 https://todo.federicopacheco.dev/api/health
+          curl --fail --silent --max-time 15 https://todo.federicopacheco.dev
 
-      - name: Fail on purpose to trigger rollback
-        run: exit 1
+      # - name: Fail on purpose to trigger rollback
+      #   run: exit 1
 
       - name: Deployment successful
         if: success()
@@ -92,10 +92,7 @@ jobs:
       - name: Rollback failed
         if: failure()
         run: echo "CRITICAL. Rollback failed, manual intervention required!"
-
-  # Inside git bash:
-    # ssh -i "/path/to/private-key.pem" user@server-ip
-            
+          
 # Secrets:
 # https://nektosact.com/usage/index.html#secrets
 # https://sanjulaganepola.github.io/github-local-actions-docs/usage/settings/#secrets
