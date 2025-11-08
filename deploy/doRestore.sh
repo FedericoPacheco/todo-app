@@ -24,7 +24,7 @@ echo "Restoring from: $BACKUP_FILE"
 
 echo "Stopping api, session-db, and nginx containers and running db container..."
 sudo docker compose -f docker-compose.prod.yaml stop api session-db nginx || true
-sudo docker compose -f docker-compose.prod.yaml up db || true
+sudo docker compose -f docker-compose.prod.yaml up db -d --wait || true 
 
 echo "Dropping and recreating database..."
 sudo docker compose -f docker-compose.prod.yaml exec -T db \

@@ -83,11 +83,10 @@ jobs:
             chmod +x doDeploy.sh
             bash doDeploy.sh
 
-      - name: Wait for services and run smoke tests on rollback
+      - name: Run smoke tests on rollback
         run: |
-          sleep 30
-          curl --fail --silent --max-time 10 https://todo.federicopacheco.dev/api/health
-          curl --fail --silent --max-time 10 https://todo.federicopacheco.dev
+          curl --fail --silent --max-time 15 https://todo.federicopacheco.dev/api/health
+          curl --fail --silent --max-time 15 https://todo.federicopacheco.dev
           echo "Rollback completed successfully"
 
       - name: Rollback failed
