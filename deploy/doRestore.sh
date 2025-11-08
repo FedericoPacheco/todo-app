@@ -25,10 +25,10 @@ sudo --preserve-env docker compose -f docker-compose.prod.yaml up db -d --wait |
 
 echo "Dropping and recreating database..."
 sudo --preserve-env docker compose -f docker-compose.prod.yaml exec -T db \
-  psql -U ${DATABASE_USER} -c "DROP DATABASE IF EXISTS \"${DATABASE_NAME}\";"
+  psql -U ${DATABASE_USER} -c "DROP DATABASE IF EXISTS ${DATABASE_NAME};"
 
 sudo --preserve-env docker compose -f docker-compose.prod.yaml exec -T db \
-  psql -U ${DATABASE_USER} -c "CREATE DATABASE \"${DATABASE_NAME}\";"
+  psql -U ${DATABASE_USER} -c "CREATE DATABASE ${DATABASE_NAME};"
 
 gunzip < "$BACKUP_FILE" | sudo --preserve-env docker compose -f docker-compose.prod.yaml exec -T db \
   psql -U ${DATABASE_USER} -d ${DATABASE_NAME}

@@ -33,17 +33,17 @@ jobs:
             git log --oneline -1
             
             chmod +x doBackup.sh
-            DATABASE_USER=${{ secrets.DATABASE_USER }} \ 
-            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
-            DATABASE_NAME=${{ secrets.DATABASE_NAME }} \ 
-            SESSION_PASSWORD=${{ secrets.SESSION_PASSWORD }} \
+            DATABASE_USER=${{ secrets.DATABASE_USER }} \
+            DATABASE_PASSWORD='${{ secrets.DATABASE_PASSWORD }}' \
+            DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
+            SESSION_PASSWORD='${{ secrets.SESSION_PASSWORD }}' \
             bash doBackup.sh
 
             chmod +x doDeploy.sh
             DATABASE_USER=${{ secrets.DATABASE_USER }} \
-            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
+            DATABASE_PASSWORD='${{ secrets.DATABASE_PASSWORD }}' \
             DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
-            SESSION_PASSWORD=${{ secrets.SESSION_PASSWORD }} \
+            SESSION_PASSWORD='${{ secrets.SESSION_PASSWORD }}' \
             bash doDeploy.sh
 
       - name: Run smoke tests
@@ -91,16 +91,16 @@ jobs:
             
             chmod +x doRestore.sh
             DATABASE_USER=${{ secrets.DATABASE_USER }} \
-            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
+            DATABASE_PASSWORD='${{ secrets.DATABASE_PASSWORD }}' \
             DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
-            SESSION_PASSWORD=${{ secrets.SESSION_PASSWORD }} \
+            SESSION_PASSWORD='${{ secrets.SESSION_PASSWORD }}' \
             bash doRestore.sh
 
             chmod +x doDeploy.sh
             DATABASE_USER=${{ secrets.DATABASE_USER }} \
-            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
+            DATABASE_PASSWORD='${{ secrets.DATABASE_PASSWORD }}' \
             DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
-            SESSION_PASSWORD=${{ secrets.SESSION_PASSWORD }} \
+            SESSION_PASSWORD='${{ secrets.SESSION_PASSWORD }}' \
             bash doDeploy.sh
 
       - name: Run smoke tests on rollback
