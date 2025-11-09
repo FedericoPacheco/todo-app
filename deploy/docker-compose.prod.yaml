@@ -59,6 +59,8 @@ services:
     environment:
       - DATABASE_HOST=db
       - DATABASE_USER=${DATABASE_USER}
+      # Do NOT use special characters on passwords, they need to be URL encoded; otherwise they trigger A LOT of errors.
+      # Use the generator from a password manager.
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_PORT=5432
