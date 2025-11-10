@@ -1,34 +1,3 @@
-# Source: https://www.endpointdev.com/blog/2024/06/docker-nginx-acme/
-
-# Prior tests deployment notes:
-
-# Install acme.sh
-# curl https://get.acme.sh | sh -s email=federico.ignacio.pacheco.pilan@gmail.com
-# Close and reopen terminal or run: source ~/.bashrc
-
-# Set Let's Encrypt as CA
-# acme.sh --set-default-ca --server letsencrypt
-
-# Start nginx first (needed for webroot validation)
-# sudo docker compose -f docker-compose.prod.yaml up -d
-
-# Issue certificate for todo subdomain
-# acme.sh --issue -d todo.federicopacheco.dev -w ~/todo-app/deploy/nginx/dist --keylength 4096 --force
-
-# Install certificate and set auto-reload
-# acme.sh --install-cert -d todo.federicopacheco.dev --key-file ~/todo-app/deploy/nginx/ssl/key.pem --fullchain-file ~/todo-app/deploy/nginx/ssl/cert.pem --reloadcmd "sudo docker exec nginx-server nginx -s reload"
-
-# After updating nginx.conf with SSL config and uncommenting port 443 ssl volume, restart:
-# sudo docker compose -f docker-compose.prod.yaml down
-# sudo docker compose -f docker-compose.prod.yaml up -d
-
-# Troubleshooting:
-# Check config is valid: sudo docker exec nginx-server nginx -t
-# Check logs: sudo docker compose -f docker-compose.prod.yaml logs nginx
-# Verify certificate files exist in the container: sudo docker exec nginx-server ls -la /etc/nginx/ssl/
-# Check certificate location: acme.sh --info -d todo.federicopacheco.dev
-# Test certificate renewal: acme.sh --renew -d todo.federicopacheco.dev --force --dry-run
-
 services:
   nginx:
     image: nginx:1.28.0-alpine
@@ -59,8 +28,6 @@ services:
     environment:
       - DATABASE_HOST=db
       - DATABASE_USER=${DATABASE_USER}
-      # Do NOT use special characters on passwords, they need to be URL encoded; otherwise they trigger A LOT of errors.
-      # Use the generator from a password manager.
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_PORT=5432
@@ -70,8 +37,6 @@ services:
       - SESSION_PORT=6379
       - SESSION_PASSWORD=${SESSION_PASSWORD}
       - SESSION_DB=0
-      # Generate crypto-secure random string: 
-      # node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
       - SESSION_SECRET=${SESSION_SECRET}
     depends_on:
       db:
