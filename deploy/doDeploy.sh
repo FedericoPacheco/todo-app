@@ -1,6 +1,15 @@
 #!/bin/bash
 # Make script executable: chmod +x doDeploy.sh
 
+echo "Creating debugging file..."
+cat > .env <<EOF
+DATABASE_USER=$DATABASE_USER
+DATABASE_PASSWORD=$DATABASE_PASSWORD
+DATABASE_NAME=$DATABASE_NAME
+SESSION_PASSWORD=$SESSION_PASSWORD
+SESSION_SECRET=$SESSION_SECRET
+EOF
+
 echo "Starting deployment..."
 
 echo "Checking for SSL certificates..."
