@@ -28,6 +28,7 @@ sudo --preserve-env=DATABASE_USER,DATABASE_PASSWORD,DATABASE_NAME,SESSION_PASSWO
 
 echo "Creating debug file inside api container..."
 sudo docker compose -f docker-compose.prod.yaml exec -T api sh -c 'env > debug-env-inside-api'
+# Read file: sudo docker compose -f docker-compose.prod.yaml exec api cat debug-env-inside-api
 
 echo "Running database migrations..."
 sudo --preserve-env=DATABASE_USER,DATABASE_PASSWORD,DATABASE_NAME,SESSION_PASSWORD,SESSION_SECRET docker compose -f docker-compose.prod.yaml exec -T api npm run db-migrate:up
