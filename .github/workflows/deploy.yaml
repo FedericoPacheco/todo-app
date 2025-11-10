@@ -46,8 +46,8 @@ jobs:
 
       - name: Run smoke tests
         run: |
-          curl --fail --silent --max-time 15 https://todo.federicopacheco.dev/api/health
-          curl --fail --silent --max-time 15 https://todo.federicopacheco.dev
+          curl --fail --silent --max-time 15 --retry 3 --retry-delay 5 https://todo.federicopacheco.dev/api/health
+          curl --fail --silent --max-time 15 --retry 3 --retry-delay 5 https://todo.federicopacheco.dev
 
       # - name: Fail on purpose to trigger rollback
       #   run: exit 1
@@ -101,8 +101,8 @@ jobs:
 
       - name: Run smoke tests on rollback
         run: |
-          curl --fail --silent --max-time 15 https://todo.federicopacheco.dev/api/health
-          curl --fail --silent --max-time 15 https://todo.federicopacheco.dev
+          curl --fail --silent --max-time 15 --retry 3 --retry-delay 5 https://todo.federicopacheco.dev/api/health
+          curl --fail --silent --max-time 15 --retry 3 --retry-delay 5 https://todo.federicopacheco.dev
           echo "Rollback completed successfully"
 
       - name: Rollback failed
