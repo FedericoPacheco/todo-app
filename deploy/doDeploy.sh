@@ -20,14 +20,14 @@ if [ ! -f "./nginx/ssl/cert.pem" ]; then
 fi
 
 echo "Stopping containers..."
-sudo --preserve-env docker compose -f docker-compose.prod.yaml down || true
+sudo --preserve-env=DATABASE_USER,DATABASE_PASSWORD,DATABASE_NAME,SESSION_PASSWORD,SESSION_SECRET docker compose -f docker-compose.prod.yaml down || true
 
 echo "Deploying containers with new changes..."
-sudo --preserve-env docker network create todo-net || true
-sudo --preserve-env docker compose -f docker-compose.prod.yaml up -d --build --wait
+sudo --preserve-env=DATABASE_USER,DATABASE_PASSWORD,DATABASE_NAME,SESSION_PASSWORD,SESSION_SECRET docker network create todo-net || true
+sudo --preserve-env=DATABASE_USER,DATABASE_PASSWORD,DATABASE_NAME,SESSION_PASSWORD,SESSION_SECRET docker compose -f docker-compose.prod.yaml up -d --build --wait
 
 echo "Running database migrations..."
-sudo --preserve-env docker compose -f docker-compose.prod.yaml exec -T api npm run db-migrate:up
+sudo --preserve-env=DATABASE_USER,DATABASE_PASSWORD,DATABASE_NAME,SESSION_PASSWORD,SESSION_SECRET docker compose -f docker-compose.prod.yaml exec -T api npm run db-migrate:up
 
 echo "Deployment complete!"
-sudo --preserve-env docker compose -f docker-compose.prod.yaml ps
+sudo --preserve-env=DATABASE_USER,DATABASE_PASSWORD,DATABASE_NAME,SESSION_PASSWORD,SESSION_SECRET docker compose -f docker-compose.prod.yaml ps
