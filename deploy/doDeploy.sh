@@ -2,7 +2,7 @@
 # Make script executable: chmod +x doDeploy.sh
 
 echo "Creating debugging file..."
-cat > .env <<EOF
+cat > debug-env <<EOF
 DATABASE_USER=$DATABASE_USER
 DATABASE_PASSWORD=$DATABASE_PASSWORD
 DATABASE_NAME=$DATABASE_NAME
@@ -25,6 +25,9 @@ sudo --preserve-env=DATABASE_USER,DATABASE_PASSWORD,DATABASE_NAME,SESSION_PASSWO
 echo "Deploying containers with new changes..."
 sudo --preserve-env=DATABASE_USER,DATABASE_PASSWORD,DATABASE_NAME,SESSION_PASSWORD,SESSION_SECRET docker network create todo-net || true
 sudo --preserve-env=DATABASE_USER,DATABASE_PASSWORD,DATABASE_NAME,SESSION_PASSWORD,SESSION_SECRET docker compose -f docker-compose.prod.yaml up -d --build --wait
+
+echo "Creating debug file inside api container..."
+sudo docker compose -f docker-compose.prod.yaml exec -T api sh -c 'env > debug-env-inside-api'
 
 echo "Running database migrations..."
 sudo --preserve-env=DATABASE_USER,DATABASE_PASSWORD,DATABASE_NAME,SESSION_PASSWORD,SESSION_SECRET docker compose -f docker-compose.prod.yaml exec -T api npm run db-migrate:up
