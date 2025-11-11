@@ -2,17 +2,34 @@
 
 A comprehensive full-stack ToDo application.
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Quickstart](#quickstart)
+- [Back-end](#back-end)
+  - [Architecture](#architecture)
+  - [Data model](#data-model)
+  - [API](#api)
+- [Front-end](#front-end)
+  - [Components](#components)
+  - [Styles](#styles)
+  - [State management + async operations](#state-management--async-operations)
+  - [Bundling](#bundling)
+- [Testing](#testing)
+- [Deployment / Production](#deployment--production)
+- [CI / CD](#ci--cd)
+
 ## Overview
 
-The system consists of a monolithic API server that follows the MVC + service layer (business logic) pattern, a relational database for persistence, a key-value store for session management, and a single-page application (SPA) monolithic front-end. The system also features a large suite of automated tests (unit, integration, end-to-end + mutation), basic security, pre-commit hooks, code formatting and linting and a CI/CD pipeline.
+The system consists of a monolithic back-end API server (MVC + service layer for business logic), a relational database for persistence, a key-value store for session management, and a single-page application (SPA) monolithic front-end. The system also features a large suite of automated tests (unit, integration, end-to-end + mutation), basic security, pre-commit hooks, code formatting and linting and a CI/CD pipeline.
 
 Main technologies used:
 
 - Back-end: Sails (Node.js), PostgreSQL, Redis.
 - Front-end: React, Redux, Redux-saga, Webpack.
 - Testing: Mocha, Sinon, Chai, Supertest, Proxyquire, Faker, Nyc, Stryker, Playwright.
-- CI/CD: Husky, GitHub Actions, Docker, Docker Compose.
-- Deployment: AWS (WIP).
+- CI/CD: Husky, GitHub Actions, Docker Compose.
+- Deployment: AWS LightSail, Nginx, Docker Compose, acme.sh (Let's Encrypt).
 - Others: ESLint, Prettier.
 
 Key features include:
@@ -20,7 +37,9 @@ Key features include:
 - User sign up, authentication and authorization.
 - CRUD + state management (pending, completed) operations for ToDo items.
 
-Production link: WIP
+Key architectural decisions and their rationale are documented in [Architecture Decision Records (ADRs)](./docs/adr/).
+
+Production link: <https://todo.federicopacheco.dev>
 
 ## Quickstart
 
@@ -46,15 +65,15 @@ The application follows a closed "layered" / MVC + service architecture:
 - **Services**: Contain the business logic and interact with models' functions and the ORM (Waterline) to perform operations.
 - **Models**: Represent the domain entities, with their attributes and relationships.
 
-Controllers do NOT interact directly with models or the database, nor contain significant business logic.
-Recurring to a repository/database layer was deemed unnecessary for the scope of this project.
+Controllers do NOT interact directly with models or the database, nor do they contain significant business logic.
+Resorting to a repository/database layer was deemed unnecessary for the scope of this project.
 
 ### Data model
 
 The system has only two entities with the following corresponding attributes:
 
-- User: id, name, password (hashed), createdAt, updatedAt.
-- ToDo: id, text, state (pending, completed), owner (foreign key), createdAt, updatedAt.
+- `User`: id, name, password (hashed), createdAt, updatedAt.
+- `ToDo`: id, text, state (pending, completed), owner (foreign key), createdAt, updatedAt.
 
 ### API
 
@@ -64,6 +83,7 @@ The application server exposes the following RESTful API endpoints:
 GET /api/todo
 GET /api/todo/:id
 POST /api/todo
+PUT /api/todo/:id
 DELETE /api/todo/:id
 PATCH /api/todo/:id
 ```
@@ -84,11 +104,11 @@ GET /api/health
 
 ### Components
 
-Components cover behavior for two main views: authentication (login, signup) and ToDo list management (view, search, create, delete, change state). React Router is used to handle routing between the authentication and main ToDo views.
+Components implement behavior for two main views: authentication (login, signup) and ToDo list management (view, search, create, delete, change state). React Router is used to handle routing between the authentication and main ToDo views.
 
 ### Styles
 
-SASS is used, having files for common styles, mixins and variables, as well as component-specific styles.
+SASS is used, with files for common styles, mixins and variables, as well as component-specific styles.
 
 ### State management + async operations
 
@@ -115,7 +135,7 @@ The redux store is structured as follows:
 }
 ```
 
-Updates to the store are handled through predefined actions, action functions, reducers and sagas generator functions for API calls.
+Updates to the store are handled through predefined actions, action creators, reducers, and sagas (generator functions) for API calls.
 
 ### Bundling
 
@@ -132,35 +152,45 @@ cd back-end
 npm run unit-test:coverage
 ```
 
-- 12 integration tests covering individual API ToDo endpoints as well as a complete user flow (require previously lifted services).
+- 12 integration tests covering individual API ToDo endpoints as well as a complete user flow (require services to be already running).
 
 ```bash
 cd back-end
 npm run integration-test  
 ```
 
-- 5 end-to-end tests covering complete user flows from the front-end (require previously lifted services).
+- 5 end-to-end tests covering complete user flows from the front-end (require services to be already running).
 
 ```bash
 cd front-end
 npm run e2e-test
 ```
 
-- Mutation tests reports to apply mutations to source code and verify the robustness of the unit tests.
+- Mutation tests (see: [Wikipedia](https://en.wikipedia.org/wiki/Mutation_testing), [Robert Martin's blog](https://blog.cleancoder.com/uncle-bob/2016/06/10/MutationTesting.html)) reports to apply mutations to source code and verify the robustness of the unit tests.
 
 ```bash
 cd back-end
-npm run unit-test:mutate
+npm run unit-test:mutate path/to/file
 ```
+
+Including React components tests was deemed unnecessary since they are covered indirectly through end-to-end tests.
+
+## Deployment / Production
+
+- For simplicity and cost-effectiveness, everything is deployed on a single small AWS LightSail instance, with all services containerized and running together.
+- Nginx is used as a reverse proxy to serve the front-end static files, forward API requests to the back-end service and perform SSL termination.
+SSL certificates are managed through acme.sh (Let's Encrypt).
+- The domain was purchased at the [Porkbun](https://porkbun.com/products/domains) registrar, which also provides DNS management.
+- Production environment variables are managed through GitHub secrets and passed to the server through the CI/CD pipeline.
+For detailed deployment notes, including server setup, networking, SSL configuration, and troubleshooting, see [deploy/README.md](deploy/README.md).
 
 ## CI / CD
 
 Husky is used to apply format and lint changes to code before committing locally. Later, when pushing to remote, there are three main workflows that run on GitHub Actions:
 
-- CI-Development: runs on pushes and pull requests to the development branch. Builds a node instance, checkouts the code, performs linting and formatting checks, runs the full unit test suite and updates individual tests and code coverage reports.
-- CI-Production: runs on pushes and pull requests to the main branch. Runs the same steps as the development workflow, as well as building and starting the back-end and front-end services using Docker Compose, runs integration and end-to-end tests and uploads their reports. On failures, it tests connectivity between services and displays services' logs.
-- CD-Production: WIP
-
-## Deployment / Production
-
-WIP
+- `CI-Development`: runs on push operations and pull requests to the development branch. Builds a Node.js environment, checks out the code, performs linting and formatting checks, runs the full unit test suite and updates individual tests and code coverage reports.
+- `CI-Main`: runs on pull requests to the main branch. Runs the same steps as the development workflow, as well as building and starting the back-end and front-end services using Docker Compose, runs integration and end-to-end tests and uploads their reports. On failures, it tests connectivity between services and displays services' logs. Successful checks are a prerequisite for merging pull requests to main.
+- `CD-Main`: runs on push operations to the main branch. It performs the following steps:
+  - Front-end: checks out the code, installs front-end dependencies, builds static files through Webpack, connects to the server through SSH to delete stale files, uploads the new files through SCP to be served by Nginx.
+  - Back-end: connects to the server through SSH, pulls the latest changes from the main branch, passes environment variables, makes a database backup, stops, rebuilds and restarts the services through Docker Compose, runs database migrations, and performs basic health checks.
+  On healthcheck failures, it performs the same steps outlined above, rolling back one commit and restoring the database from the latest backup.
