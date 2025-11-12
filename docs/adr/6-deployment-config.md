@@ -1,4 +1,4 @@
-# ADR-2: Deploy with AWS Lightsail and monolithic setup
+# ADR-6: Deploy with AWS Lightsail and monolithic setup
 
 ## Status
 
