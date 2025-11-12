@@ -37,7 +37,7 @@ Key features include:
 - User sign up, authentication and authorization.
 - CRUD + state management (pending, completed) operations for ToDo items.
 
-Key architectural decisions and their rationale are documented in [Architecture Decision Records (ADRs)](./docs/adr/).
+Key architectural decisions and their rationale are documented in [Architecture Decision Records (ADRs)](docs/adr/).
 
 Production link: <https://todo.federicopacheco.dev>
 
@@ -51,7 +51,7 @@ Production link: <https://todo.federicopacheco.dev>
     docker compose -f front-end/docker-compose.yaml up -d
     ```
 
-2. Configure certificates locally. See [back-end/config/ssl/readme.md](back-end/config/ssl/readme.md) for details.
+2. Configure certificates locally. See [docs/certificates-config-dev.md](docs/certificates-config-dev.md) for details.
 
 3. Access from the browser: <https://localhost:3000>.
 
@@ -182,7 +182,7 @@ Including React components tests was deemed unnecessary since they are covered i
 SSL certificates are managed through acme.sh (Let's Encrypt).
 - The domain was purchased at the [Porkbun](https://porkbun.com/products/domains) registrar, which also provides DNS management.
 - Production environment variables are managed through GitHub secrets and passed to the server through the CI/CD pipeline.
-For detailed deployment notes, including server setup, networking, SSL configuration, and troubleshooting, see [deploy/README.md](deploy/README.md).
+For detailed deployment notes, including server setup, networking, SSL configuration, and troubleshooting, see [deploy/README.md](docs/deploy-notes.md).
 
 ## CI / CD
 
