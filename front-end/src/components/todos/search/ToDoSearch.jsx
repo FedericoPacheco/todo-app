@@ -12,7 +12,7 @@ function ToDoSearch() {
           setDoSearch(false);
           setSearchValue(e.target.value);
         }}
-        placeholder="Cortar cebolla"
+        placeholder="Busca un ToDo..."
       />
       <button className="search-button" onClick={() => setDoSearch(true)}>
         Buscar

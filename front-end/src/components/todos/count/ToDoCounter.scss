@@ -1,7 +1,7 @@
 @use "../../Variables.scss" as *;
 
 .counter-container {
-  width: $tab-width;
+  width: $desktop-tab-width;
 
   h1 {
     font-size: $font-size * 1.5;
@@ -9,5 +9,9 @@
   }
   span {
     font-weight: bold;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    width: $mobile-tab-width;
   }
 }

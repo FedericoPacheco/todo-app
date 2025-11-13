@@ -7,14 +7,14 @@
   padding: 0.5rem 0;
 
   li {
-    max-width: $tab-width;
+    max-width: $desktop-tab-width;
     list-style-type: none;
     @include flex-center(row);
     justify-content: space-evenly;
   }
 
   p {
-    width: $tab-width * 0.65;
+    width: $desktop-tab-width * 0.65;
     word-wrap: break-word;
     margin: 0.5rem 2.5rem;
   }
@@ -22,7 +22,7 @@
   span {
     font-weight: bold;
   }
-
+  
   .check:hover {
     color: green;
     cursor: pointer;
@@ -31,5 +31,16 @@
   .delete:hover {
     color: red;
     cursor: pointer;
+  }
+
+  @media (max-width: $mobile-breakpoint) {    
+    li {
+      max-width: $mobile-tab-width;
+    }
+    
+    p {
+      width: $mobile-tab-width * 0.65;
+      margin: 0.125rem 0.5rem;
+    }
   }
 }

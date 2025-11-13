@@ -4,20 +4,27 @@
 html, body {
   margin: 0;
   padding: 0;
+}
+
+* {
   box-sizing: border-box;
 }
 
 .app-container {
-  box-sizing: border-box;
   text-align: center;
   background-color: $background-color;
   width: 100vw;
-  min-width: $tab-width * 1.125;
+  min-width: $desktop-tab-width * 1.125;
   min-height: 100vh;
   border: 0.125rem solid $border-color;
   font-family: $font;
   @include flex-center(column);
   justify-content: flex-start;
+
+  @media (max-width: $mobile-breakpoint) {
+    min-width: $mobile-tab-width * 1.125;
+    overflow-x: hidden;
+  }
 }
 
 .std-button {

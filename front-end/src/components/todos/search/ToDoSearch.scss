@@ -3,19 +3,22 @@
 @use "../../Mixins.scss" as *;
 
 .search-container {
-  width: $tab-width;
+  width: $desktop-tab-width;
   @include flex-center(row);
-  margin: 0.5rem;
 
   input {
     @extend .std-input;
     margin-left: 0;
-    width: 80%;
+    width: 75%;
   }
 
   .search-button {
     @extend .std-button;
-    width: 20%;
+    width: 25%;
     margin-right: 0;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    width: $mobile-tab-width;
   }
 }
