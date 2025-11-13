@@ -34,11 +34,14 @@ Technologies used:
 - Deployment: AWS LightSail, Nginx, Docker Compose, acme.sh (Let's Encrypt).
 - Others: ESLint, Prettier.
 
-See [C4 Context Diagram](docs/diagrams/C4_Context.svg) and [C4 Container Diagram](docs/diagrams/C4_Containers.svg) for architecture overviews.
+See [C4 Context Diagram](docs/diagrams/C4_Context.svg) and [C4 Container Diagram](docs/diagrams/C4_Containers.svg) for architecture overviews (*).
 
-Key decisions and their rationale are documented in [Architecture Decision Records (ADRs)](docs/adrs/).
+Key decisions and their rationale are documented in [Architecture Decision Records (ADRs)](docs/adrs/). (**)
 
-Production link: <https://todo.federicopacheco.dev>
+**Production link**: <https://todo.federicopacheco.dev>
+
+(*) [Overview of C4 diagrams](https://c4model.com/diagrams).
+(**) [Chapter 21: Architecture Decisions from Fundamentals of Software Architecture by Richards and Ford](https://www.oreilly.com/library/view/fundamentals-of-software/9781098175504/ch21.html).
 
 ## Quickstart
 
