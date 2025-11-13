@@ -17,3 +17,6 @@ deploy/nginx/dist/assets/
 # DB backups
 back-end/db-backups/*.sql.gz
 
+#PlantUML generated files (move to docs/diagrams/ instead)
+out/docs/diagrams/
+

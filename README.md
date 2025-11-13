@@ -8,7 +8,6 @@ A comprehensive full-stack ToDo application.
 - [Quickstart](#quickstart)
 - [Back-end](#back-end)
   - [Architecture](#architecture)
-  - [Data model](#data-model)
   - [API](#api)
 - [Front-end](#front-end)
   - [Components](#components)
@@ -21,23 +20,23 @@ A comprehensive full-stack ToDo application.
 
 ## Overview
 
-The system consists of a monolithic back-end API server (MVC + service layer for business logic), a relational database for persistence, a key-value store for session management, and a single-page application (SPA) monolithic front-end. The system also features a large suite of automated tests (unit, integration, end-to-end + mutation), basic security, pre-commit hooks, code formatting and linting and a CI/CD pipeline.
+The system consists of a monolithic back-end API server, relational database, key-value store for sessions, and a single-page application front-end. Key features include:
 
-Main technologies used:
+- User sign up, authentication and authorization.
+- CRUD + state management (pending, completed) operations for ToDo items.
+
+Technologies used:
 
 - Back-end: Sails (Node.js), PostgreSQL, Redis.
-- Front-end: React, Redux, Redux-saga, Webpack.
+- Front-end: React, Redux, Redux-saga, Webpack, Axios.
 - Testing: Mocha, Sinon, Chai, Supertest, Proxyquire, Faker, Nyc, Stryker, Playwright.
 - CI/CD: Husky, GitHub Actions, Docker Compose.
 - Deployment: AWS LightSail, Nginx, Docker Compose, acme.sh (Let's Encrypt).
 - Others: ESLint, Prettier.
 
-Key features include:
+See [C4 Context Diagram](docs/diagrams/C4_Context.svg) and [C4 Container Diagram](docs/diagrams/C4_Containers.svg) for architecture overviews.
 
-- User sign up, authentication and authorization.
-- CRUD + state management (pending, completed) operations for ToDo items.
-
-Key architectural decisions and their rationale are documented in [Architecture Decision Records (ADRs)](docs/adr/).
+Key decisions and their rationale are documented in [Architecture Decision Records (ADRs)](docs/adrs/).
 
 Production link: <https://todo.federicopacheco.dev>
 
@@ -59,21 +58,7 @@ Production link: <https://todo.federicopacheco.dev>
 
 ### Architecture
 
-The application follows a closed "layered" / MVC + service architecture:
-
-- **Controllers**: Handle incoming HTTP requests, invoke services, and send responses.
-- **Services**: Contain the business logic and interact with models' functions and the ORM (Waterline) to perform operations.
-- **Models**: Represent the domain entities, with their attributes and relationships.
-
-Controllers do NOT interact directly with models or the database, nor do they contain significant business logic.
-Resorting to a repository/database layer was deemed unnecessary for the scope of this project.
-
-### Data model
-
-The system has only two entities with the following corresponding attributes:
-
-- `User`: id, name, password (hashed), createdAt, updatedAt.
-- `ToDo`: id, text, state (pending, completed), owner (foreign key), createdAt, updatedAt.
+The application follows a layered MVC + service architecture. Resorting to a repository/database layer was deemed unnecessary for the scope of this project. See [C4 Component Diagram](docs/diagrams/C4_Components.svg) for internal structure.
 
 ### API
 
@@ -104,7 +89,7 @@ GET /api/health
 
 ### Components
 
-Components implement behavior for two main views: authentication (login, signup) and ToDo list management (view, search, create, delete, change state). React Router is used to handle routing between the authentication and main ToDo views.
+Components implement behavior for two main views: authentication (login, signup) and ToDo list management (view, search, create, update, delete, change state). React Router is used to handle routing between the authentication and main ToDo views.
 
 ### Styles
 
@@ -177,12 +162,7 @@ Including React components tests was deemed unnecessary since they are covered i
 
 ## Deployment / Production
 
-- For simplicity and cost-effectiveness, everything is deployed on a single small AWS LightSail instance, with all services containerized and running together.
-- Nginx is used as a reverse proxy to serve the front-end static files, forward API requests to the back-end service and perform SSL termination.
-SSL certificates are managed through acme.sh (Let's Encrypt).
-- The domain was purchased at the [Porkbun](https://porkbun.com/products/domains) registrar, which also provides DNS management.
-- Production environment variables are managed through GitHub secrets and passed to the server through the CI/CD pipeline.
-For detailed deployment notes, including server setup, networking, SSL configuration, and troubleshooting, see [deploy/README.md](docs/deploy-notes.md).
+Deployed on AWS Lightsail with an Nginx reverse proxy and SSL. See [C4 Deployment Diagram](docs/diagrams/C4_Deployment.svg) and [deploy-notes.md](docs/deploy-notes.md) for details.
 
 ## CI / CD
 

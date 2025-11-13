@@ -1,0 +1,10 @@
+@startuml C4_Context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person(user, "User", "A person who wants to authenticate and manage their ToDos")
+
+System(todoApp, "ToDoApp", "A monolithic web application for ToDo management")
+
+Rel(user, todoApp, "Uses", "JSON/HTTPS")
+
+@enduml

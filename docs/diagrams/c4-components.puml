@@ -1,0 +1,36 @@
+@startuml C4_Components
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(api, "API Application (Sails.js)") {
+    Component(authController, "Auth Controller", "Sails.js Controller", "Handles signup, login, logout, CSRF token and auth status requests")
+    Component(todoController, "ToDo Controller", "Sails.js Controller", "Handles CRUD and state change requests for ToDo items")
+    
+    Component(authService, "Auth Service", "Business Logic", "Validates credentials, manages authentication flow")
+    Component(todoService, "ToDo Service", "Business Logic", "Enforces ToDo business rules, validates ownership")
+    
+    Component(userModel, "User Model", "Waterline ORM", "Represents User entity with id, name, password (hashed), timestamps")
+    Component(todoModel, "ToDo Model", "Waterline ORM", "Represents ToDo entity with id, text, state, owner, timestamps")
+    
+    Component(sessionMiddleware, "Session Middleware", "Connect-Redis", "Manages user sessions with Redis")
+    Component(orm, "ORM Adapter", "Waterline PostgreSQL Adapter", "Translates ORM queries to SQL")
+}
+
+ContainerDb(db, "PostgreSQL Database", "PostgreSQL", "Stores users and ToDos")
+ContainerDb(session, "Session Store", "Redis", "Stores session data")
+
+Rel(authController, authService, "Invokes", "Function calls")
+Rel(todoController, todoService, "Invokes", "Function calls")
+
+Rel(authService, userModel, "Uses", "ORM queries")
+Rel(todoService, todoModel, "Uses", "ORM queries")
+Rel(todoService, userModel, "Uses", "ORM queries")
+
+Rel(userModel, orm, "Uses", "ORM API")
+Rel(todoModel, orm, "Uses", "ORM API")
+Rel(orm, db, "Queries", "SQL/TCP")
+
+Rel(authController, sessionMiddleware, "Uses", "Session API")
+Rel(todoController, sessionMiddleware, "Uses", "Session API")
+Rel(sessionMiddleware, session, "Reads/writes sessions", "Redis protocol")
+
+@enduml
