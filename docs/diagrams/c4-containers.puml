@@ -1,0 +1,20 @@
+@startuml C4_Containers
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "User", "A person who wants to authenticate and manage their ToDos")
+
+System_Boundary(todoApp, "ToDoApp") {
+    Container(spa, "Single-Page Application", "React, Redux, Redux-Saga", "Provides a ToDo management and authentication GUI in the user's browser")
+    Container(web, "Nginx Web Server", "Nginx", "Serves static React SPA files, performs SSL termination, and reverse proxies API requests")
+    Container(api, "API Application", "Sails.js", "Handles authentication and ToDo logic")
+    Container(db, "Database", "PostgreSQL", "Stores users and ToDos")
+    Container(session, "Session Store", "Redis", "Stores user session data for authentication")
+}
+
+Rel(user, spa, "Uses", "HTTPS")
+Rel(spa, web, "Makes API calls to", "JSON/HTTPS")
+Rel(web, api, "Forwards requests to", "JSON/HTTP")
+Rel(api, db, "Reads from and writes to", "SQL/TCP")
+Rel(api, session, "Reads from and writes to", "Redis protocol/TCP")
+
+@enduml

@@ -1,4 +1,4 @@
-# ADR-2: Deploy with AWS Lightsail and monolithic setup
+# ADR-6: Deploy with AWS Lightsail and monolithic setup
 
 ## Status
 
@@ -32,9 +32,11 @@ Serverless architectures were disregarded due to overall high complexity.
 Deploy the entire application stack on a single AWS Lightsail instance + Porkbun DNS (Cloudflare under the hood) due to low cost, simplicity, and sufficient learning opportunity. Later, I can migrate to a bigger Lightsail instance, EC2 and/or managed services if needed.
 Within the Lightsail instance, use a monolithic setup where:
 
-- The API server, PostgreSQL, and Redis run as separate Docker containers managed by Docker Compose.
+- The API server, PostgreSQL, and Redis run as separate Docker containers.
 
-- Nginx is installed on the host OS and serves the React frontend static files directly, as well as reverse proxies API requests to the Sails.js backend using SSL termination. This improves performance, simplifies certificate management and improves security (no CORS issues, hides internal ports, enforces HTTPS).
+- There's also a Nginx container (not present in dev or CI) that serves the React frontend static files directly, as well as reverse proxies API requests to the Sails.js backend using SSL termination. This improves performance, simplifies certificate management and improves security (no CORS issues, hides internal ports, enforces HTTPS).
+
+All containers are managed using Docker Compose.
 
 Buy my own domain to look professional and register it from Porkbun as it is cheap and has a simple UI.
 Use a certificate from Let's Encrypt for HTTPS.
