@@ -20,11 +20,17 @@ async function createAuthenticatedUserAgent() {
 }
 
 function createUserAgent() {
-  const host = process.env?.API_HOST || "localhost";
-  const port = process.env?.API_PORT || 1340;
-  const url = `http://${host}:${port}/api/`;
-  // return supertest.agent(sails.hooks.http.app); // Doesn't work: sails.hooks returns undefined
-  return supertest.agent(url);
+  let url;
+  if (process.env?.API_HOST && process.env?.API_PORT) {
+    // CI environment
+    url = `http://${process.env.API_HOST}:${process.env.API_PORT}/api/`;
+    return supertest.agent(url);
+  }
+  // Local development environment, tests run from the host machine, using self-signed certificates
+  url = "https://localhost:1340/api/";
+  return supertest.agent(url, {
+    rejectUnauthorized: false,
+  });
 }
 
 async function signup(userAgent) {
