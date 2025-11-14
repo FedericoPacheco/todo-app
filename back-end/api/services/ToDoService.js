@@ -74,21 +74,22 @@ module.exports = (ToDo) => {
   async function update(id, userId, attributes) {
     const foundToDo = await this.findById(id, userId);
 
-    const nonEmptyAttributes = { ...attributes };
-    if (Object.keys(nonEmptyAttributes).length === 0) {
+    const pairs = Object.entries(attributes);
+    if (pairs.length === 0) {
       throw new Error(ErrorTypes.INVALID_INPUT);
+    }
+    const nonEmptyAttributes = { ...attributes };
+    for (const [key, attribute] of pairs) {
+      if (typeof attribute === "undefined" || attribute === null)
+        delete nonEmptyAttributes[key];
     }
 
     const checks = {
       state: (state) => this.isValidToDoState(state),
       text: (text) => typeof text === "string" && text.trim().length > 0,
     };
-    for (const key of Object.keys(nonEmptyAttributes)) {
-      const attribute = nonEmptyAttributes[key];
-      if (typeof attribute === "undefined" || attribute === null)
-        delete nonEmptyAttributes[key];
-      else if (!checks[key](attribute))
-        throw new Error(ErrorTypes.INVALID_INPUT);
+    for (const [key, attribute] of Object.entries(nonEmptyAttributes)) {
+      if (!checks[key](attribute)) throw new Error(ErrorTypes.INVALID_INPUT);
     }
 
     try {
