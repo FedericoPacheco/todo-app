@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { Logout } from "../auth/logout/Logout";
 
 export function Todos() {
-  const { isCreateToDoVisible } = useContext(ToDoContext);
+  const { isModalVisible } = useContext(ToDoContext);
   const todos = useSelector((state) => state.todos.list);
 
   console.table(
@@ -31,7 +31,7 @@ export function Todos() {
       <ToDoList />
       <CreateToDoButton />
       <Logout />
-      {isCreateToDoVisible && <CreateToDo />}
+      {isModalVisible && <CreateToDo />}
     </div>
   );
 }

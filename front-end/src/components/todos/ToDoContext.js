@@ -25,7 +25,7 @@ export function ToDoContextProvider({ children }) {
   const [tab, setTab] = useState(DEFAULT_TAB);
   const [searchValue, setSearchValue] = useState("");
   const [doSearch, setDoSearch] = useState(false);
-  const [isCreateToDoVisible, setIsCreateToDoVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   // Counters
   const pending = toDos.filter((todo) => todo.state === PENDING).length;
@@ -49,7 +49,7 @@ export function ToDoContextProvider({ children }) {
         state: tab,
       }),
     );
-    setIsCreateToDoVisible(false);
+    setIsModalVisible(false);
   };
 
   return (
@@ -61,8 +61,8 @@ export function ToDoContextProvider({ children }) {
         setSearchValue,
         doSearch,
         setDoSearch,
-        isCreateToDoVisible,
-        setIsCreateToDoVisible,
+        isModalVisible,
+        setIsModalVisible,
         pending,
         completed,
         total,

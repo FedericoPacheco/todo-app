@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 
 function CreateToDo() {
   const [description, setDescription] = useState("");
-  const { setIsCreateToDoVisible, onCreate } = useContext(ToDoContext);
+  const { setIsModalVisible, onCreate } = useContext(ToDoContext);
 
   return createPortal(
     <div className="create-container">
@@ -28,9 +28,7 @@ function CreateToDo() {
           >
             Crear
           </button>
-          <button onClick={() => setIsCreateToDoVisible(false)}>
-            Cancelar
-          </button>
+          <button onClick={() => setIsModalVisible(false)}>Cancelar</button>
         </div>
       </div>
     </div>,

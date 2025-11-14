@@ -5,12 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function CreateToDoButton() {
-  const { setIsCreateToDoVisible } = useContext(ToDoContext);
+  const { setIsModalVisible } = useContext(ToDoContext);
 
   return (
     <button
       className="add-todo-button"
-      onClick={() => setIsCreateToDoVisible(true)}
+      onClick={() => setIsModalVisible(true)}
       data-testid="create-todo-button"
     >
       <FontAwesomeIcon icon={faPlus} />
