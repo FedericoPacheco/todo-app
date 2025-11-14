@@ -102,7 +102,7 @@ suite("ToDoIntegration", function () {
       anotherToDo = (await agent.post("todo").send({ ...toDo })).body;
     });
 
-    test("successfully", async function () {
+    test("successfully change state", async function () {
       await agent
         .patch(`todo/${anotherToDo.id}`)
         .send({ state: "COMPLETED" })
@@ -126,6 +126,24 @@ suite("ToDoIntegration", function () {
 
     test("not found", async function () {
       await agent.patch(`todo/${-1}`).send({ state: "COMPLETED" }).expect(404);
+    });
+
+    test("successfully change text", async function () {
+      await agent
+        .patch(`todo/${anotherToDo.id}`)
+        .send({ text: "Updated Test ToDo" })
+        .expect(200)
+        .expect((res) => {
+          chai.assert.propertyVal(res.body, "id", anotherToDo.id);
+          chai.assert.propertyVal(res.body, "text", "Updated Test ToDo");
+        });
+    });
+
+    test("Invalid text", async function () {
+      await agent
+        .patch(`todo/${anotherToDo.id}`)
+        .send({ text: "" })
+        .expect(400);
     });
   });
 

@@ -213,14 +213,6 @@ suite("ToDoController", function () {
       chai.assert(res.json.calledWith(completedToDoStub));
     });
 
-    test("Missing body", async function () {
-      req.params.id = toDoStub.id;
-
-      await ToDoController.update(req, res);
-
-      chai.assert(res.badRequest.calledOnce);
-    });
-
     test("Missing param", async function () {
       req.body.state = "COMPLETED";
 

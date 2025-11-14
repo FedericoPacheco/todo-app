@@ -75,8 +75,6 @@ module.exports = {
     const attributes = req.body;
 
     if (!id) return res.badRequest("Id is required");
-    if (Object.keys(attributes).length === 0)
-      return res.badRequest("Missing attributes");
 
     try {
       const updatedToDo = await ToDoService.update(id, userId, attributes);
