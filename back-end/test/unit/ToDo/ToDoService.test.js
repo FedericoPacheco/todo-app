@@ -203,7 +203,7 @@ suite("ToDoService", function () {
       const updatedToDo = await ToDoService.update(
         toDoStub.id,
         toDoStub.owner,
-        "COMPLETED",
+        { state: "COMPLETED" },
       );
       chai.assert.deepStrictEqual(toDoWithChangedState, updatedToDo);
     });
@@ -214,7 +214,7 @@ suite("ToDoService", function () {
         .withArgs(toDoStub.id, toDoStub.owner)
         .resolves(toDoStub);
       await chai.assert.isRejected(
-        ToDoService.update(toDoStub.id, toDoStub.owner, "INVALID"),
+        ToDoService.update(toDoStub.id, toDoStub.owner, { state: "INVALID" }),
         ErrorTypes.INVALID_INPUT,
       );
     });
@@ -231,7 +231,7 @@ suite("ToDoService", function () {
           .rejects(new Error("AdapterError")),
       });
       await chai.assert.isRejected(
-        ToDoService.update(toDoStub.id, toDoStub.owner, "COMPLETED"),
+        ToDoService.update(toDoStub.id, toDoStub.owner, { state: "COMPLETED" }),
         ErrorTypes.DB_ERROR,
       );
     });

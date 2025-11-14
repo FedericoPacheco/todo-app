@@ -71,13 +71,15 @@ module.exports = (ToDo) => {
     return foundToDo;
   }
 
-  async function update(id, userId, state) {
+  async function update(id, userId, attributes) {
     const foundToDo = await this.findById(id, userId);
-    if (!this.isValidToDoState(state)) {
+    if (!this.isValidToDoState(attributes.state)) {
       throw new Error(ErrorTypes.INVALID_INPUT);
     }
     try {
-      return await ToDo.updateOne({ id: foundToDo.id }).set({ state });
+      return await ToDo.updateOne({ id: foundToDo.id }).set({
+        state: attributes.state,
+      });
     } catch {
       throw new Error(ErrorTypes.DB_ERROR);
     }
