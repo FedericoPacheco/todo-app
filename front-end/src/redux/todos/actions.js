@@ -3,3 +3,4 @@ export const SET_ALL_TODOS = "TODO/SET_ALL";
 export const ADD_TODO = "TODO/ADD";
 export const DELETE_TODO = "TODO/DELETE";
 export const CHANGE_STATE_TODO = "TODO/CHANGE_STATE";
+export const CHANGE_TEXT_TODO = "TODO/CHANGE_TEXT";

@@ -4,6 +4,7 @@ import {
   CHANGE_STATE_TODO,
   GET_ALL_TODOS,
   SET_ALL_TODOS,
+  CHANGE_TEXT_TODO,
 } from "./actions";
 
 const DEFAULT_STATE = {
@@ -48,6 +49,18 @@ export const todosReducer = (state = DEFAULT_STATE, action) => {
           [action.payload.id]: {
             ...state.list[action.payload.id],
             state: action.payload.newTodoState,
+          },
+        },
+        nextSeq: state.nextSeq,
+      };
+    }
+    case CHANGE_TEXT_TODO: {
+      return {
+        list: {
+          ...state.list,
+          [action.payload.id]: {
+            ...state.list[action.payload.id],
+            text: action.payload.newText,
           },
         },
         nextSeq: state.nextSeq,

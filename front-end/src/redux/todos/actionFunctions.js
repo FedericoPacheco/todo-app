@@ -4,6 +4,7 @@ import {
   CHANGE_STATE_TODO,
   GET_ALL_TODOS,
   SET_ALL_TODOS,
+  CHANGE_TEXT_TODO,
 } from "./actions";
 
 export const getAllTodos = () => ({
@@ -28,4 +29,9 @@ export const deleteTodo = (id) => ({
 export const changeStateTodo = (id, newTodoState) => ({
   type: CHANGE_STATE_TODO,
   payload: { id, newTodoState },
+});
+
+export const changeTextTodo = (id, newText) => ({
+  type: CHANGE_TEXT_TODO,
+  payload: { id, newText },
 });
