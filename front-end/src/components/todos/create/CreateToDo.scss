@@ -16,7 +16,7 @@
     font-family: $font;
     position: absolute;
     background-color: $modal-and-tab-color;
-    max-width: 29.5rem;
+    max-width: $desktop-tab-width;
     margin: 0.5rem auto;
     padding: 0.5rem;
     border: 0.0625rem solid $border-color;
@@ -33,7 +33,7 @@
     textarea {
       display: block;
       margin: 0.5rem auto;
-      width: 27.5rem;
+      width: $desktop-tab-width * 0.9;
       height: 5rem;
       resize: none;
       font-size: $font-size;
@@ -41,6 +41,13 @@
     }
     button {
       @extend .std-button;
+    }
+
+    @media (max-width: $mobile-breakpoint) {
+      max-width: $mobile-tab-width;
+      textarea {
+        width: $mobile-tab-width * 0.9;
+      }
     }
   }
 }

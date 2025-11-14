@@ -23,7 +23,7 @@ services:
       - SESSION_PORT=6379
       - SESSION_PASSWORD=todo-redis
       - SESSION_DB=0
-      - SESSION_SECRET=${SESSION_SECRET}
+      - SESSION_SECRET=7cf7e3ddb3e7a9c9e56f5e22939480080507889c14523043579fc15cab83c611
       - NODE_EXTRA_CA_CERTS=/usr/todo-app/config/ssl/rootCA.pem
     depends_on:
       db:
