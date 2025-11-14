@@ -69,7 +69,7 @@ module.exports = {
     }
   },
 
-  changeState: async function (req, res) {
+  update: async function (req, res) {
     const { id } = req.params;
     const { state } = req.body;
     const { userId } = req.session;
@@ -78,7 +78,7 @@ module.exports = {
     if (!state) return res.badRequest("New state is required");
 
     try {
-      const updatedToDo = await ToDoService.changeState(id, userId, state);
+      const updatedToDo = await ToDoService.update(id, userId, state);
       return res.json(updatedToDo);
     } catch (error) {
       mapErrorToRes(error, res);

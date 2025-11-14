@@ -186,12 +186,12 @@ suite("ToDoService", function () {
     });
   });
 
-  suite("changeState", function () {
+  suite("update", function () {
     teardown(function () {
       sinon.restore();
     });
 
-    test("Successfully", async function () {
+    test("State successfully", async function () {
       sinon
         .stub(ToDoService, "findById")
         .withArgs(toDoStub.id, toDoStub.owner)
@@ -200,7 +200,7 @@ suite("ToDoService", function () {
       ToDoModelStub.updateOne.withArgs({ id: toDoStub.id }).returns({
         set: sinon.stub().withArgs("COMPLETED").resolves(toDoWithChangedState),
       });
-      const updatedToDo = await ToDoService.changeState(
+      const updatedToDo = await ToDoService.update(
         toDoStub.id,
         toDoStub.owner,
         "COMPLETED",
@@ -214,12 +214,12 @@ suite("ToDoService", function () {
         .withArgs(toDoStub.id, toDoStub.owner)
         .resolves(toDoStub);
       await chai.assert.isRejected(
-        ToDoService.changeState(toDoStub.id, toDoStub.owner, "INVALID"),
+        ToDoService.update(toDoStub.id, toDoStub.owner, "INVALID"),
         ErrorTypes.INVALID_INPUT,
       );
     });
 
-    test("With DB error", async function () {
+    test("State with DB error", async function () {
       sinon
         .stub(ToDoService, "findById")
         .withArgs(toDoStub.id, toDoStub.owner)
@@ -231,7 +231,7 @@ suite("ToDoService", function () {
           .rejects(new Error("AdapterError")),
       });
       await chai.assert.isRejected(
-        ToDoService.changeState(toDoStub.id, toDoStub.owner, "COMPLETED"),
+        ToDoService.update(toDoStub.id, toDoStub.owner, "COMPLETED"),
         ErrorTypes.DB_ERROR,
       );
     });

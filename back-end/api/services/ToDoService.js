@@ -24,7 +24,7 @@ module.exports = (ToDo) => {
     deleteById,
     findAll,
     findById,
-    changeState,
+    update,
     isValidToDoState,
   };
 
@@ -71,7 +71,7 @@ module.exports = (ToDo) => {
     return foundToDo;
   }
 
-  async function changeState(id, userId, state) {
+  async function update(id, userId, state) {
     const foundToDo = await this.findById(id, userId);
     if (!this.isValidToDoState(state)) {
       throw new Error(ErrorTypes.INVALID_INPUT);
