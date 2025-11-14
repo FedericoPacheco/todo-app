@@ -60,7 +60,6 @@ function* changeStateTodoSaga(action) {
 }
 
 function* changeTextTodoSaga(action) {
-  console.log("saga: changeTextTodoSaga(): action:", action);
   try {
     yield call(changeTextTodo, action.payload.id, action.payload.newText);
     yield put(setApiSuccess());

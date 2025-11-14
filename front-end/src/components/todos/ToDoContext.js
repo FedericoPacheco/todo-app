@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getAllTodos,
   changeStateTodo,
+  changeTextTodo,
   addTodo,
   deleteTodo,
 } from "../../redux/todos/actionFunctions";
@@ -22,10 +23,14 @@ export function ToDoContextProvider({ children }) {
 
   // Todos state
   const toDos = Object.values(useSelector((state) => state.todos.list));
+
   const [tab, setTab] = useState(DEFAULT_TAB);
+
   const [searchValue, setSearchValue] = useState("");
   const [doSearch, setDoSearch] = useState(false);
+
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [editedTodo, setEditedTodo] = useState(null);
 
   // Counters
   const pending = toDos.filter((todo) => todo.state === PENDING).length;
@@ -52,6 +57,12 @@ export function ToDoContextProvider({ children }) {
     setIsModalVisible(false);
   };
 
+  const onEdit = (id, description) => {
+    dispatch(changeTextTodo(id, description));
+    setIsModalVisible(false);
+    setEditedTodo(null);
+  };
+
   return (
     <ToDoContext.Provider
       value={{
@@ -63,12 +74,15 @@ export function ToDoContextProvider({ children }) {
         setDoSearch,
         isModalVisible,
         setIsModalVisible,
+        editedTodo,
+        setEditedTodo,
         pending,
         completed,
         total,
         onStateChange,
         onDelete,
         onCreate,
+        onEdit,
       }}
     >
       {children}
