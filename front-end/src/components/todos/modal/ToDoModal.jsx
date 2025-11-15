@@ -1,9 +1,9 @@
 import { ToDoContext } from "../ToDoContext";
-import "./CreateToDo.scss";
+import "./ToDoModal.scss";
 import { useContext, useState } from "react";
 import { createPortal } from "react-dom";
 
-function CreateToDo() {
+function ToDoModal() {
   const { setIsModalVisible, onCreate, onEdit, editedTodo, setEditedTodo } =
     useContext(ToDoContext);
 
@@ -63,4 +63,4 @@ function CreateToDo() {
   );
 }
 
-export { CreateToDo };
+export { ToDoModal };
