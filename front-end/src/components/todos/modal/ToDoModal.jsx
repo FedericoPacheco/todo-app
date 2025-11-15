@@ -1,6 +1,6 @@
 import { ToDoContext } from "../ToDoContext";
 import "./ToDoModal.scss";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 function ToDoModal() {
@@ -14,8 +14,26 @@ function ToDoModal() {
     ? editedTodo.text !== newDescription && newDescription.length > 0
     : newDescription.length > 0;
 
+  // Animations
+  const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  useEffect(() => {
+    // Trigger after mount
+    setIsOpen(true);
+  }, []);
+
+  const handleCancel = () => {
+    setIsClosing(true);
+    setIsOpen(false);
+    setTimeout(() => {
+      onCancel();
+    }, 250); // Match the transition duration from styles
+  };
+
   return createPortal(
-    <div className="modal-container">
+    <div
+      className={`modal-container ${isOpen ? "open" : ""} ${isClosing ? "closing" : ""}`}
+    >
       <div className="modal">
         <legend>
           Descripción
@@ -40,7 +58,7 @@ function ToDoModal() {
               Crear
             </button>
           )}
-          <button onClick={onCancel}>Cancelar</button>
+          <button onClick={handleCancel}>Cancelar</button>
         </div>
       </div>
     </div>,
