@@ -30,7 +30,7 @@
     background-color: $modal-and-tab-color;
     max-width: $desktop-tab-width;
     padding: 0.5rem;
-    border: 0.0625rem solid $border-color;
+    border: $border-width solid $border-color;
 
     .modal-button-container {
       @include flex-center(row);
@@ -49,6 +49,7 @@
       resize: none;
       font-size: $font-size;
       letter-spacing: 0.01rem;
+      border: $border-width solid $border-color;
     }
     button {
       @extend .std-button;
