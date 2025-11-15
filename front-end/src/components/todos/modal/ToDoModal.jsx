@@ -7,46 +7,39 @@ function ToDoModal() {
   const { onCreate, onEdit, onCancel, editedTodo, isEditingModal } =
     useContext(ToDoContext);
 
-  const [description, setDescription] = useState(
+  const [newDescription, setDescription] = useState(
     isEditingModal ? editedTodo.text : "",
   );
+  const isValidInput = isEditingModal
+    ? editedTodo.text !== newDescription && newDescription.length > 0
+    : newDescription.length > 0;
 
-  const editButton = (
-    <button
-      onClick={() => {
-        if (description.length > 0) {
-          onEdit(editedTodo.id, description);
-          setDescription("");
-        }
-      }}
-    >
-      Editar
-    </button>
-  );
-  const createButton = (
-    <button
-      onClick={() => {
-        if (description.length > 0) {
-          onCreate(description);
-          setDescription("");
-        }
-      }}
-    >
-      Crear
-    </button>
-  );
   return createPortal(
     <div className="create-container">
       <div className="modal">
         <legend>
           Descripción
           <textarea
-            value={description}
+            value={newDescription}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </legend>
         <div className="modal-button-container">
-          {isEditingModal ? editButton : createButton}
+          {isEditingModal ? (
+            <button
+              disabled={!isValidInput}
+              onClick={() => onEdit(editedTodo.id, newDescription)}
+            >
+              Editar
+            </button>
+          ) : (
+            <button
+              disabled={!isValidInput}
+              onClick={() => onCreate(newDescription)}
+            >
+              Crear
+            </button>
+          )}
           <button onClick={onCancel}>Cancelar</button>
         </div>
       </div>
