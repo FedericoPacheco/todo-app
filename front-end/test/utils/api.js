@@ -1,4 +1,5 @@
-import { API_URL } from "../constants";
+// eslint-disable-next-line no-undef
+const API_URL = process.env?.PLAYWRIGHT_API_URL || "https://localhost:1340/api";
 
 // https://playwright.dev/docs/api/class-apirequestcontext
 // https://playwright.dev/docs/api/class-apiresponse
