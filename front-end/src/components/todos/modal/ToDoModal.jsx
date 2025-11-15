@@ -4,10 +4,9 @@ import { useContext, useState } from "react";
 import { createPortal } from "react-dom";
 
 function ToDoModal() {
-  const { setIsModalVisible, onCreate, onEdit, editedTodo, setEditedTodo } =
+  const { onCreate, onEdit, onCancel, editedTodo, isEditingModal } =
     useContext(ToDoContext);
 
-  const isEditingModal = !!editedTodo?.id;
   const [description, setDescription] = useState(
     isEditingModal ? editedTodo.text : "",
   );
@@ -48,14 +47,7 @@ function ToDoModal() {
         </legend>
         <div className="modal-button-container">
           {isEditingModal ? editButton : createButton}
-          <button
-            onClick={() => {
-              setIsModalVisible(false);
-              setEditedTodo(null);
-            }}
-          >
-            Cancelar
-          </button>
+          <button onClick={onCancel}>Cancelar</button>
         </div>
       </div>
     </div>,

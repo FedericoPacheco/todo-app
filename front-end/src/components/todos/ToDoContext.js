@@ -31,22 +31,23 @@ export function ToDoContextProvider({ children }) {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editedTodo, setEditedTodo] = useState(null);
+  const isEditingModal = !!editedTodo?.id;
 
   // Counters
   const pending = toDos.filter((todo) => todo.state === PENDING).length;
   const completed = toDos.filter((todo) => todo.state === COMPLETED).length;
   const total = toDos.length;
 
-  // Actions
+  // Item actions
   const onStateChange = (id) => {
     const newToDoState = tab === PENDING ? COMPLETED : PENDING;
     dispatch(changeStateTodo(id, newToDoState));
   };
-
   const onDelete = (id) => {
     dispatch(deleteTodo(id));
   };
 
+  // Modal actions
   const onCreate = (description) => {
     dispatch(
       addTodo({
@@ -56,9 +57,12 @@ export function ToDoContextProvider({ children }) {
     );
     setIsModalVisible(false);
   };
-
   const onEdit = (id, description) => {
     dispatch(changeTextTodo(id, description));
+    setIsModalVisible(false);
+    setEditedTodo(null);
+  };
+  const onCancel = () => {
     setIsModalVisible(false);
     setEditedTodo(null);
   };
@@ -76,6 +80,7 @@ export function ToDoContextProvider({ children }) {
         setIsModalVisible,
         editedTodo,
         setEditedTodo,
+        isEditingModal,
         pending,
         completed,
         total,
@@ -83,6 +88,7 @@ export function ToDoContextProvider({ children }) {
         onDelete,
         onCreate,
         onEdit,
+        onCancel,
       }}
     >
       {children}
