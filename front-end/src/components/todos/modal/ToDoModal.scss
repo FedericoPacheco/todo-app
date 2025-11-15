@@ -2,7 +2,7 @@
 @use "../../Variables" as *;
 @use "../../CommonStyles";
 
-.create-container {
+.modal-container {
   position: absolute;
   top: 0;
   backdrop-filter: blur(0.125rem);
@@ -17,7 +17,6 @@
     position: absolute;
     background-color: $modal-and-tab-color;
     max-width: $desktop-tab-width;
-    margin: 0.5rem auto;
     padding: 0.5rem;
     border: 0.0625rem solid $border-color;
 
@@ -42,9 +41,14 @@
     button {
       @extend .std-button;
     }
+  }
 
-    @media (max-width: $mobile-breakpoint) {
+  @media (max-width: $mobile-breakpoint) {
+    align-items: flex-start;
+
+    .modal {
       max-width: $mobile-tab-width;
+      margin-top: 3.75rem;
       textarea {
         width: $mobile-tab-width * 0.9;
       }

@@ -15,7 +15,7 @@ function ToDoModal() {
     : newDescription.length > 0;
 
   return createPortal(
-    <div className="create-container">
+    <div className="modal-container">
       <div className="modal">
         <legend>
           Descripción
