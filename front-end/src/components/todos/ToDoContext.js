@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getAllTodos,
   changeStateTodo,
+  changeTextTodo,
   addTodo,
   deleteTodo,
 } from "../../redux/todos/actionFunctions";
@@ -22,26 +23,31 @@ export function ToDoContextProvider({ children }) {
 
   // Todos state
   const toDos = Object.values(useSelector((state) => state.todos.list));
+
   const [tab, setTab] = useState(DEFAULT_TAB);
+
   const [searchValue, setSearchValue] = useState("");
   const [doSearch, setDoSearch] = useState(false);
-  const [isCreateToDoVisible, setIsCreateToDoVisible] = useState(false);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [editedTodo, setEditedTodo] = useState(null);
+  const isEditingModal = !!editedTodo?.id;
 
   // Counters
   const pending = toDos.filter((todo) => todo.state === PENDING).length;
   const completed = toDos.filter((todo) => todo.state === COMPLETED).length;
   const total = toDos.length;
 
-  // Actions
+  // Item actions
   const onStateChange = (id) => {
     const newToDoState = tab === PENDING ? COMPLETED : PENDING;
     dispatch(changeStateTodo(id, newToDoState));
   };
-
   const onDelete = (id) => {
     dispatch(deleteTodo(id));
   };
 
+  // Modal actions
   const onCreate = (description) => {
     dispatch(
       addTodo({
@@ -49,7 +55,16 @@ export function ToDoContextProvider({ children }) {
         state: tab,
       }),
     );
-    setIsCreateToDoVisible(false);
+    setIsModalVisible(false);
+  };
+  const onEdit = (id, description) => {
+    dispatch(changeTextTodo(id, description));
+    setIsModalVisible(false);
+    setEditedTodo(null);
+  };
+  const onCancel = () => {
+    setIsModalVisible(false);
+    setEditedTodo(null);
   };
 
   return (
@@ -61,14 +76,19 @@ export function ToDoContextProvider({ children }) {
         setSearchValue,
         doSearch,
         setDoSearch,
-        isCreateToDoVisible,
-        setIsCreateToDoVisible,
+        isModalVisible,
+        setIsModalVisible,
+        editedTodo,
+        setEditedTodo,
+        isEditingModal,
         pending,
         completed,
         total,
         onStateChange,
         onDelete,
         onCreate,
+        onEdit,
+        onCancel,
       }}
     >
       {children}

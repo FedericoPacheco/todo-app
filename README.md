@@ -23,7 +23,7 @@ A comprehensive full-stack ToDo application.
 The system consists of a monolithic back-end API server, relational database, key-value store for sessions, and a single-page application front-end. Key features include:
 
 - User sign up, authentication and authorization.
-- CRUD + state management (pending, completed) operations for ToDo items.
+- CRUD + state management (pending, completed) operations for ToDo items. Note: to edit an item's text, double click/tap on it.
 
 Technologies used:
 
@@ -36,7 +36,7 @@ Technologies used:
 
 See [C4 Context Diagram](docs/diagrams/C4_Context.svg) and [C4 Container Diagram](docs/diagrams/C4_Containers.svg) for architecture overviews (*).
 
-Key decisions and their rationale are documented in [Architecture Decision Records (ADRs)](docs/adrs/). (**)
+Key decisions and their rationale are documented in [Architecture Decision Records (ADRs)](docs/adrs/) (**).
 
 **Production link**: <https://todo.federicopacheco.dev>
 
@@ -71,7 +71,6 @@ The application server exposes the following RESTful API endpoints:
 GET /api/todo
 GET /api/todo/:id
 POST /api/todo
-PUT /api/todo/:id
 DELETE /api/todo/:id
 PATCH /api/todo/:id
 ```
@@ -133,14 +132,14 @@ Webpack is used to bundle the application, with separate configurations for deve
 
 The project includes a suite of:
 
-- 51 unit tests covering controller and service layers, with a coverage of >90% for statements, branches, functions and lines.
+- 53 unit tests covering controller and service layers, with a coverage of >90% for statements, branches, functions and lines.
 
 ```bash
 cd back-end
 npm run unit-test:coverage
 ```
 
-- 12 integration tests covering individual API ToDo endpoints as well as a complete user flow (require services to be already running).
+- 14 integration tests covering individual API ToDo endpoints as well as a complete user flow (require services to be already running).
 
 ```bash
 cd back-end

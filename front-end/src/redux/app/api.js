@@ -1,8 +1,6 @@
 /* eslint-disable no-undef */
 import axios from "axios";
 
-//const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 export const login = async (user, pass) => {
   try {
     console.debug(`login(${user}, ${pass})`);
@@ -52,10 +50,8 @@ export const signup = async (user, pass) => {
 export const getSessionStatus = async () => {
   try {
     console.debug("getSessionStatus()");
-    //const response = await axios.get("http://localhost:1340/auth/status");
     const response = await axios.get(
       `${process.env.REACT_APP_AUTH_API_URL}/status`,
-      //await getHeaders()
     );
     console.debug(`getSessionStatus(): ${response.data.isAuthenticated}`);
     return response.data.isAuthenticated;

@@ -24,7 +24,7 @@ module.exports = (ToDo) => {
     deleteById,
     findAll,
     findById,
-    changeState,
+    update,
     isValidToDoState,
   };
 
@@ -71,13 +71,29 @@ module.exports = (ToDo) => {
     return foundToDo;
   }
 
-  async function changeState(id, userId, state) {
+  async function update(id, userId, attributes) {
     const foundToDo = await this.findById(id, userId);
-    if (!this.isValidToDoState(state)) {
+
+    const pairs = Object.entries(attributes);
+    if (pairs.length === 0) {
       throw new Error(ErrorTypes.INVALID_INPUT);
     }
+    const nonEmptyAttributes = { ...attributes };
+    for (const [key, attribute] of pairs) {
+      if (typeof attribute === "undefined" || attribute === null)
+        delete nonEmptyAttributes[key];
+    }
+
+    const checks = {
+      state: (state) => this.isValidToDoState(state),
+      text: (text) => typeof text === "string" && text.trim().length > 0,
+    };
+    for (const [key, attribute] of Object.entries(nonEmptyAttributes)) {
+      if (!checks[key](attribute)) throw new Error(ErrorTypes.INVALID_INPUT);
+    }
+
     try {
-      return await ToDo.updateOne({ id: foundToDo.id }).set({ state });
+      return await ToDo.updateOne({ id: foundToDo.id }).set(nonEmptyAttributes);
     } catch {
       throw new Error(ErrorTypes.DB_ERROR);
     }

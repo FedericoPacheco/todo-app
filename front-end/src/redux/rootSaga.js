@@ -3,6 +3,7 @@ import {
   watchAddTodo,
   watchDeleteTodo,
   watchChangeStateTodo,
+  watchChangeTextTodo,
 } from "./todos/sagas";
 import {
   watchGetSessionStatus,
@@ -18,6 +19,7 @@ export default function* rootSaga() {
     watchAddTodo(),
     watchDeleteTodo(),
     watchChangeStateTodo(),
+    watchChangeTextTodo(),
     watchLogin(),
     watchSignup(),
     watchLogout(),

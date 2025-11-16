@@ -54,8 +54,8 @@ export default {
     }),
     new Dotenv({
       path: "./.env.prod",
-      safe: false,      // Don't require .env.example
-      systemvars: true, // Also load system environment variables
+      safe: false,      // Don't require .env file
+      systemvars: true, // Load system environment variables
       silent: false,    // Show errors if file is missing
     }),
     new CleanWebpackPlugin(),

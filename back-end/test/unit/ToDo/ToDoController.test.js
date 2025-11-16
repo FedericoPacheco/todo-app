@@ -58,7 +58,7 @@ suite("ToDoController", function () {
       deleteById: sinon.stub(),
       findAll: sinon.stub(),
       findById: sinon.stub(),
-      changeState: sinon.stub(),
+      update: sinon.stub(),
     };
     ToDoController = proxyquire("../../../api/controllers/ToDoController", {
       // eslint-disable-next-line no-unused-vars
@@ -197,44 +197,36 @@ suite("ToDoController", function () {
     });
   });
 
-  suite("changeState", function () {
+  suite("update", function () {
     teardown(function () {
       sinon.restore();
     });
 
     test("Successfully", async function () {
       const completedToDoStub = { ...toDoStub, state: "COMPLETED" };
-      ToDoServiceStub.changeState.resolves(completedToDoStub);
+      ToDoServiceStub.update.resolves(completedToDoStub);
       req.body.state = "COMPLETED";
       req.params.id = toDoStub.id;
 
-      await ToDoController.changeState(req, res);
+      await ToDoController.update(req, res);
 
       chai.assert(res.json.calledWith(completedToDoStub));
-    });
-
-    test("Missing body", async function () {
-      req.params.id = toDoStub.id;
-
-      await ToDoController.changeState(req, res);
-
-      chai.assert(res.badRequest.calledOnce);
     });
 
     test("Missing param", async function () {
       req.body.state = "COMPLETED";
 
-      await ToDoController.changeState(req, res);
+      await ToDoController.update(req, res);
 
       chai.assert(res.badRequest.calledOnce);
     });
 
     test("ToDoService's error", async function () {
-      ToDoServiceStub.changeState.rejects(new Error(ErrorTypes.DB_ERROR));
+      ToDoServiceStub.update.rejects(new Error(ErrorTypes.DB_ERROR));
       req.body.state = "COMPLETED";
       req.params.id = toDoStub.id;
 
-      await ToDoController.changeState(req, res);
+      await ToDoController.update(req, res);
 
       chai.assert(res.serverError.calledOnce);
     });

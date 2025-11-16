@@ -9,6 +9,9 @@
     width: $desktop-tab-width * 0.5;
     margin-bottom: 0;
     padding: 0.5rem 0;
+    // Remove bottom border for selected tab
+    position: relative; // Needed for pseudo-element positioning
+    border-bottom: $border-width solid $border-color; // Default for non-selected tabs
 
     &:hover {
       color: $font-color;
@@ -23,6 +26,21 @@
   .highlighted-tab {
     background-color: $modal-and-tab-color;
     color: $font-color;
+    border-top: $border-width solid $border-color;
+    border-left: $border-width solid $border-color;
+    border-right: $border-width solid $border-color;
+    border-bottom: none; 
+
+    // Hide bottom border with background-colored pseudo-element 
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; // Position below the tab
+      left: 0;
+      right: 0;
+      height: $border-width;
+      background: $modal-and-tab-color; 
+    }
   }
 
   .tabs {
@@ -36,6 +54,10 @@
     width: $desktop-tab-width;
     margin: 0 auto;
     padding: 1rem;
+    border-top: none;
+    border-bottom: $border-width solid $border-color;
+    border-left: $border-width solid $border-color;
+    border-right: $border-width solid $border-color;
   }
 
   @media (max-width: $mobile-breakpoint) {
@@ -51,5 +73,4 @@
       width: $mobile-tab-width;
     }
   }
-
 }

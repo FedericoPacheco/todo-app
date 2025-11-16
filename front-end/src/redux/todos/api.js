@@ -57,3 +57,14 @@ export const changeStateTodo = async (id, newTodoState) => {
     console.error(`changeStateTodo(${id}, ${newTodoState}): error: ${error}`);
   }
 };
+
+export const changeTextTodo = async (id, newText) => {
+  try {
+    await axios.patch(`${process.env.REACT_APP_TODO_API_URL}/${id}`, {
+      text: newText,
+    });
+    console.debug(`changeTextTodo(${id}, ${newText}): successful`);
+  } catch (error) {
+    console.error(`changeTextTodo(${id}, ${newText}): error: ${error}`);
+  }
+};

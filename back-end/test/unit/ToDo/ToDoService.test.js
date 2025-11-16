@@ -5,7 +5,7 @@ const { test, suite, setup, teardown } = require("mocha");
 
 /*
 Run: 
-  * Normally: npm test (see package.json for details)
+  * Normally: npm run unit-test (see package.json for details)
   * Debugging: 
     1) Set breakpoints by writing "debugger;" in the code. 
     2) npm run unit-test:debug 
@@ -38,7 +38,7 @@ suite("ToDoService", function () {
     ToDoModelStub = {
       ...require("../../../api/models/ToDo"),
       create: sinon.stub(),
-      updateOne: sinon.stub(),
+      updateOne: sinon.stub().returns({ set: sinon.stub() }),
       destroyOne: sinon.stub(),
       find: sinon.stub(),
       findOne: sinon.stub(),
@@ -186,26 +186,26 @@ suite("ToDoService", function () {
     });
   });
 
-  suite("changeState", function () {
+  suite("update", function () {
     teardown(function () {
       sinon.restore();
     });
 
-    test("Successfully", async function () {
+    test("State successfully", async function () {
       sinon
         .stub(ToDoService, "findById")
         .withArgs(toDoStub.id, toDoStub.owner)
         .resolves(toDoStub);
-      const toDoWithChangedState = { ...toDoStub, state: "COMPLETED" };
-      ToDoModelStub.updateOne.withArgs({ id: toDoStub.id }).returns({
-        set: sinon.stub().withArgs("COMPLETED").resolves(toDoWithChangedState),
+
+      await ToDoService.update(toDoStub.id, toDoStub.owner, {
+        state: "COMPLETED",
       });
-      const updatedToDo = await ToDoService.changeState(
-        toDoStub.id,
-        toDoStub.owner,
-        "COMPLETED",
+
+      chai.assert.isTrue(
+        ToDoModelStub.updateOne.getCall(0).returnValue.set.calledOnceWith({
+          state: "COMPLETED",
+        }),
       );
-      chai.assert.deepStrictEqual(toDoWithChangedState, updatedToDo);
     });
 
     test("With incorrect state", async function () {
@@ -214,26 +214,64 @@ suite("ToDoService", function () {
         .withArgs(toDoStub.id, toDoStub.owner)
         .resolves(toDoStub);
       await chai.assert.isRejected(
-        ToDoService.changeState(toDoStub.id, toDoStub.owner, "INVALID"),
+        ToDoService.update(toDoStub.id, toDoStub.owner, { state: "INVALID" }),
         ErrorTypes.INVALID_INPUT,
       );
     });
 
-    test("With DB error", async function () {
+    test("State with DB error", async function () {
       sinon
         .stub(ToDoService, "findById")
         .withArgs(toDoStub.id, toDoStub.owner)
         .resolves(toDoStub);
-      ToDoModelStub.updateOne.returns({
-        set: sinon
-          .stub()
-          .withArgs("COMPLETED")
-          .rejects(new Error("AdapterError")),
-      });
+      ToDoModelStub.updateOne.rejects(new Error("AdapterError"));
+
       await chai.assert.isRejected(
-        ToDoService.changeState(toDoStub.id, toDoStub.owner, "COMPLETED"),
+        ToDoService.update(toDoStub.id, toDoStub.owner, { state: "COMPLETED" }),
         ErrorTypes.DB_ERROR,
       );
+    });
+
+    test("Text successfully", async function () {
+      sinon.stub(ToDoService, "findById").resolves(toDoStub);
+
+      await ToDoService.update(toDoStub.id, toDoStub.owner, {
+        text: "New text",
+      });
+
+      chai.assert.isTrue(
+        ToDoModelStub.updateOne.getCall(0).returnValue.set.calledOnceWith({
+          text: "New text",
+        }),
+      );
+    });
+
+    test("With empty text", async function () {
+      sinon
+        .stub(ToDoService, "findById")
+        .withArgs(toDoStub.id, toDoStub.owner)
+        .resolves(toDoStub);
+
+      await chai.assert.isRejected(
+        ToDoService.update(toDoStub.id, toDoStub.owner, { text: "" }),
+        ErrorTypes.INVALID_INPUT,
+      );
+
+      chai.assert.deepEqual(ToDoModelStub.updateOne.callCount, 0);
+    });
+
+    test("With empty attributes", async function () {
+      sinon
+        .stub(ToDoService, "findById")
+        .withArgs(toDoStub.id, toDoStub.owner)
+        .resolves(toDoStub);
+
+      await chai.assert.isRejected(
+        ToDoService.update(toDoStub.id, toDoStub.owner, {}),
+        ErrorTypes.INVALID_INPUT,
+      );
+
+      chai.assert.deepEqual(ToDoModelStub.updateOne.callCount, 0);
     });
   });
 });

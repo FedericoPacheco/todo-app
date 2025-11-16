@@ -4,8 +4,15 @@ import {
   ADD_TODO,
   DELETE_TODO,
   CHANGE_STATE_TODO,
+  CHANGE_TEXT_TODO,
 } from "./actions";
-import { getAllTodos, addTodo, deleteTodo, changeStateTodo } from "./api";
+import {
+  getAllTodos,
+  addTodo,
+  deleteTodo,
+  changeTextTodo,
+  changeStateTodo,
+} from "./api";
 import {
   setApiError,
   setApiLoading,
@@ -52,6 +59,15 @@ function* changeStateTodoSaga(action) {
   }
 }
 
+function* changeTextTodoSaga(action) {
+  try {
+    yield call(changeTextTodo, action.payload.id, action.payload.newText);
+    yield put(setApiSuccess());
+  } catch (error) {
+    yield put(setApiError());
+  }
+}
+
 // Watcher sagas
 export function* watchGetAllTodos() {
   yield takeEvery(GET_ALL_TODOS, getAllTodosSaga);
@@ -67,4 +83,8 @@ export function* watchDeleteTodo() {
 
 export function* watchChangeStateTodo() {
   yield takeEvery(CHANGE_STATE_TODO, changeStateTodoSaga);
+}
+
+export function* watchChangeTextTodo() {
+  yield takeEvery(CHANGE_TEXT_TODO, changeTextTodoSaga);
 }

@@ -35,7 +35,7 @@ module.exports.routes = {
   "GET /api/todo/:id": "ToDoController.findOne",
   "POST /api/todo": "ToDoController.create",
   "DELETE /api/todo/:id": "ToDoController.delete",
-  "PATCH /api/todo/:id": "ToDoController.changeState",
+  "PATCH /api/todo/:id": "ToDoController.update",
 
   "POST /api/auth/signup": "AuthenticationController.signup",
   "POST /api/auth/logout": "AuthenticationController.logout",

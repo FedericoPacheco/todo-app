@@ -11,6 +11,7 @@
     list-style-type: none;
     @include flex-center(row);
     justify-content: space-evenly;
+    transition: background-color 0.375s ease-in-out;
   }
 
   p {
@@ -22,7 +23,7 @@
   span {
     font-weight: bold;
   }
-  
+
   .check:hover {
     color: green;
     cursor: pointer;
@@ -33,11 +34,16 @@
     cursor: pointer;
   }
 
-  @media (max-width: $mobile-breakpoint) {    
+  // Brief highlight effect
+  .double-clicked {
+    background-color: $background-color;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
     li {
       max-width: $mobile-tab-width;
     }
-    
+
     p {
       width: $mobile-tab-width * 0.65;
       margin: 0.125rem 0.5rem;

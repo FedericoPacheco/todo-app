@@ -30,13 +30,13 @@ module.exports.security = {
   // https://sailsjs.com/documentation/reference/configuration/sails-config-security
   cors: {
     allRoutes: true,
-    // React frontend
+    // React frontend and nginx
     allowOrigins: [
       "http://localhost:3000",
       "https://localhost:3000",
       "http://todo-gui:3000",
       "https://todo.federicopacheco.dev",
-    ], //'*',
+    ],
     allowCredentials: true,
     allowRequestHeaders: ["content-type", "x-csrf-token"],
   },

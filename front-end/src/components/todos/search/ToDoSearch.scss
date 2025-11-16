@@ -14,8 +14,10 @@
 
   .search-button {
     @extend .std-button;
+    @include flex-center(row); // Center text
     width: 25%;
     margin-right: 0;
+    height: $font-size * 1.625;
   }
 
   @media (max-width: $mobile-breakpoint) {

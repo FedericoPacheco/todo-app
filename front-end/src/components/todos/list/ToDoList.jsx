@@ -20,13 +20,20 @@ function ToDoList() {
     completed,
     onDelete,
     onStateChange,
+    setIsModalVisible,
+    setEditedTodo,
   } = useContext(ToDoContext);
   const toDos = Object.values(useSelector((state) => state.todos.list));
   const apiStatus = useSelector((state) => state.app.apiStatus);
 
+  const onTextChange = (todo) => {
+    setEditedTodo(todo);
+    setIsModalVisible(true);
+  };
+
   // Search
   const preprocessText = (rawText) => {
-    // Remove numbers and special, non printable characters, and spanish characters
+    // Remove numbers, special, non printable characters, and spanish characters
     const regex = /[\W\dáéíóúÁÉÍÓÚñÑ\s]/g;
     return rawText.replace(regex, "").toLowerCase();
   };
@@ -82,6 +89,7 @@ function ToDoList() {
                 text={todo.text}
                 onDelete={() => onDelete(todo.id)}
                 onStateChange={() => onStateChange(todo.id)}
+                onTextChange={() => onTextChange(todo)}
               ></ToDoItem>
             ))}
       </ul>
