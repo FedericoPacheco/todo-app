@@ -33,7 +33,7 @@ function ToDoList() {
 
   // Search
   const preprocessText = (rawText) => {
-    // Remove numbers and special, non printable characters, and spanish characters
+    // Remove numbers, special, non printable characters, and spanish characters
     const regex = /[\W\dáéíóúÁÉÍÓÚñÑ\s]/g;
     return rawText.replace(regex, "").toLowerCase();
   };

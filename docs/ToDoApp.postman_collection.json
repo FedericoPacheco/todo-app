@@ -51,7 +51,7 @@
               },
               {
                 "key": "Content-Type",
-                "value": "multipart/form-data; boundary=<calculated when request is sent>",
+                "value": "application/json",
                 "name": "content-type",
                 "type": "text"
               },
@@ -146,7 +146,7 @@
               },
               {
                 "key": "Content-Type",
-                "value": "multipart/form-data; boundary=<calculated when request is sent>",
+                "value": "application/json",
                 "name": "content-type",
                 "type": "text"
               },
@@ -197,7 +197,7 @@
               "raw": "{\n    \"text\": \"{{newTodoText}}\",\n    \"state\": \"{{newTodoState}}\"\n}",
               "options": {
                 "raw": {
-                  "language": "text"
+                  "language": "json"
                 }
               }
             },
@@ -438,7 +438,7 @@
               "raw": "",
               "options": {
                 "raw": {
-                  "language": "text"
+                  "language": "json"
                 }
               }
             },
@@ -762,7 +762,7 @@
                 "type": "text"
               },
               {
-                "key": "X-Csrf-Token",
+                "key": "x-csrf-token",
                 "value": "{{X-Csrf-Token}}",
                 "type": "text"
               }

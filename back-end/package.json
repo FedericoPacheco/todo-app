@@ -59,9 +59,9 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/federicop/todo-app.git"
+    "url": "git://github.com/FedericoPacheco/todo-app.git"
   },
-  "author": "federicop",
+  "author": "Federico Ignacio Pacheco Pilan",
   "license": "",
   "engines": {
     "node": "^20.13"

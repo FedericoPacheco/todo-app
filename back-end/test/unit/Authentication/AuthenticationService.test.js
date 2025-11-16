@@ -100,7 +100,6 @@ suite("AuthenticationService", function () {
     test("should create new user on successful signup", async function () {
       UserStub.findOne.resolves(undefined);
 
-      // chai.assert.isFulfilled(AuthenticationService.signup(user, pass));
       chai.assert.eventually.deepEqual(
         AuthenticationService.signup(user, pass),
         { id, user },

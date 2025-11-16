@@ -12,8 +12,6 @@ export default [
     ignores: ["back-end/test/reports/**/*", "front-end/**/*"],
   },
   { languageOptions: { sourceType: "module" } },
-  // { languageOptions: { sourceType: "commonjs" } },
-  // { languageOptions: { globals: globals.browser } },
   {
     languageOptions: {
       globals: {

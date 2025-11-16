@@ -5,7 +5,7 @@ const { test, suite, setup, teardown } = require("mocha");
 
 /*
 Run: 
-  * Normally: npm test (see package.json for details)
+  * Normally: npm run unit-test (see package.json for details)
   * Debugging: 
     1) Set breakpoints by writing "debugger;" in the code. 
     2) npm run unit-test:debug 

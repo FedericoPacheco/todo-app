@@ -4,8 +4,6 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import Dotenv from "dotenv-webpack";
 import { fileURLToPath } from "url";
 import fs from "fs";
-// import ESLintPlugin from "eslint-webpack-plugin";
-//import { ProvidePlugin } from 'webpack';
 
 let secureServerConfig;
 try {
@@ -49,7 +47,6 @@ export default {
             ],
             plugins: [
               "@babel/plugin-transform-runtime",
-              //"@babel/plugin-transform-react-jsx"
             ],
           },
         },
@@ -78,17 +75,6 @@ export default {
       systemvars: true,
       allowEmptyValues: true,
     }),
-    /* new ESLintPlugin({
-      overrideConfigFile: path.resolve(
-        path.dirname(fileURLToPath(import.meta.url)),
-        "eslint.config.mjs"
-      ),
-      configType: "flat",
-      eslintPath: "./usr/todo-app/node_modules/eslint-webpack-plugin",
-    }), */
-    /*   new ProvidePlugin({
-      React: 'react',
-    }) */
   ],
   devServer: {
     hot: true,
